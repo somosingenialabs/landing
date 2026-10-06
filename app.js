@@ -190,7 +190,8 @@
         const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(data),
+          // _subject: asunto del mail de aviso (Formspree). La respuesta va al "email" del visitante.
+          body: JSON.stringify({ ...data, areas: data.areas.join(", "), _subject: `Nuevo diagnóstico: ${data.empresa}` }),
         });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
       } else {
