@@ -181,8 +181,8 @@ window.SITE_CONTENT = {
   form: {
     // Endpoint que recibe un POST JSON. Vacío = abre el cliente de correo con los datos.
     endpoint: "",
-    // Correo de destino para el modo sin endpoint. Verificar que esta casilla exista.
-    fallbackEmail: "diagnostico@ingenia.solutions",
+    // Correo de destino para el modo sin endpoint (mailto) y para el mensaje de error.
+    fallbackEmail: "somos.ingenialabs@gmail.com",
     areasLabel: "¿Qué área querés optimizar?",
     areas: [
       "Producción y OEE",
