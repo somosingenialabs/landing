@@ -1,4 +1,4 @@
-# INGENIA · Landing
+# Ingenia Solutions · Landing
 
 Landing de [ingenia.solutions](https://ingenia.solutions). HTML, CSS y JS estáticos, sin dependencias.
 
@@ -28,3 +28,5 @@ Netlify publica automáticamente cada push a `main`. La configuración está en 
 - `build.mjs`: genera el HTML estático para SEO.
 - `styles.css`: tokens de diseño y componentes.
 - `app.js`: comportamiento (tablero animado, pestañas, modal de video, formulario).
+- `brand/`: SVG oficiales del logo (claro y oscuro), isotipo y avatar para redes. No se publican en el sitio.
+- `favicon.svg`: isotipo `< ia >` usado como ícono de la pestaña.

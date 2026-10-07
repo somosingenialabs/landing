@@ -12,14 +12,19 @@ window.SITE_CONTENT = {
     url: "https://ingenia.solutions",
     lang: "es-AR",
     locale: "es_AR",
-    title: "INGENIA | Ingeniería de procesos y software a medida para la industria",
+    title: "Ingenia Solutions | Ingeniería de procesos y software a medida para la industria",
     description: "Software a medida, tableros OEE en tiempo real y automatización para PYMEs industriales. Diagnóstico técnico sin cargo con ingenieros mecánicos, electromecánicos e industriales.",
     // Imagen para compartir en redes (1200x630). Ej: "/og-image.png". Vacío = no se publica la etiqueta.
     ogImage: ""
   },
 
   brand: {
-    name: "INGENIA",
+    name: "Ingenia Solutions",
+    // Logotipo: nivel 1 "ingen" + "< ia >", nivel 2 descriptor. Tagline oficial debajo del logo grande.
+    logoWord: "ingen",
+    logoCore: "ia",
+    logoDescriptor: "· SOLUTIONS ·",
+    tagline: "TECNOLOGÍA E INTELIGENCIA ARTIFICIAL PARA PYMES",
     statusBadge: "INGENIERÍA APLICADA EN PLANTA",
     navCta: "Solicitar Diagnóstico",
     nav: [

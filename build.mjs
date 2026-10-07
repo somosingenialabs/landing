@@ -17,9 +17,10 @@ const canonical = `${siteUrl}/`;
 const year = new Date().getFullYear();
 const today = new Date().toISOString().slice(0, 10);
 
+// Logotipo en 2 niveles: "ingen" + "< ia >" y el descriptor "· SOLUTIONS ·" (ver styles.css, regla de oro)
 const logo = `
-        <span class="logo__mark" aria-hidden="true"><span></span><span></span><span></span></span>
-        <span class="logo__name">${esc(C.brand.name)}</span>`;
+        <span class="logo__l1" aria-hidden="true">${esc(C.brand.logoWord)}<span class="logo__core"><span>&lt;</span><span class="ia">${esc(C.brand.logoCore)}</span><span>&gt;</span></span></span>
+        <span class="logo__l2" aria-hidden="true">${esc(C.brand.logoDescriptor)}</span>`;
 
 /* ---------- Datos estructurados (schema.org) ---------- */
 const jsonLd = {
@@ -75,9 +76,9 @@ const dashboard = `
             <div class="dash__chart" aria-hidden="true">
               <div class="dash__chart-head"><span>Unidades / hora</span><span id="t-uph">0 u/h</span></div>
               <svg viewBox="0 0 300 70" preserveAspectRatio="none">
-                <defs><linearGradient id="spark-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#06B6D4" stop-opacity=".28"/><stop offset="1" stop-color="#06B6D4" stop-opacity="0"/></linearGradient></defs>
+                <defs><linearGradient id="spark-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#38BDF8" stop-opacity=".28"/><stop offset="1" stop-color="#38BDF8" stop-opacity="0"/></linearGradient></defs>
                 <path id="spark-area" fill="url(#spark-fill)" />
-                <path id="spark-line" fill="none" stroke="#06B6D4" stroke-width="1.6" vector-effect="non-scaling-stroke" />
+                <path id="spark-line" fill="none" stroke="#38BDF8" stroke-width="1.6" vector-effect="non-scaling-stroke" />
               </svg>
             </div>
             <div class="dash__alert" aria-hidden="true"><i class="ph-fill ph-warning"></i><span id="t-alert">Microparada en llenadora L2 · 4 min</span></div>
@@ -164,7 +165,7 @@ const html = `<!doctype html>
   <meta name="description" content="${esc(C.site.description)}" />
   <link rel="canonical" href="${esc(canonical)}" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0A0E17" />
+  <meta name="theme-color" content="#080C14" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 
   <meta property="og:type" content="website" />
@@ -181,7 +182,7 @@ const html = `<!doctype html>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
   <link rel="stylesheet" href="styles.css" />
@@ -336,8 +337,11 @@ const html = `<!doctype html>
 
   <footer class="footer">
     <div class="container footer__inner">
-      <a href="#top" class="logo" aria-label="${esc(C.brand.name)}, inicio">${logo}
-      </a>
+      <div class="footer__brand">
+        <a href="#top" class="logo logo--lg" aria-label="${esc(C.brand.name)}, inicio">${logo}
+        </a>
+        <p class="logo__tagline">${esc(C.brand.tagline)}</p>
+      </div>
       <p class="footer__tagline">${esc(C.footer.tagline)}</p>
       <p class="footer__legal">&copy; ${year} ${esc(C.brand.name)}. ${esc(C.footer.rights)}</p>
     </div>
