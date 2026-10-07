@@ -10,6 +10,13 @@
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#080C14" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+  <link rel="stylesheet" href="/styles.css" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ingenia Solutions" />
@@ -29,13 +36,6 @@
 
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Ingenia Solutions","url":"https://ingenia.solutions/","description":"Software a medida, tableros OEE en tiempo real y automatización para PYMEs industriales. Diagnóstico técnico sin cargo con ingenieros mecánicos, electromecánicos e industriales.","slogan":"Convertimos los datos y procesos de tu empresa en mayor productividad y menores costos.","knowsAbout":["Ingeniería Mecánica","Ingeniería Electromecánica","Ingeniería Industrial","Software a medida","Tableros OEE","Automatización industrial","Inteligencia artificial aplicada"],"hasOfferCatalog":{"@type":"OfferCatalog","name":"Soluciones","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Automatización de Ventas y CRM Operativo","description":"Registro inmediato de requerimientos, cotizaciones automatizadas y seguimiento comercial sin retrasos humanos."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Integración de Sistemas y Operaciones","description":"Sincronización en tiempo real de inventarios, despachos y facturación para erradicar la duplicación de datos."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Atención al Cliente y Asistentes IA 24/7","description":"Agentes virtuales entrenados con manuales y reglas de tu negocio que filtran consultas y derivan casos calificados."}}]},"image":"https://ingenia.solutions/og-image.png"}</script>
   <script>document.documentElement.classList.add("js")</script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -325,7 +325,7 @@
         <div class="booking__copy reveal">
           <span class="badge-mono badge-mono--cyan">[ DIAGNÓSTICO SIN CARGO ]</span>
           <h2 class="section__title">Analicemos las oportunidades de mejora en tu operación</h2>
-          <p class="section__lead">Coordina una sesión de diagnóstico técnico con nuestro equipo de ingenieros. Evaluamos tus procesos actuales y te entregamos una propuesta de mejora.</p>
+          <p class="section__lead">Coordiná una sesión de diagnóstico técnico con nuestro equipo de ingenieros. Evaluamos tus procesos actuales y te entregamos una propuesta de mejora.</p>
           <p class="booking__guarantee"><i class="ph-fill ph-seal-check" aria-hidden="true"></i><span>Respuesta en menos de 24 horas hábiles directamente por un ingeniero fundador.</span></p>
         </div>
         <div class="booking__card reveal">
@@ -368,6 +368,7 @@
               <span>Reservar Diagnóstico Técnico Gratuito</span><i class="ph ph-calendar-check" aria-hidden="true"></i>
             </button>
             <p class="form__status" id="form-status" role="status"></p>
+            <p class="form__privacy">Usamos estos datos solo para responder tu solicitud. <a href="/privacidad/">Política de privacidad</a></p>
           </form>
           <div class="form-success" id="form-success" hidden>
             <i class="ph-fill ph-check-circle" aria-hidden="true"></i>
@@ -389,7 +390,7 @@
         <p class="logo__tagline">TECNOLOGÍA E INTELIGENCIA ARTIFICIAL PARA PYMES</p>
       </div>
       <p class="footer__tagline">Ingeniería de procesos y software a medida para la industria.</p>
-      <p class="footer__legal">&copy; 2026 Ingenia Solutions. Todos los derechos reservados.</p>
+      <p class="footer__legal">&copy; 2026 Ingenia Solutions. Todos los derechos reservados. <a href="/privacidad/">Política de privacidad</a></p>
     </div>
   </footer>
 
@@ -401,6 +402,6 @@
     </div>
   </dialog>
 
-  <script src="app.js" defer></script>
+  <script src="/app.js" defer></script>
 </body>
 </html>

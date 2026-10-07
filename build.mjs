@@ -1,6 +1,6 @@
-// Genera index.html, robots.txt y sitemap.xml a partir de content.js.
+// Genera index.html, privacidad/index.html, 404.html, robots.txt y sitemap.xml a partir de content.js.
 // Uso: node build.mjs
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import vm from "node:vm";
@@ -160,6 +160,48 @@ const method = C.methodology.map((m, i) => `
 const areas = C.form.areas.map((a, i) => `
                   <label class="chip"><input type="checkbox" name="area" value="${esc(a)}" id="area-${i}" /><span><i class="ph ph-check" aria-hidden="true"></i>${esc(a)}</span></label>`).join("");
 
+/* ---------- Bloques compartidos entre páginas ---------- */
+const headAssets = `
+  <meta name="theme-color" content="#080C14" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+  <link rel="stylesheet" href="/styles.css" />`;
+
+// En la home los enlaces son anclas (#seccion); en las páginas secundarias vuelven a la home (/#seccion)
+const navBar = (home) => {
+  const to = (hash) => (home ? hash : `/${hash}`);
+  return `
+  <header class="nav" id="nav">
+    <div class="nav__inner container">
+      <a href="${home ? "#top" : "/"}" class="logo" aria-label="${esc(C.brand.name)}, inicio">${logo}
+      </a>
+      <span class="badge-mono nav__badge">${bracket(C.brand.statusBadge)}</span>
+      <nav class="nav__links" aria-label="Secciones">${C.brand.nav.map((l) => `
+        <a href="${esc(to(l.href))}">${esc(l.label)}</a>`).join("")}
+      </nav>
+      <a href="${to("#diagnostico")}" class="btn btn--primary btn--sm">${esc(C.brand.navCta)}</a>
+    </div>
+  </header>`;
+};
+
+const footerBar = (home) => `
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="${home ? "#top" : "/"}" class="logo logo--lg" aria-label="${esc(C.brand.name)}, inicio">${logo}
+        </a>
+        <p class="logo__tagline">${esc(C.brand.tagline)}</p>
+      </div>
+      <p class="footer__tagline">${esc(C.footer.tagline)}</p>
+      <p class="footer__legal">&copy; ${year} ${esc(C.brand.name)}. ${esc(C.footer.rights)} <a href="${esc(C.privacy.path)}">${esc(C.footer.privacyLink)}</a></p>
+    </div>
+  </footer>`;
+
 /* ---------- Documento ---------- */
 const html = `<!doctype html>
 <!-- ARCHIVO GENERADO por build.mjs a partir de content.js. No editar a mano: editá content.js y corré "node build.mjs". -->
@@ -170,9 +212,7 @@ const html = `<!doctype html>
   <title>${esc(C.site.title)}</title>
   <meta name="description" content="${esc(C.site.description)}" />
   <link rel="canonical" href="${esc(canonical)}" />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#080C14" />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="robots" content="index, follow" />${headAssets}
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="${esc(C.brand.name)}" />
@@ -185,29 +225,11 @@ const html = `<!doctype html>
 
   <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
   <script>document.documentElement.classList.add("js")</script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <!-- 1. HEADER FLOTANTE -->
-  <header class="nav" id="nav">
-    <div class="nav__inner container">
-      <a href="#top" class="logo" aria-label="${esc(C.brand.name)}, inicio">${logo}
-      </a>
-      <span class="badge-mono nav__badge">${bracket(C.brand.statusBadge)}</span>
-      <nav class="nav__links" aria-label="Secciones">${C.brand.nav.map((l) => `
-        <a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}
-      </nav>
-      <a href="#diagnostico" class="btn btn--primary btn--sm">${esc(C.brand.navCta)}</a>
-    </div>
-  </header>
+  <!-- 1. HEADER FLOTANTE -->${navBar(true)}
 
   <main id="main">
     <!-- 2. HERO 60/40 -->
@@ -330,6 +352,7 @@ const html = `<!doctype html>
               <span>${esc(C.closingCta.buttonText)}</span><i class="ph ph-calendar-check" aria-hidden="true"></i>
             </button>
             <p class="form__status" id="form-status" role="status"></p>
+            <p class="form__privacy">${esc(C.form.privacyNote)} <a href="${esc(C.privacy.path)}">${esc(C.form.privacyLinkText)}</a></p>
           </form>
           <div class="form-success" id="form-success" hidden>
             <i class="ph-fill ph-check-circle" aria-hidden="true"></i>
@@ -340,18 +363,7 @@ const html = `<!doctype html>
       </div>
     </section>
   </main>
-
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <a href="#top" class="logo logo--lg" aria-label="${esc(C.brand.name)}, inicio">${logo}
-        </a>
-        <p class="logo__tagline">${esc(C.brand.tagline)}</p>
-      </div>
-      <p class="footer__tagline">${esc(C.footer.tagline)}</p>
-      <p class="footer__legal">&copy; ${year} ${esc(C.brand.name)}. ${esc(C.footer.rights)}</p>
-    </div>
-  </footer>
+${footerBar(true)}
 
   <!-- VideoModalWrapper -->
   <dialog class="video-modal" id="video-modal" aria-label="Video demostrativo" data-cta="${esc(C.brand.navCta)}">
@@ -361,10 +373,73 @@ const html = `<!doctype html>
     </div>
   </dialog>
 
-  <script src="app.js" defer></script>
+  <script src="/app.js" defer></script>
 </body>
 </html>
 `;
+
+/* ---------- Páginas secundarias ---------- */
+const simplePage = ({ title, description, canonicalPath, index, main }) => `<!doctype html>
+<!-- ARCHIVO GENERADO por build.mjs a partir de content.js. No editar a mano. -->
+<html lang="${esc(C.site.lang)}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${esc(title)} | ${esc(C.brand.name)}</title>
+  <meta name="description" content="${esc(description)}" />${canonicalPath ? `
+  <link rel="canonical" href="${esc(siteUrl + canonicalPath)}" />` : ""}
+  <meta name="robots" content="${index ? "index, follow" : "noindex"}" />${headAssets}
+</head>
+<body class="page">
+  <a class="skip-link" href="#main">Saltar al contenido</a>${navBar(false)}
+
+  <main id="main">${main}
+  </main>
+${footerBar(false)}
+</body>
+</html>
+`;
+
+const P = C.privacy;
+const updatedLabel = new Date(`${P.updated}T12:00:00`).toLocaleDateString("es-AR", { day: "numeric", month: "long", year: "numeric" });
+const responsible = [
+  P.legalName && `Razón social: ${P.legalName}.`,
+  P.taxId && `CUIT: ${P.taxId}.`,
+].filter(Boolean).join(" ");
+const privacyHtml = simplePage({
+  title: P.title,
+  description: `${P.title} de ${C.brand.name}: qué datos recolectamos en el formulario de diagnóstico y cómo ejercer tus derechos.`,
+  canonicalPath: P.path,
+  index: true,
+  main: `
+    <article class="legal container">
+      <h1 class="legal__title">${esc(P.title)}</h1>
+      <p class="legal__updated">Última actualización: ${esc(updatedLabel)}</p>
+      <p class="legal__lead">${esc(P.intro)}</p>
+      <h2>Responsable de los datos</h2>
+      <p>${esc(C.brand.name)}.${responsible ? ` ${esc(responsible)}` : ""} Contacto: <a href="mailto:${esc(C.form.fallbackEmail)}">${esc(C.form.fallbackEmail)}</a>.</p>${P.sections.map((sec) => `
+      <h2>${esc(sec.heading)}</h2>${sec.paragraphs.map((t) => `
+      <p>${esc(t)}</p>`).join("")}`).join("")}
+      <p class="legal__back"><a href="/" class="btn btn--ghost btn--sm"><i class="ph ph-arrow-left" aria-hidden="true"></i>${esc(C.notFound.button)}</a></p>
+    </article>`,
+});
+
+const N = C.notFound;
+const notFoundHtml = simplePage({
+  title: N.title,
+  description: N.text,
+  index: false,
+  main: `
+    <section class="not-found container">
+      <span class="badge-mono badge-mono--cyan">[ ERROR 404 ]</span>
+      <h1 class="not-found__title">${esc(N.title)}</h1>
+      <p class="not-found__text">${esc(N.text)}</p>
+      <div class="not-found__ctas">
+        <a href="/" class="btn btn--primary btn--lg"><span>${esc(N.button)}</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <a href="/#diagnostico" class="btn btn--ghost btn--lg">${esc(C.brand.navCta)}</a>
+      </div>
+    </section>`,
+});
 
 const robots = `User-agent: *
 Allow: /
@@ -378,10 +453,17 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <loc>${canonical}</loc>
     <lastmod>${today}</lastmod>
   </url>
+  <url>
+    <loc>${siteUrl}${C.privacy.path}</loc>
+    <lastmod>${C.privacy.updated}</lastmod>
+  </url>
 </urlset>
 `;
 
 writeFileSync(join(root, "index.html"), html);
+mkdirSync(join(root, "privacidad"), { recursive: true });
+writeFileSync(join(root, "privacidad", "index.html"), privacyHtml);
+writeFileSync(join(root, "404.html"), notFoundHtml);
 writeFileSync(join(root, "robots.txt"), robots);
 writeFileSync(join(root, "sitemap.xml"), sitemap);
-console.log(`OK: index.html, robots.txt y sitemap.xml generados para ${canonical}`);
+console.log(`OK: index.html, privacidad/, 404.html, robots.txt y sitemap.xml generados para ${canonical}`);

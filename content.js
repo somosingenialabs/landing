@@ -1,6 +1,6 @@
 /*
  * CAPA 4: DICCIONARIO DE CONTENIDO
- * Edita textos, sectores, métricas y videos acá sin tocar el código.
+ * Editá textos, sectores, métricas y videos acá sin tocar el código.
  * Después de editar, regenerá la página con:  node build.mjs
  * (escribe index.html, robots.txt y sitemap.xml con el contenido ya incluido para SEO).
  *
@@ -14,7 +14,7 @@ window.SITE_CONTENT = {
     locale: "es_AR",
     title: "Ingenia Solutions | Ingeniería de procesos y software a medida para la industria",
     description: "Software a medida, tableros OEE en tiempo real y automatización para PYMEs industriales. Diagnóstico técnico sin cargo con ingenieros mecánicos, electromecánicos e industriales.",
-    // Imagen para compartir en redes (1200x630). Se regenera con: node brand/og-image.mjs
+    // Imagen para compartir en redes (1200x630). Se regenera con: node brand/export-images.mjs
     ogImage: "/og-image.png",
     ogImageAlt: "Ingenia Solutions: convertimos los datos y procesos de tu empresa en mayor productividad y menores costos."
   },
@@ -179,7 +179,7 @@ window.SITE_CONTENT = {
 
   closingCta: {
     title: "Analicemos las oportunidades de mejora en tu operación",
-    description: "Coordina una sesión de diagnóstico técnico con nuestro equipo de ingenieros. Evaluamos tus procesos actuales y te entregamos una propuesta de mejora.",
+    description: "Coordiná una sesión de diagnóstico técnico con nuestro equipo de ingenieros. Evaluamos tus procesos actuales y te entregamos una propuesta de mejora.",
     buttonText: "Reservar Diagnóstico Técnico Gratuito",
     guarantee: "Respuesta en menos de 24 horas hábiles directamente por un ingeniero fundador."
   },
@@ -199,11 +199,74 @@ window.SITE_CONTENT = {
       "Atención al cliente con IA"
     ],
     successTitle: "Solicitud recibida",
-    successText: "Un ingeniero fundador te va a contactar en menos de 24 horas hábiles para coordinar el diagnóstico."
+    successText: "Un ingeniero fundador te va a contactar en menos de 24 horas hábiles para coordinar el diagnóstico.",
+    privacyNote: "Usamos estos datos solo para responder tu solicitud.",
+    privacyLinkText: "Política de privacidad"
   },
 
   footer: {
     tagline: "Ingeniería de procesos y software a medida para la industria.",
-    rights: "Todos los derechos reservados."
+    rights: "Todos los derechos reservados.",
+    privacyLink: "Política de privacidad"
+  },
+
+  /*
+   * POLÍTICA DE PRIVACIDAD (Ley 25.326 de Protección de Datos Personales, Argentina)
+   * Texto base orientativo: conviene que lo revise alguien con criterio legal antes de darlo por definitivo.
+   * Si tienen razón social o CUIT, completá "legalName" y "taxId" y aparecen en la sección de responsable.
+   */
+  privacy: {
+    path: "/privacidad/",
+    title: "Política de privacidad",
+    updated: "2026-10-07",
+    legalName: "",
+    taxId: "",
+    intro: "En Ingenia Solutions cuidamos los datos que nos compartís. Esta política explica qué datos recolectamos en este sitio, para qué los usamos y cómo podés ejercer tus derechos.",
+    sections: [
+      {
+        heading: "Qué datos recolectamos",
+        paragraphs: [
+          "Cuando completás el formulario de diagnóstico recolectamos tu nombre y apellido, el nombre de tu empresa, tu email laboral, tu número de WhatsApp (si lo cargás) y las áreas que te interesa optimizar.",
+          "No usamos cookies de seguimiento ni herramientas de analítica. Los servicios que alojan el sitio y cargan las tipografías e íconos pueden registrar datos técnicos de la conexión, como la dirección IP, para funcionar."
+        ]
+      },
+      {
+        heading: "Para qué los usamos",
+        paragraphs: [
+          "Usamos tus datos únicamente para responder tu solicitud, coordinar el diagnóstico técnico y enviarte una propuesta de mejora. No los vendemos, no los cedemos a terceros con fines comerciales y no te vamos a sumar a envíos masivos sin tu consentimiento."
+        ]
+      },
+      {
+        heading: "Quién procesa los datos",
+        paragraphs: [
+          "Para operar el sitio usamos proveedores que procesan datos por cuenta nuestra: Formspree (recepción del formulario), Netlify (alojamiento del sitio) y Google (correo electrónico). Algunos de estos servicios tienen servidores fuera de Argentina, por lo que tus datos pueden alojarse en otros países, como Estados Unidos."
+        ]
+      },
+      {
+        heading: "Cuánto tiempo los guardamos",
+        paragraphs: [
+          "Conservamos tus datos mientras sean necesarios para responder tu consulta y, si avanzamos juntos, durante la relación de trabajo. Podés pedirnos que los eliminemos en cualquier momento."
+        ]
+      },
+      {
+        heading: "Tus derechos",
+        paragraphs: [
+          "Podés pedir acceso a tus datos, rectificarlos, actualizarlos o suprimirlos escribiéndonos a somos.ingenialabs@gmail.com. Respondemos los pedidos de acceso dentro de los 10 días corridos y los de rectificación o supresión dentro de los 5 días hábiles, como establece la Ley 25.326.",
+          "El titular de los datos personales tiene la facultad de ejercer el derecho de acceso a los mismos en forma gratuita a intervalos no inferiores a seis meses, salvo que se acredite un interés legítimo al efecto conforme lo establecido en el artículo 14, inciso 3 de la Ley N° 25.326. La Agencia de Acceso a la Información Pública, en su carácter de Órgano de Control de la Ley N° 25.326, tiene la atribución de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por incumplimiento de las normas vigentes en materia de protección de datos personales."
+        ]
+      },
+      {
+        heading: "Cambios en esta política",
+        paragraphs: [
+          "Si actualizamos esta política, publicamos la nueva versión en esta misma página con su fecha de actualización."
+        ]
+      }
+    ]
+  },
+
+  notFound: {
+    title: "Esta página no existe",
+    text: "Puede que el enlace esté mal escrito o que la página se haya movido.",
+    button: "Volver al inicio"
   }
 };

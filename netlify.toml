@@ -1,6 +1,6 @@
 # Netlify: regenera index.html desde content.js y publica solo los archivos del sitio.
 [build]
-  command = "node build.mjs && rm -rf dist && mkdir dist && cp index.html styles.css app.js favicon.svg og-image.png robots.txt sitemap.xml dist/"
+  command = "node build.mjs && rm -rf dist && mkdir dist && cp -r index.html 404.html privacidad styles.css app.js favicon.svg apple-touch-icon.png og-image.png robots.txt sitemap.xml dist/"
   publish = "dist"
 
 [build.environment]
