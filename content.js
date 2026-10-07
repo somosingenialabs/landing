@@ -14,8 +14,9 @@ window.SITE_CONTENT = {
     locale: "es_AR",
     title: "Ingenia Solutions | Ingeniería de procesos y software a medida para la industria",
     description: "Software a medida, tableros OEE en tiempo real y automatización para PYMEs industriales. Diagnóstico técnico sin cargo con ingenieros mecánicos, electromecánicos e industriales.",
-    // Imagen para compartir en redes (1200x630). Ej: "/og-image.png". Vacío = no se publica la etiqueta.
-    ogImage: ""
+    // Imagen para compartir en redes (1200x630). Se regenera con: node brand/og-image.mjs
+    ogImage: "/og-image.png",
+    ogImageAlt: "Ingenia Solutions: convertimos los datos y procesos de tu empresa en mayor productividad y menores costos."
   },
 
   brand: {

@@ -45,10 +45,16 @@ const jsonLd = {
   ...(C.site.ogImage ? { image: new URL(C.site.ogImage, canonical).href } : {}),
 };
 
+const ogImageUrl = C.site.ogImage ? new URL(C.site.ogImage, canonical).href : "";
 const ogImage = C.site.ogImage
   ? `
-  <meta property="og:image" content="${esc(new URL(C.site.ogImage, canonical).href)}" />
-  <meta name="twitter:card" content="summary_large_image" />`
+  <meta property="og:image" content="${esc(ogImageUrl)}" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="${esc(C.site.ogImageAlt)}" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="${esc(ogImageUrl)}" />`
   : `
   <meta name="twitter:card" content="summary" />`;
 

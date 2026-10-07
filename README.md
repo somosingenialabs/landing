@@ -30,3 +30,4 @@ Netlify publica automáticamente cada push a `main`. La configuración está en 
 - `app.js`: comportamiento (tablero animado, pestañas, modal de video, formulario).
 - `brand/`: SVG oficiales del logo (claro y oscuro), isotipo y avatar para redes. No se publican en el sitio.
 - `favicon.svg`: isotipo `< ia >` usado como ícono de la pestaña.
+- `og-image.png`: imagen al compartir el link (1200x630). Se edita en `brand/og-image.html` y se regenera con `node brand/og-image.mjs` (requiere Chrome o Edge).

@@ -1,0 +1,56 @@
+<!doctype html>
+<!-- Fuente de og-image.png (1200x630). Para regenerar: node brand/og-image.mjs -->
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=block" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: #080C14; }
+  body { position: relative; font-family: "Plus Jakarta Sans", system-ui, sans-serif; color: #F8FAFC; }
+  .grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, .07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, .07) 1px, transparent 1px);
+    background-size: 48px 48px;
+    -webkit-mask-image: radial-gradient(ellipse 75% 85% at 80% 40%, #000 25%, transparent 75%);
+            mask-image: radial-gradient(ellipse 75% 85% at 80% 40%, #000 25%, transparent 75%);
+  }
+  .glow { position: absolute; inset: 0; background:
+    radial-gradient(ellipse 45% 60% at 88% 30%, rgba(56, 189, 248, .16), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 5% 110%, rgba(37, 99, 235, .14), transparent 70%); }
+  .frame { position: absolute; inset: 72px 80px 64px; display: flex; flex-direction: column; }
+
+  .logo { display: inline-flex; flex-direction: column; align-items: center; align-self: flex-start; line-height: 1; }
+  .l1 { display: inline-flex; align-items: baseline; font-weight: 800; font-size: 60px; letter-spacing: -0.02em; }
+  .core { display: inline-flex; align-items: baseline; gap: 0.3em; margin-left: 0.46em;
+    background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .core .ia { font-size: 0.92em; }
+  .l2 { margin-top: 10px; font-weight: 600; font-size: 17px; letter-spacing: 0.34em; margin-right: -0.34em; color: #94A3B8; }
+
+  h1 { margin-top: auto; font-weight: 700; font-size: 50px; line-height: 1.12; letter-spacing: -0.02em; max-width: 27ch; }
+  .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 24px; border-top: 1px solid #1F2937; }
+  .badge { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 500; font-size: 17px; letter-spacing: 0.06em; color: #38BDF8; }
+  .url { font-weight: 600; font-size: 22px; color: #94A3B8; }
+  .url b { color: #F8FAFC; font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <div class="frame">
+    <div class="logo">
+      <span class="l1">ingen<span class="core"><span>&lt;</span><span class="ia">ia</span><span>&gt;</span></span></span>
+      <span class="l2">· SOLUTIONS ·</span>
+    </div>
+    <h1>Convertimos los datos y procesos de tu empresa en mayor productividad y menores costos.</h1>
+    <div class="foot">
+      <span class="badge">[ DIAGNÓSTICO TÉCNICO SIN CARGO ]</span>
+      <span class="url"><b>ingenia</b>.solutions</span>
+    </div>
+  </div>
+</body>
+</html>
