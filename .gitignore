@@ -1,4 +1,8 @@
-.claude/
+# Configuración personal de Claude: se ignora, salvo lo compartido por el equipo
+.claude/*
+!.claude/launch.json
+!.claude/settings.json
+!.claude/skills/
 dist/
 node_modules/
 .netlify/
