@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title">
+  <title id="title">Ingenia</title>
+  <defs>
+    <linearGradient id="ing-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42">
+      <stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/>
+    </linearGradient>
+    <linearGradient id="ing-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58">
+      <stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/>
+    </linearGradient>
+    <linearGradient id="ing-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42">
+      <stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/>
+    </linearGradient>
+    <radialGradient id="ing-bg" cx="30%" cy="20%" r="95%">
+      <stop offset="0" stop-color="#2C2C30"/><stop offset="1" stop-color="#1C1C1E"/>
+    </radialGradient>
+    <radialGradient id="ing-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#007AFF" stop-opacity=".28"/><stop offset="1" stop-color="#007AFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path d="M1024 512 L1023 714.2 L1020 778.3 L1015.1 824.2 L1008 860.7 L998.9 891 L987.6 916.7 L973.9 938.8 L957.7 957.7 L938.8 973.9 L916.7 987.6 L891 998.9 L860.7 1008 L824.2 1015.1 L778.3 1020 L714.2 1023 L512 1024 L309.8 1023 L245.7 1020 L199.8 1015.1 L163.3 1008 L133 998.9 L107.3 987.6 L85.2 973.9 L66.3 957.7 L50.1 938.8 L36.4 916.7 L25.1 891 L16 860.7 L8.9 824.2 L4 778.3 L1 714.2 L0 512 L1 309.8 L4 245.7 L8.9 199.8 L16 163.3 L25.1 133 L36.4 107.3 L50.1 85.2 L66.3 66.3 L85.2 50.1 L107.3 36.4 L133 25.1 L163.3 16 L199.8 8.9 L245.7 4 L309.8 1 L512 0 L714.2 1 L778.3 4 L824.2 8.9 L860.7 16 L891 25.1 L916.7 36.4 L938.8 50.1 L957.7 66.3 L973.9 85.2 L987.6 107.3 L998.9 133 L1008 163.3 L1015.1 199.8 L1020 245.7 L1023 309.8 Z" fill="url(#ing-bg)"/>
+  <circle cx="512" cy="512" r="380" fill="url(#ing-glow)"/>
+  <g transform="translate(512 512) scale(4.6) translate(-15.6 29)">
+    <polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#ing-top)"/>
+    <polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#ing-side)"/>
+    <polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#ing-front)"/>
+    <polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#ing-side)"/>
+    <polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#ing-front)"/>
+    <polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#ing-side)"/>
+    <polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#ing-top)"/>
+    <polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#ing-front)"/>
+  </g>
+</svg>

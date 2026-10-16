@@ -1,0 +1,54 @@
+/* Tokens de marca Ingenia como variables CSS nativas. Fuente: brand-tokens.json */
+:root {
+  /* Colores oficiales */
+  --ingenia-electric-blue: #007AFF;
+  --ingenia-electric-blue-text: #0062CC; /* texto chico y botones con texto blanco: contraste AA */
+  --ingenia-electric-blue-on-dark: #409CFF; /* texto chico e íconos azules sobre fondo oscuro: contraste AA */
+  --ingenia-deep-navy: #1C1C1E;
+  --ingenia-kinetic-teal: #30B0C7;
+  --ingenia-slate-gray: #8E8E93;
+  --ingenia-studio-white: #F2F2F7;
+  --ingenia-pure-white: #FFFFFF;
+
+  --ingenia-gradient: linear-gradient(135deg, var(--ingenia-electric-blue) 0%, var(--ingenia-kinetic-teal) 100%);
+
+  /* Tema claro (por defecto) */
+  --ingenia-bg: var(--ingenia-studio-white);
+  --ingenia-surface: var(--ingenia-pure-white);
+  --ingenia-text: var(--ingenia-deep-navy);
+  --ingenia-text-muted: #636366; /* más oscuro que Slate Gray: contraste AA para texto chico */
+  --ingenia-border: #D1D1D6;
+  --ingenia-accent: var(--ingenia-electric-blue);
+  --ingenia-logo-ingen: var(--ingenia-deep-navy);
+  --ingenia-logo-ia: var(--ingenia-electric-blue);
+
+  /* Tipografía */
+  --ingenia-font: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --ingenia-font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, monospace;
+
+  /* Radios */
+  --ingenia-radius-sm: 8px;
+  --ingenia-radius-md: 14px;
+  --ingenia-radius-lg: 22px;
+  --ingenia-radius-pill: 999px;
+}
+
+/* Tema oscuro: por preferencia del sistema o forzado con data-theme="dark" */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ingenia-bg: #000000;
+    --ingenia-surface: var(--ingenia-deep-navy);
+    --ingenia-text: var(--ingenia-pure-white);
+    --ingenia-text-muted: var(--ingenia-slate-gray);
+    --ingenia-border: #38383A;
+    --ingenia-logo-ingen: var(--ingenia-pure-white);
+  }
+}
+:root[data-theme="dark"] {
+  --ingenia-bg: #000000;
+  --ingenia-surface: var(--ingenia-deep-navy);
+  --ingenia-text: var(--ingenia-pure-white);
+  --ingenia-text-muted: var(--ingenia-slate-gray);
+  --ingenia-border: #38383A;
+  --ingenia-logo-ingen: var(--ingenia-pure-white);
+}

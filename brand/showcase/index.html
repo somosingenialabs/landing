@@ -1,0 +1,341 @@
+<!doctype html>
+<!-- Brand board de Ingenia. Se abre con la vista previa encendida: http://localhost:5173/brand/showcase/ -->
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Ingenia · Brand board</title>
+<link rel="icon" href="../assets/icon/ingenia-favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../tokens/brand.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--ingenia-bg); color: var(--ingenia-text); font-family: var(--ingenia-font); line-height: 1.6; -webkit-font-smoothing: antialiased; transition: background-color .3s, color .3s; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3 { margin: 0; letter-spacing: -0.02em; line-height: 1.15; }
+  p { margin: 0; }
+  a { color: var(--ingenia-electric-blue-text); }
+  :root[data-theme="dark"] a { color: #4DA3FF; }
+  :focus-visible { outline: 2px solid var(--ingenia-electric-blue); outline-offset: 3px; border-radius: 6px; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 640px) { .wrap { padding: 0 16px; } }
+
+  /* Barra superior */
+  .top { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px) saturate(160%); -webkit-backdrop-filter: blur(14px) saturate(160%); background: color-mix(in srgb, var(--ingenia-bg) 80%, transparent); border-bottom: 1px solid var(--ingenia-border); }
+  .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+  .top img { height: 32px; width: auto; }
+  .top nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  .top nav a { color: var(--ingenia-text-muted); text-decoration: none; font-size: 14px; padding: 6px 10px; border-radius: 999px; }
+  .top nav a:hover { color: var(--ingenia-text); background: color-mix(in srgb, var(--ingenia-text) 6%, transparent); }
+  @media (max-width: 900px) { .top nav { display: none; } }
+  .theme-btn { display: inline-flex; align-items: center; gap: 8px; font: 600 13px var(--ingenia-font); color: var(--ingenia-text); background: var(--ingenia-surface); border: 1px solid var(--ingenia-border); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+
+  /* Portada */
+  .cover { padding: 88px 0 72px; }
+  .eyebrow { font-family: var(--ingenia-font-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; color: var(--ingenia-text-muted); }
+  .cover h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 800; margin-top: 16px; max-width: 14ch; }
+  .cover h1 span { color: var(--ingenia-electric-blue); }
+  .cover p { font-size: 18px; color: var(--ingenia-text-muted); max-width: 60ch; margin-top: 20px; }
+
+  section.block { padding: 64px 0; border-top: 1px solid var(--ingenia-border); }
+  .block h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; margin-top: 10px; }
+  .lead { color: var(--ingenia-text-muted); margin-top: 12px; max-width: 64ch; }
+
+  .grid { display: grid; gap: 16px; margin-top: 32px; }
+  .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 900px) { .g3, .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .g2, .g3, .g4 { grid-template-columns: minmax(0, 1fr); } }
+
+  .card { background: var(--ingenia-surface); border: 1px solid var(--ingenia-border); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; }
+  .stage { display: grid; place-items: center; min-height: 220px; padding: 32px; }
+  .stage--light { background: #F2F2F7; }
+  .stage--white { background: #FFFFFF; }
+  .stage--dark { background: #1C1C1E; }
+  .stage--black { background: #000000; }
+  .stage img { max-height: 120px; width: auto; }
+  .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-top: 1px solid var(--ingenia-border); font-size: 13.5px; }
+  .meta b { font-weight: 600; }
+  .meta small { display: block; color: var(--ingenia-text-muted); font-size: 12.5px; }
+  .dl { font: 600 12.5px var(--ingenia-font); white-space: nowrap; text-decoration: none; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--ingenia-border); color: var(--ingenia-text); }
+  .dl:hover { border-color: var(--ingenia-electric-blue); }
+
+  .sizes { display: flex; align-items: flex-end; gap: 28px; flex-wrap: wrap; }
+  .sizes figure { margin: 0; display: grid; justify-items: center; gap: 8px; font-family: var(--ingenia-font-mono); font-size: 11px; color: var(--ingenia-text-muted); }
+
+  /* Colores */
+  .swatch { cursor: pointer; text-align: left; font: inherit; color: inherit; padding: 0; }
+  .swatch .chip { height: 150px; position: relative; box-shadow: inset 0 -1px 0 var(--ingenia-border); }
+  .swatch .chip::after { content: "Copiar"; position: absolute; right: 12px; bottom: 12px; font: 600 11.5px var(--ingenia-font); padding: 4px 10px; border-radius: 999px; background: rgba(0,0,0,.45); color: #fff; opacity: 0; transition: opacity .2s; }
+  .swatch:hover .chip::after, .swatch:focus-visible .chip::after { opacity: 1; }
+  .swatch .info { padding: 14px 18px 18px; display: grid; gap: 2px; }
+  .swatch .info b { font-size: 16px; }
+  .swatch .info code { font-family: var(--ingenia-font-mono); font-size: 12.5px; color: var(--ingenia-text-muted); }
+  .swatch .info .role { font-size: 13px; color: var(--ingenia-text-muted); margin-top: 6px; }
+  .gradient-bar { height: 120px; border-radius: 22px; background: var(--ingenia-gradient); margin-top: 16px; display: flex; align-items: flex-end; justify-content: space-between; padding: 16px 20px; color: #fff; font-family: var(--ingenia-font-mono); font-size: 13px; }
+  .ratio { display: flex; height: 44px; border-radius: 14px; overflow: hidden; margin-top: 16px; border: 1px solid var(--ingenia-border); }
+  .ratio span { display: grid; place-items: center; font: 600 12px var(--ingenia-font); }
+
+  /* Tipografía */
+  .type-sample { padding: 28px; }
+  .type-sample .big { font-size: clamp(56px, 8vw, 96px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .type-sample .mono { font-family: var(--ingenia-font-mono); }
+  .weights { display: grid; gap: 6px; margin-top: 20px; font-size: 20px; }
+  .weights span small { font-family: var(--ingenia-font-mono); font-size: 12px; color: var(--ingenia-text-muted); margin-left: 10px; }
+  .scale { display: grid; gap: 18px; margin-top: 8px; }
+  .scale div { display: grid; grid-template-columns: 110px 1fr; align-items: baseline; gap: 16px; }
+  .scale code { font-family: var(--ingenia-font-mono); font-size: 12px; color: var(--ingenia-text-muted); }
+  @media (max-width: 600px) { .scale div { grid-template-columns: 1fr; gap: 2px; } }
+
+  /* Usos incorrectos */
+  .dont .stage { min-height: 170px; position: relative; }
+  .dont .stage::before { content: "✕"; position: absolute; top: 12px; right: 14px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #FF3B30; color: #fff; font-size: 13px; font-weight: 700; }
+  .dont .meta { font-size: 13px; }
+  .wordmark-live { font-weight: 800; font-size: 44px; letter-spacing: -0.03em; }
+
+  /* Tabla */
+  table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 14.5px; }
+  th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--ingenia-border); }
+  th { font-size: 12.5px; color: var(--ingenia-text-muted); font-weight: 600; }
+  .ok { color: #1F9D55; font-weight: 600; }
+  .warn { color: #B26A00; font-weight: 600; }
+  :root[data-theme="dark"] .ok { color: #34C759; }
+  :root[data-theme="dark"] .warn { color: #FFB340; }
+  .table-scroll { overflow-x: auto; }
+
+  .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); background: var(--ingenia-deep-navy); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  :root[data-theme="dark"] .toast { background: #fff; color: #1C1C1E; }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--ingenia-border); color: var(--ingenia-text-muted); font-size: 14px; }
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <img id="top-logo" src="../assets/logo/ingenia-logo-horizontal.svg" alt="Ingenia" width="94" height="32" />
+      <nav aria-label="Secciones">
+        <a href="#logo">Logo</a><a href="#simbolo">Símbolo</a><a href="#color">Color</a><a href="#tipografia">Tipografía</a><a href="#usos">Usos</a><a href="#archivos">Archivos</a>
+      </nav>
+      <button class="theme-btn" id="theme-btn" type="button" aria-pressed="false">Modo oscuro</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="cover">
+      <div class="wrap">
+        <p class="eyebrow">[ BRAND BOARD · V1.0 · OCTUBRE 2026 ]</p>
+        <h1>Ingeniería con núcleo de <span>ia</span>.</h1>
+        <p>Identidad visual de Ingenia: el logotipo, el símbolo, los colores y la tipografía para piezas digitales e institucionales. Tocá un color para copiar su código. El manual completo está en <code>brand/BRAND_GUIDELINES.md</code>.</p>
+      </div>
+    </section>
+
+    <section class="block" id="logo">
+      <div class="wrap">
+        <p class="eyebrow">[ 01 · LOGOTIPO ]</p>
+        <h2>Solo "ia" va en azul</h2>
+        <p class="lead">"Ingen" en Deep Navy sobre fondos claros y en blanco sobre fondos oscuros. Las dos últimas letras, siempre en Electric Blue: la inteligencia artificial como núcleo de la ingeniería.</p>
+        <div class="grid g2">
+          <article class="card"><div class="stage stage--light"><img src="../assets/logo/ingenia-logo-horizontal.svg" alt="Logo horizontal de Ingenia para fondos claros" /></div>
+            <div class="meta"><span><b>Horizontal</b><small>Versión principal, fondos claros</small></span><a class="dl" href="../assets/logo/ingenia-logo-horizontal.svg" download>SVG</a></div></article>
+          <article class="card"><div class="stage stage--dark"><img src="../assets/logo/ingenia-logo-horizontal-dark.svg" alt="Logo horizontal de Ingenia para fondos oscuros" /></div>
+            <div class="meta"><span><b>Horizontal oscuro</b><small>Fondos oscuros</small></span><a class="dl" href="../assets/logo/ingenia-logo-horizontal-dark.svg" download>SVG</a></div></article>
+          <article class="card"><div class="stage stage--white"><img src="../assets/logo/ingenia-logo-vertical.svg" alt="Logo vertical de Ingenia" /></div>
+            <div class="meta"><span><b>Vertical</b><small>Espacios cuadrados o altos</small></span><a class="dl" href="../assets/logo/ingenia-logo-vertical.svg" download>SVG</a></div></article>
+          <article class="card">
+            <div class="stage stage--light" style="min-height:110px"><img src="../assets/logo/ingenia-wordmark.svg" alt="Wordmark de Ingenia para fondos claros" style="max-height:64px" /></div>
+            <div class="stage stage--black" style="min-height:110px"><img src="../assets/logo/ingenia-wordmark-dark.svg" alt="Wordmark de Ingenia para fondos oscuros" style="max-height:64px" /></div>
+            <div class="meta"><span><b>Wordmark</b><small>Solo texto, claro y oscuro</small></span><span style="display:flex;gap:6px"><a class="dl" href="../assets/logo/ingenia-wordmark.svg" download>Claro</a><a class="dl" href="../assets/logo/ingenia-wordmark-dark.svg" download>Oscuro</a></span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="simbolo">
+      <div class="wrap">
+        <p class="eyebrow">[ 02 · SÍMBOLO ]</p>
+        <h2>Una "I" construida como viga doble T</h2>
+        <p class="lead">La inicial de la marca es también una pieza estructural, dibujada en proyección isométrica. El frente va en gradiente de Electric Blue a Kinetic Teal, el techo en turquesa claro y el lateral en sombra azul marino.</p>
+        <div class="grid g4">
+          <article class="card"><div class="stage stage--light"><img src="../assets/icon/ingenia-icon.svg" alt="Símbolo de Ingenia a color" style="max-height:140px" /></div>
+            <div class="meta"><span><b>Color</b><small>Uso general</small></span><a class="dl" href="../assets/icon/ingenia-icon.svg" download>SVG</a></div></article>
+          <article class="card"><div class="stage stage--white"><img src="../assets/icon/ingenia-icon-flat.svg" alt="Símbolo de Ingenia en un solo color" style="max-height:140px" /></div>
+            <div class="meta"><span><b>Plano</b><small>Una tinta, sellos</small></span><a class="dl" href="../assets/icon/ingenia-icon-flat.svg" download>SVG</a></div></article>
+          <article class="card"><div class="stage stage--light"><img src="../assets/icon/ingenia-app-icon-ios.svg" alt="Ícono de app de Ingenia" style="max-height:140px" /></div>
+            <div class="meta"><span><b>App / redes</b><small>Squircle, fondo oscuro</small></span><a class="dl" href="../assets/icon/ingenia-app-icon-ios.svg" download>SVG</a></div></article>
+          <article class="card"><div class="stage stage--light"><div class="sizes">
+              <figure><img src="../assets/icon/ingenia-favicon.svg" alt="" width="16" height="16" /><figcaption>16</figcaption></figure>
+              <figure><img src="../assets/icon/ingenia-favicon.svg" alt="" width="32" height="32" /><figcaption>32</figcaption></figure>
+              <figure><img src="../assets/icon/ingenia-favicon.svg" alt="Favicon de Ingenia" width="64" height="64" /><figcaption>64</figcaption></figure>
+            </div></div>
+            <div class="meta"><span><b>Favicon</b><small>Simplificado, 16 a 32 px</small></span><a class="dl" href="../assets/icon/ingenia-favicon.svg" download>SVG</a></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="color">
+      <div class="wrap">
+        <p class="eyebrow">[ 03 · COLOR ]</p>
+        <h2>Paleta oficial</h2>
+        <p class="lead">Tocá cualquier color para copiar su código HEX. Abajo, el gradiente de marca y la proporción de uso recomendada.</p>
+        <div class="grid g3" id="swatches"></div>
+        <div class="gradient-bar"><span>#007AFF</span><span>Gradiente de marca · 135°</span><span>#30B0C7</span></div>
+        <div class="ratio" aria-label="Proporción de uso: 60% neutros, 25% texto y superficies, 10% Electric Blue, 5% Kinetic Teal">
+          <span style="flex:60;background:#F2F2F7;color:#1C1C1E">Neutros 60%</span>
+          <span style="flex:25;background:#1C1C1E;color:#fff">Texto 25%</span>
+          <span style="flex:10;background:#0062CC;color:#fff">10%</span>
+          <span style="flex:5;background:#30B0C7;color:#1C1C1E">5%</span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Combinación</th><th>Contraste</th><th>Uso</th></tr></thead>
+            <tbody>
+              <tr><td>Deep Navy sobre Studio White</td><td>15,3:1</td><td class="ok">Todo texto</td></tr>
+              <tr><td>Pure White sobre Deep Navy</td><td>17,0:1</td><td class="ok">Todo texto</td></tr>
+              <tr><td>Slate Gray sobre Deep Navy</td><td>5,2:1</td><td class="ok">Texto chico</td></tr>
+              <tr><td>Electric Blue sobre blanco</td><td>4,0:1</td><td class="warn">Solo títulos de 24 px o más e íconos</td></tr>
+              <tr><td>Azul accesible #0062CC sobre blanco</td><td>5,8:1</td><td class="ok">Enlaces y texto chico en azul</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="tipografia">
+      <div class="wrap">
+        <p class="eyebrow">[ 04 · TIPOGRAFÍA ]</p>
+        <h2>Plus Jakarta Sans y JetBrains Mono</h2>
+        <p class="lead">Una geométrica humanista para todo lo que se lee, y una monoespaciada para datos, métricas y etiquetas técnicas.</p>
+        <div class="grid g2">
+          <article class="card type-sample">
+            <p class="eyebrow">PRIMARIA · PLUS JAKARTA SANS</p>
+            <p class="big">Aa</p>
+            <div class="weights">
+              <span style="font-weight:400">Regular<small>400</small></span>
+              <span style="font-weight:500">Medium<small>500</small></span>
+              <span style="font-weight:600">Semibold<small>600</small></span>
+              <span style="font-weight:700">Bold<small>700</small></span>
+              <span style="font-weight:800">ExtraBold<small>800 · logo y títulos</small></span>
+            </div>
+          </article>
+          <article class="card type-sample">
+            <p class="eyebrow">TÉCNICA · JETBRAINS MONO</p>
+            <p class="big mono" style="font-weight:500">78.4%</p>
+            <div class="weights mono" style="font-size:15px">
+              <span>[ OEE METRICS ]</span>
+              <span>09:42 · Microparada en llenadora L2</span>
+              <span>Prod: 2.437 u/h</span>
+              <span style="color:var(--ingenia-text-muted)">0123456789 · ABCDEFGHIJKLM</span>
+            </div>
+          </article>
+        </div>
+        <div class="card type-sample" style="margin-top:16px">
+          <div class="scale">
+            <div><code>H1 · 56 / 800</code><span style="font-size:clamp(32px,4.5vw,56px);font-weight:800;line-height:1.08;letter-spacing:-0.03em">Datos de planta, decisiones claras</span></div>
+            <div><code>H2 · 40 / 700</code><span style="font-size:clamp(26px,3.4vw,40px);font-weight:700;line-height:1.15">Cómo trabajamos</span></div>
+            <div><code>H3 · 21 / 700</code><span style="font-size:21px;font-weight:700">Estudio de puestos</span></div>
+            <div><code>Texto · 17 / 400</code><span style="font-size:17px">Relevamos cómo trabaja cada puesto: tareas, flujos, herramientas y tiempos.</span></div>
+            <div><code>Etiqueta · 12 / 500</code><span style="font-family:var(--ingenia-font-mono);font-size:12px;font-weight:500;letter-spacing:.06em">[ DIAGNÓSTICO SIN CARGO ]</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="usos">
+      <div class="wrap">
+        <p class="eyebrow">[ 05 · USOS INCORRECTOS ]</p>
+        <h2>Lo que no se hace con el logo</h2>
+        <p class="lead">Siempre usar los archivos oficiales, sin modificarlos.</p>
+        <div class="grid g3 dont">
+          <article class="card"><div class="stage stage--light"><span class="wordmark-live" style="color:#007AFF">Ingenia</span></div><div class="meta">No poner todo el texto en azul.</div></article>
+          <article class="card"><div class="stage stage--light"><span class="wordmark-live" style="background:linear-gradient(135deg,#007AFF,#30B0C7);-webkit-background-clip:text;background-clip:text;color:transparent">Ingenia</span></div><div class="meta">No aplicar el gradiente al texto.</div></article>
+          <article class="card"><div class="stage stage--light"><img src="../assets/logo/ingenia-logo-horizontal.svg" alt="" style="width:80%;height:60px;max-height:none" /></div><div class="meta">No deformar ni estirar el logo.</div></article>
+          <article class="card"><div class="stage stage--light"><span class="wordmark-live"><span style="color:#30B0C7">Ingen</span><span style="color:#1C1C1E">ia</span></span></div><div class="meta">No cambiar ni invertir los colores.</div></article>
+          <article class="card"><div class="stage stage--dark"><img src="../assets/logo/ingenia-logo-horizontal.svg" alt="" /></div><div class="meta">No usar la versión clara sobre fondo oscuro.</div></article>
+          <article class="card"><div class="stage stage--light"><img src="../assets/logo/ingenia-logo-horizontal.svg" alt="" style="transform:rotate(-12deg);filter:drop-shadow(6px 8px 4px rgba(0,0,0,.4))" /></div><div class="meta">No rotar ni agregar sombras o efectos.</div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="archivos">
+      <div class="wrap">
+        <p class="eyebrow">[ 06 · ARCHIVOS ]</p>
+        <h2>Para diseño y desarrollo</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Archivo</th><th>Para qué</th></tr></thead>
+            <tbody>
+              <tr><td><a href="../tokens/brand-tokens.json">tokens/brand-tokens.json</a></td><td>Tokens en formato estándar W3C: colores, tipografía, radios.</td></tr>
+              <tr><td><a href="../tokens/brand.css">tokens/brand.css</a></td><td>Variables CSS con modo claro y oscuro (esta página las usa).</td></tr>
+              <tr><td><a href="../tokens/tailwind.preset.js">tokens/tailwind.preset.js</a></td><td>Preset para proyectos con Tailwind CSS.</td></tr>
+              <tr><td><a href="../components/IngeniaLogo.tsx">components/IngeniaLogo.tsx</a></td><td>Componente de React o Next.js con todas las variantes del logo.</td></tr>
+              <tr><td><a href="../BRAND_GUIDELINES.md">BRAND_GUIDELINES.md</a></td><td>Manual de marca completo.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap">Ingenia · Manual de marca v1.0 · Los SVG se generan con <code>node brand/generate-brand.mjs</code>.</div></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+  const colors = [
+    { name: "Electric Blue", hex: "#007AFF", rgb: "0, 122, 255", cmyk: "100, 52, 0, 0", role: "Color de marca. \"ia\" del logo y acciones principales.", ink: "#fff" },
+    { name: "Deep Navy", hex: "#1C1C1E", rgb: "28, 28, 30", cmyk: "7, 7, 0, 88", role: "Texto principal, fondos oscuros y sombras del símbolo.", ink: "#fff" },
+    { name: "Kinetic Teal", hex: "#30B0C7", rgb: "48, 176, 199", cmyk: "76, 12, 0, 22", role: "Acento secundario y final del gradiente.", ink: "#1C1C1E" },
+    { name: "Slate Gray", hex: "#8E8E93", rgb: "142, 142, 147", cmyk: "3, 3, 0, 42", role: "Texto secundario sobre oscuro, bordes, inactivos.", ink: "#1C1C1E" },
+    { name: "Studio White", hex: "#F2F2F7", rgb: "242, 242, 247", cmyk: "2, 2, 0, 3", role: "Lienzo de fondo en modo claro.", ink: "#1C1C1E" },
+    { name: "Pure White", hex: "#FFFFFF", rgb: "255, 255, 255", cmyk: "0, 0, 0, 0", role: "Superficies y \"Ingen\" sobre oscuro.", ink: "#1C1C1E" },
+  ];
+  const wrap = document.getElementById("swatches");
+  colors.forEach((c) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "card swatch";
+    b.setAttribute("aria-label", `Copiar ${c.name} ${c.hex}`);
+    b.innerHTML = `<div class="chip" style="background:${c.hex};${c.hex === "#FFFFFF" || c.hex === "#F2F2F7" ? "border-bottom:1px solid var(--ingenia-border)" : ""}"></div>
+      <div class="info"><b>${c.name}</b><code>${c.hex}</code><code>rgb(${c.rgb})</code><code>cmyk(${c.cmyk})</code><span class="role">${c.role}</span></div>`;
+    b.addEventListener("click", () => copy(c.hex, `${c.name} copiado: ${c.hex}`));
+    wrap.appendChild(b);
+  });
+
+  const toast = document.getElementById("toast");
+  let t;
+  function copy(text, msg) {
+    const done = () => { toast.textContent = msg; toast.classList.add("show"); clearTimeout(t); t = setTimeout(() => toast.classList.remove("show"), 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, () => { toast.textContent = text; done(); });
+    else done();
+  }
+
+  // Modo claro / oscuro (se recuerda en este navegador)
+  const root = document.documentElement;
+  const btn = document.getElementById("theme-btn");
+  const logo = document.getElementById("top-logo");
+  function apply(theme) {
+    root.dataset.theme = theme;
+    const dark = theme === "dark";
+    btn.textContent = dark ? "Modo claro" : "Modo oscuro";
+    btn.setAttribute("aria-pressed", String(dark));
+    logo.src = `../assets/logo/ingenia-logo-horizontal${dark ? "-dark" : ""}.svg`;
+  }
+  let saved = null;
+  try { saved = localStorage.getItem("ingenia-brand-theme"); } catch (e) {}
+  apply(saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+  btn.addEventListener("click", () => {
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    apply(next);
+    try { localStorage.setItem("ingenia-brand-theme", next); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

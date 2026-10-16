@@ -13,7 +13,9 @@
     .observe($(".hero__title"));
 
   /* ---------- Hero: simulación de tablero OEE ---------- */
-  const kpiBase = [0.91, 0.86, 0.975];
+  // Valores base de disponibilidad, rendimiento y calidad (el tablero de /refinada/ trae los suyos en data-kpi)
+  const dashEl = $(".dash, .rdash");
+  const kpiBase = dashEl && dashEl.dataset.kpi ? dashEl.dataset.kpi.split(",").map(Number) : [0.91, 0.86, 0.975];
   const kpi = kpiBase.slice();
   const series = Array.from({ length: 28 }, (_, i) => 1180 + Math.sin(i / 3) * 60 + (Math.random() - 0.5) * 70);
   const alerts = [
@@ -24,6 +26,7 @@
   let alertIdx = 0;
 
   function drawSpark() {
+    if (!$("#spark-line")) return;
     const min = Math.min(...series) - 40, max = Math.max(...series) + 40;
     const pts = series.map((v, i) => [(i / (series.length - 1)) * 300, 70 - ((v - min) / (max - min)) * 64 - 3]);
     const line = pts.map((p, i) => `${i ? "L" : "M"}${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(" ");
@@ -37,7 +40,10 @@
     $("#t-oee").textContent = `${(oee * 100).toFixed(1)}%`;
     kpi.forEach((v, i) => {
       $(`#t-k${i}`).textContent = `${(v * 100).toFixed(1)}%`;
-      $(`#b-k${i}`).style.width = `${(v * 100).toFixed(1)}%`;
+      const bar = $(`#b-k${i}`);
+      if (bar) bar.style.width = `${(v * 100).toFixed(1)}%`;
+      const ring = $(`#r-k${i}`);
+      if (ring) ring.style.strokeDashoffset = (106.81 * (1 - v)).toFixed(2);
     });
   }
   function tick() {
@@ -50,6 +56,7 @@
     drawSpark();
   }
   function nextAlert() {
+    if (!$("#t-alert")) return;
     alertIdx = (alertIdx + 1) % alerts.length;
     $("#t-alert").textContent = alerts[alertIdx];
   }

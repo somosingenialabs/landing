@@ -8,34 +8,31 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=block" rel="stylesheet" />
 <style>
   * { box-sizing: border-box; margin: 0; }
-  html, body { width: 1200px; height: 630px; overflow: hidden; background: #080C14; }
-  body { position: relative; font-family: "Plus Jakarta Sans", system-ui, sans-serif; color: #F8FAFC; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: #000000; }
+  body { position: relative; font-family: "Plus Jakarta Sans", system-ui, sans-serif; color: #FFFFFF; }
   .grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(148, 163, 184, .07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(148, 163, 184, .07) 1px, transparent 1px);
+      linear-gradient(rgba(142, 142, 147, .08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(142, 142, 147, .08) 1px, transparent 1px);
     background-size: 48px 48px;
     -webkit-mask-image: radial-gradient(ellipse 75% 85% at 80% 40%, #000 25%, transparent 75%);
             mask-image: radial-gradient(ellipse 75% 85% at 80% 40%, #000 25%, transparent 75%);
   }
   .glow { position: absolute; inset: 0; background:
-    radial-gradient(ellipse 45% 60% at 88% 30%, rgba(56, 189, 248, .16), transparent 70%),
-    radial-gradient(ellipse 40% 50% at 5% 110%, rgba(37, 99, 235, .14), transparent 70%); }
+    radial-gradient(ellipse 45% 60% at 88% 30%, rgba(0, 122, 255, .2), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 5% 110%, rgba(48, 176, 199, .14), transparent 70%); }
   .frame { position: absolute; inset: 72px 80px 64px; display: flex; flex-direction: column; }
 
-  .logo { display: inline-flex; flex-direction: column; align-items: center; align-self: flex-start; line-height: 1; }
-  .l1 { display: inline-flex; align-items: baseline; font-weight: 800; font-size: 60px; letter-spacing: -0.02em; }
-  .core { display: inline-flex; align-items: baseline; gap: 0.3em; margin-left: 0.46em;
-    background: linear-gradient(135deg, #38BDF8 0%, #06B6D4 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .core .ia { font-size: 0.92em; }
-  .l2 { margin-top: 10px; font-weight: 600; font-size: 17px; letter-spacing: 0.34em; margin-right: -0.34em; color: #94A3B8; }
+  .logo { display: inline-flex; align-items: center; gap: 20px; align-self: flex-start; font-weight: 800; font-size: 64px; letter-spacing: -0.03em; line-height: 1; }
+  .logo svg { height: 96px; width: auto; }
+  .logo .ia { color: #007AFF; }
 
   h1 { margin-top: auto; font-weight: 700; font-size: 50px; line-height: 1.12; letter-spacing: -0.02em; max-width: 27ch; }
-  .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 24px; border-top: 1px solid #1F2937; }
-  .badge { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 500; font-size: 17px; letter-spacing: 0.06em; color: #38BDF8; }
-  .url { font-weight: 600; font-size: 22px; color: #94A3B8; }
-  .url b { color: #F8FAFC; font-weight: 700; }
+  .foot { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; padding-top: 24px; border-top: 1px solid #2C2C2E; }
+  .badge { font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 500; font-size: 17px; letter-spacing: 0.06em; color: #409CFF; }
+  .url { font-weight: 600; font-size: 22px; color: #8E8E93; }
+  .url b { color: #FFFFFF; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -43,8 +40,22 @@
   <div class="glow"></div>
   <div class="frame">
     <div class="logo">
-      <span class="l1">ingen<span class="core"><span>&lt;</span><span class="ia">ia</span><span>&gt;</span></span></span>
-      <span class="l2">· SOLUTIONS ·</span>
+      <svg viewBox="-22 -101 75 144" aria-hidden="true">
+        <defs>
+          <linearGradient id="f" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+          <linearGradient id="t" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+          <linearGradient id="s" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+        </defs>
+        <polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#t)"/>
+        <polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#s)"/>
+        <polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#f)"/>
+        <polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#s)"/>
+        <polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#f)"/>
+        <polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#s)"/>
+        <polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#t)"/>
+        <polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#f)"/>
+      </svg>
+      <span>Ingen<span class="ia">ia</span></span>
     </div>
     <h1>Convertimos los datos y procesos de tu empresa en mayor productividad y menores costos.</h1>
     <div class="foot">

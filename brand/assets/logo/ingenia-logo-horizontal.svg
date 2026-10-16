@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 152" role="img" aria-labelledby="title">
+  <title id="title">Ingenia</title>
+  <defs>
+    <linearGradient id="ing-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42">
+      <stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/>
+    </linearGradient>
+    <linearGradient id="ing-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58">
+      <stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/>
+    </linearGradient>
+    <linearGradient id="ing-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42">
+      <stop offset="0" stop-color="#0A4FA3"/><stop offset="1" stop-color="#1C1C1E"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(30 105)">
+    <polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#ing-top)"/>
+    <polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#ing-side)"/>
+    <polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#ing-front)"/>
+    <polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#ing-side)"/>
+    <polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#ing-front)"/>
+    <polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#ing-side)"/>
+    <polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#ing-top)"/>
+    <polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#ing-front)"/>
+  </g>
+  <text x="102" y="104" text-anchor="start" font-family="'Plus Jakarta Sans','Inter','Segoe UI',system-ui,-apple-system,sans-serif" font-weight="800" font-size="78" letter-spacing="-2.3"><tspan fill="#1C1C1E">Ingen</tspan><tspan fill="#007AFF">ia</tspan></text>
+</svg>

@@ -17,10 +17,27 @@ const canonical = `${siteUrl}/`;
 const year = new Date().getFullYear();
 const today = new Date().toISOString().slice(0, 10);
 
-// Logotipo en 2 niveles: "ingen" + "< ia >" y el descriptor "· SOLUTIONS ·" (ver styles.css, regla de oro)
-const logo = `
-        <span class="logo__l1" aria-hidden="true">${esc(C.brand.logoWord)}<span class="logo__core"><span>&lt;</span><span class="ia">${esc(C.brand.logoCore)}</span><span>&gt;</span></span></span>
-        <span class="logo__l2" aria-hidden="true">${esc(C.brand.logoDescriptor)}</span>`;
+// Logo Ingenia: isotipo (viga "I" isométrica, versión para fondo oscuro) + "Ingen" + "ia" en Electric Blue.
+// Misma geometría que brand/generate-brand.mjs. Cada llamada usa ids propios porque el logo aparece dos veces por página.
+const ISO_FACES = [
+  ["-20.78,-12 31.18,18 51.96,6 0,-24", "top"], ["31.18,42 51.96,30 51.96,6 31.18,18", "side"],
+  ["-20.78,12 31.18,42 31.18,18 -20.78,-12", "front"], ["12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5", "side"],
+  ["-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5", "front"], ["31.18,-34 51.96,-46 51.96,-70 31.18,-58", "side"],
+  ["-20.78,-88 31.18,-58 51.96,-70 0,-100", "top"], ["-20.78,-64 31.18,-34 31.18,-58 -20.78,-88", "front"],
+];
+let logoCount = 0;
+const logo = () => {
+  const id = `iso${++logoCount}`;
+  return `
+        <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="${id}-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+            <linearGradient id="${id}-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+            <linearGradient id="${id}-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+          </defs>${ISO_FACES.map(([p, face]) => `<polygon points="${p}" fill="url(#${id}-${face})"/>`).join("")}
+        </svg>
+        <span aria-hidden="true">${esc(C.brand.logoWord)}<span class="logo__ia">${esc(C.brand.logoCore)}</span></span>`;
+};
 
 /* ---------- Datos estructurados (schema.org) ---------- */
 const jsonLd = {
@@ -157,12 +174,23 @@ const method = C.methodology.map((m, i) => `
             <span class="step__tag">${bracket(m.tag)}</span>
           </li>`).join("");
 
+const training = C.training.steps.map((t, i) => `
+          <li class="train-card reveal" style="transition-delay:${(i * 0.08).toFixed(2)}s">
+            <div class="train-card__head"><span class="train-card__num">${esc(t.step)}</span><i class="ph ${esc(t.icon)}" aria-hidden="true"></i></div>
+            <h3>${esc(t.name)}</h3>
+            <p>${esc(t.detail)}</p>
+          </li>`).join("");
+
+const wa = C.form.whatsapp;
+const whatsappLink = wa?.number ? `
+            <p class="form__whatsapp">${esc(wa.lead)} <a href="https://wa.me/${esc(wa.number)}?text=${esc(encodeURIComponent(wa.message))}" target="_blank" rel="noopener"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i>${esc(wa.linkText)}</a></p>` : "";
+
 const areas = C.form.areas.map((a, i) => `
                   <label class="chip"><input type="checkbox" name="area" value="${esc(a)}" id="area-${i}" /><span><i class="ph ph-check" aria-hidden="true"></i>${esc(a)}</span></label>`).join("");
 
 /* ---------- Bloques compartidos entre páginas ---------- */
 const headAssets = `
-  <meta name="theme-color" content="#080C14" />
+  <meta name="theme-color" content="#000000" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -178,7 +206,7 @@ const navBar = (home) => {
   return `
   <header class="nav" id="nav">
     <div class="nav__inner container">
-      <a href="${home ? "#top" : "/"}" class="logo" aria-label="${esc(C.brand.name)}, inicio">${logo}
+      <a href="${home ? "#top" : "/"}" class="logo" aria-label="${esc(C.brand.name)}, inicio">${logo()}
       </a>
       <span class="badge-mono nav__badge">${bracket(C.brand.statusBadge)}</span>
       <nav class="nav__links" aria-label="Secciones">${C.brand.nav.map((l) => `
@@ -193,7 +221,7 @@ const footerBar = (home) => `
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <a href="${home ? "#top" : "/"}" class="logo logo--lg" aria-label="${esc(C.brand.name)}, inicio">${logo}
+        <a href="${home ? "#top" : "/"}" class="logo logo--lg" aria-label="${esc(C.brand.name)}, inicio">${logo()}
         </a>
         <p class="logo__tagline">${esc(C.brand.tagline)}</p>
       </div>
@@ -202,37 +230,8 @@ const footerBar = (home) => `
     </div>
   </footer>`;
 
-/* ---------- Documento ---------- */
-const html = `<!doctype html>
-<!-- ARCHIVO GENERADO por build.mjs a partir de content.js. No editar a mano: editá content.js y corré "node build.mjs". -->
-<html lang="${esc(C.site.lang)}">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${esc(C.site.title)}</title>
-  <meta name="description" content="${esc(C.site.description)}" />
-  <link rel="canonical" href="${esc(canonical)}" />
-  <meta name="robots" content="index, follow" />${headAssets}
-
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="${esc(C.brand.name)}" />
-  <meta property="og:locale" content="${esc(C.site.locale)}" />
-  <meta property="og:url" content="${esc(canonical)}" />
-  <meta property="og:title" content="${esc(C.site.title)}" />
-  <meta property="og:description" content="${esc(C.site.description)}" />${ogImage}
-  <meta name="twitter:title" content="${esc(C.site.title)}" />
-  <meta name="twitter:description" content="${esc(C.site.description)}" />
-
-  <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
-  <script>document.documentElement.classList.add("js")</script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Saltar al contenido</a>
-
-  <!-- 1. HEADER FLOTANTE -->${navBar(true)}
-
-  <main id="main">
-    <!-- 2. HERO 60/40 -->
+/* ---------- Hero ---------- */
+const heroClassic = `
     <section class="hero" id="top">
       <div class="hero__grid-bg" aria-hidden="true"></div>
       <div class="container hero__inner">
@@ -248,7 +247,114 @@ const html = `<!doctype html>
         <div class="hero__visual reveal">${dashboard}
         </div>
       </div>
-    </section>
+    </section>`;
+
+/* ---------- VersionRefinada: header cápsula y hero con tablero de cristal (página de prueba /refinada/) ---------- */
+const R = C.heroRefined;
+const oeeRefined = R.kpis.reduce((acc, k) => acc * k.value, 1);
+const pct = (v) => `${(v * 100).toFixed(1)}%`;
+
+const navRefined = `
+  <header class="nav rnav" id="nav">
+    <div class="rnav__pill">
+      <a href="#top" class="logo" aria-label="${esc(C.brand.name)}, inicio">${logo()}
+      </a>
+      <span class="badge-mono rnav__badge">${bracket(C.brand.statusBadge)}</span>
+      <nav class="rnav__links" aria-label="Secciones">${C.brand.nav.map((l) => `
+        <a href="${esc(l.href)}">${esc(l.label)}</a>`).join("")}
+      </nav>
+      <a href="#diagnostico" class="rbtn rbtn--outline">${esc(C.brand.navCta)}</a>
+    </div>
+  </header>`;
+
+const dashboardRefined = `
+          <article class="rdash" aria-label="Ejemplo de tablero de control OEE de una línea de envasado" data-kpi="${R.kpis.map((k) => k.value).join(",")}">
+            <div class="rdash__dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="rdash__head" aria-hidden="true">
+              <span class="rdash__label">${bracket(R.panelLabel)}</span>
+              <span class="rdash__line"><span class="rdash__live"></span>${esc(R.line)} <small>(${esc(R.shift)})</small></span>
+            </div>
+            <div class="rdash__body" aria-hidden="true">
+              <div class="rring">
+                <svg viewBox="0 0 120 120" width="148" height="148">
+                  <circle class="rring__track" cx="60" cy="60" r="50" fill="none" stroke-width="8" />
+                  <circle class="rring__value" id="g-oee" cx="60" cy="60" r="50" fill="none" stroke-width="8" stroke-dasharray="314.16" stroke-dashoffset="314.16" />
+                </svg>
+                <div class="rring__label"><strong id="t-oee">${pct(oeeRefined)}</strong><span>OEE</span></div>
+              </div>
+              <ul class="rkpis">${R.kpis.map((k, i) => `
+                <li class="rkpi">
+                  <span class="rkpi__ring">
+                    <svg viewBox="0 0 40 40" width="40" height="40">
+                      <circle class="rkpi__track" cx="20" cy="20" r="17" fill="none" stroke-width="3" />
+                      <circle class="rkpi__value" id="r-k${i}" cx="20" cy="20" r="17" fill="none" stroke-width="3" stroke-dasharray="106.81" stroke-dashoffset="106.81" />
+                    </svg>
+                    <i class="ph ${esc(k.icon)}"></i>
+                  </span>
+                  <span class="rkpi__label">${esc(k.label)}</span>
+                  <b id="t-k${i}">${pct(k.value)}</b>
+                </li>`).join("")}
+              </ul>
+            </div>
+            <ul class="rlog" aria-hidden="true">${R.log.map((l) => `
+              <li class="${l.alert ? "rlog__alert" : ""}">${l.alert ? `<i class="ph-fill ph-warning"></i>` : `<i class="ph ph-chart-line-up"></i>`}<time>${esc(l.time)}</time><span>·</span><span>${esc(l.text)}</span></li>`).join("")}
+            </ul>
+            <div class="rimpact" aria-hidden="true">${R.impact.map((m) => `
+              <div class="rimpact__card"><b>${esc(m.metric)}</b><span>${esc(m.label)}</span></div>`).join("")}
+            </div>
+            <p class="rdash__caption"><span>[ OEE METRICS ]</span> ${esc(R.caption)}</p>
+          </article>`;
+
+const heroRefined = `
+    <section class="rhero" id="top">
+      <div class="rhero__glow rhero__glow--blue" aria-hidden="true"></div>
+      <div class="rhero__glow rhero__glow--cyan" aria-hidden="true"></div>
+      <div class="container rhero__inner">
+        <div class="rhero__copy">
+          <span class="rpill reveal">${bracket(C.hero.badge)}</span>
+          <h1 class="hero__title rhero__title reveal">${esc(C.hero.headline)}</h1>
+          <p class="rhero__sub reveal">${esc(C.hero.subheadline)}</p>
+          <div class="rhero__ctas reveal">
+            <a href="#diagnostico" class="rbtn rbtn--primary"><span>${esc(C.hero.ctaPrimary)}</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <a href="#soluciones" class="rbtn rbtn--ghost">${esc(C.hero.ctaSecondary)}</a>
+          </div>
+        </div>
+        <div class="rhero__visual reveal">${dashboardRefined}
+        </div>
+      </div>
+    </section>`;
+
+/* ---------- Documento ---------- */
+const homePage = ({ nav, hero, robots = "index, follow", extraHead = "", bodyClass = "" }) => `<!doctype html>
+<!-- ARCHIVO GENERADO por build.mjs a partir de content.js. No editar a mano: editá content.js y corré "node build.mjs". -->
+<html lang="${esc(C.site.lang)}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${esc(C.site.title)}</title>
+  <meta name="description" content="${esc(C.site.description)}" />
+  <link rel="canonical" href="${esc(canonical)}" />
+  <meta name="robots" content="${robots}" />${headAssets}${extraHead}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="${esc(C.brand.name)}" />
+  <meta property="og:locale" content="${esc(C.site.locale)}" />
+  <meta property="og:url" content="${esc(canonical)}" />
+  <meta property="og:title" content="${esc(C.site.title)}" />
+  <meta property="og:description" content="${esc(C.site.description)}" />${ogImage}
+  <meta name="twitter:title" content="${esc(C.site.title)}" />
+  <meta name="twitter:description" content="${esc(C.site.description)}" />
+
+  <script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, "\\u003c")}</script>
+  <script>document.documentElement.classList.add("js")</script>
+</head>
+<body${bodyClass ? ` class="${bodyClass}"` : ""}>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <!-- 1. HEADER FLOTANTE -->${nav}
+
+  <main id="main">
+    <!-- 2. HERO -->${hero}
 
     <!-- 3. BANNER SECTORIAL -->
     <section class="sectors" aria-labelledby="sectors-title">
@@ -309,6 +415,20 @@ const html = `<!doctype html>
       </div>
     </section>
 
+    <!-- 8b. CAPACITACIÓN CON IA -->
+    <section class="section training" id="capacitacion">
+      <div class="container">
+        <span class="badge-mono badge-mono--cyan reveal">${bracket(C.training.badge)}</span>
+        <h2 class="section__title training__title reveal">${esc(C.training.title)}</h2>
+        <p class="section__lead reveal">${esc(C.training.lead)}</p>
+        <ol class="training__grid">${training}
+        </ol>
+        <div class="training__cta reveal">
+          <a href="#diagnostico" class="btn btn--primary btn--lg"><span>${esc(C.training.cta)}</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
     <!-- 9. AGENDAMIENTO -->
     <section class="section booking" id="diagnostico">
       <div class="container booking__inner">
@@ -351,7 +471,7 @@ const html = `<!doctype html>
             <button type="submit" class="btn btn--primary btn--lg btn--block" id="form-submit">
               <span>${esc(C.closingCta.buttonText)}</span><i class="ph ph-calendar-check" aria-hidden="true"></i>
             </button>
-            <p class="form__status" id="form-status" role="status"></p>
+            <p class="form__status" id="form-status" role="status"></p>${whatsappLink}
             <p class="form__privacy">${esc(C.form.privacyNote)} <a href="${esc(C.privacy.path)}">${esc(C.form.privacyLinkText)}</a></p>
           </form>
           <div class="form-success" id="form-success" hidden>
@@ -377,6 +497,16 @@ ${footerBar(true)}
 </body>
 </html>
 `;
+
+const html = homePage({ nav: navBar(true), hero: heroClassic });
+// Página de prueba para comparar diseños: no se indexa y no está en la lista de archivos que publica netlify.toml
+const htmlRefined = homePage({
+  nav: navRefined,
+  hero: heroRefined,
+  robots: "noindex",
+  extraHead: `\n  <link rel="stylesheet" href="/refinada.css" />`,
+  bodyClass: "v-refinada",
+});
 
 /* ---------- Páginas secundarias ---------- */
 const simplePage = ({ title, description, canonicalPath, index, main }) => `<!doctype html>
@@ -464,6 +594,8 @@ writeFileSync(join(root, "index.html"), html);
 mkdirSync(join(root, "privacidad"), { recursive: true });
 writeFileSync(join(root, "privacidad", "index.html"), privacyHtml);
 writeFileSync(join(root, "404.html"), notFoundHtml);
+mkdirSync(join(root, "refinada"), { recursive: true });
+writeFileSync(join(root, "refinada", "index.html"), htmlRefined);
 writeFileSync(join(root, "robots.txt"), robots);
 writeFileSync(join(root, "sitemap.xml"), sitemap);
 console.log(`OK: index.html, privacidad/, 404.html, robots.txt y sitemap.xml generados para ${canonical}`);

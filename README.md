@@ -33,6 +33,6 @@ Netlify publica automáticamente cada push a `main`. La configuración está en 
 - `serve.mjs`: vista previa local.
 - `CLAUDE.md` y `.claude/`: instrucciones y comandos (`/vista-previa`, `/publicar`) para trabajar con Claude.
 - `setup/`: scripts que instalan Git, Node.js y GitHub CLI en Windows o Mac.
-- `brand/`: SVG oficiales del logo (claro y oscuro), isotipo y avatar para redes. No se publican en el sitio.
+- `brand/`: paquete de identidad de Ingenia: logos e íconos (`assets/`), tokens de diseño (`tokens/`), componente de React, manual (`BRAND_GUIDELINES.md`) y brand board (`showcase/`, se ve en http://localhost:5173/brand/showcase/). Los SVG se generan con `node brand/generate-brand.mjs`. No se publican en el sitio.
 - `favicon.svg`: isotipo `< ia >` usado como ícono de la pestaña.
 - `og-image.png` y `apple-touch-icon.png`: imagen al compartir el link (1200x630) e ícono para iPhone (180x180). Se editan en `brand/og-image.html` y `brand/apple-touch-icon.html`, y se regeneran con `node brand/export-images.mjs` (requiere Chrome o Edge).

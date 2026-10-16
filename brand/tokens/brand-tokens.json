@@ -1,0 +1,99 @@
+{
+  "$description": "Tokens de diseño de la marca Ingenia (formato W3C Design Tokens Community Group). Fuente de verdad para brand.css y tailwind.preset.js.",
+  "color": {
+    "$type": "color",
+    "electric-blue": {
+      "$value": "#007AFF",
+      "$description": "Color principal. Destacado \"ia\" del logotipo, acciones primarias y enlaces. rgb(0, 122, 255) · cmyk(100, 52, 0, 0)"
+    },
+    "electric-blue-text": {
+      "$value": "#0062CC",
+      "$description": "Variante accesible de Electric Blue para texto chico, enlaces y fondos de botón con texto blanco (contraste AA 5,8:1 sobre blanco). No reemplaza al azul del logo."
+    },
+    "electric-blue-on-dark": {
+      "$value": "#409CFF",
+      "$description": "Variante accesible de Electric Blue para texto chico e íconos sobre fondos oscuros (contraste 6:1 sobre Deep Navy). No reemplaza al azul del logo."
+    },
+    "deep-navy": {
+      "$value": "#1C1C1E",
+      "$description": "Texto principal y \"Ingen\" sobre fondos claros, fondos oscuros y sombras del isotipo. rgb(28, 28, 30) · cmyk(7, 7, 0, 88)"
+    },
+    "kinetic-teal": {
+      "$value": "#30B0C7",
+      "$description": "Acento secundario y final del gradiente del isotipo. rgb(48, 176, 199) · cmyk(76, 12, 0, 22)"
+    },
+    "slate-gray": {
+      "$value": "#8E8E93",
+      "$description": "Texto secundario, bordes y elementos inactivos. rgb(142, 142, 147) · cmyk(3, 3, 0, 42)"
+    },
+    "studio-white": {
+      "$value": "#F2F2F7",
+      "$description": "Fondo de lienzo en modo claro. rgb(242, 242, 247) · cmyk(2, 2, 0, 3)"
+    },
+    "pure-white": {
+      "$value": "#FFFFFF",
+      "$description": "Superficies y \"Ingen\" sobre fondos oscuros."
+    }
+  },
+  "gradient": {
+    "$type": "gradient",
+    "brand": {
+      "$value": [
+        { "color": "{color.electric-blue}", "position": 0 },
+        { "color": "{color.kinetic-teal}", "position": 1 }
+      ],
+      "$description": "Gradiente del isotipo, a 135 grados. Usar solo en el símbolo y en piezas de alto impacto."
+    }
+  },
+  "theme": {
+    "light": {
+      "$type": "color",
+      "background": { "$value": "{color.studio-white}" },
+      "surface": { "$value": "{color.pure-white}" },
+      "text": { "$value": "{color.deep-navy}" },
+      "text-muted": { "$value": "#636366", "$description": "Gris más oscuro que Slate Gray para que el texto chico cumpla contraste AA sobre fondo claro." },
+      "border": { "$value": "#D1D1D6" },
+      "accent": { "$value": "{color.electric-blue}" },
+      "logo-ingen": { "$value": "{color.deep-navy}" },
+      "logo-ia": { "$value": "{color.electric-blue}" }
+    },
+    "dark": {
+      "$type": "color",
+      "background": { "$value": "#000000" },
+      "surface": { "$value": "{color.deep-navy}" },
+      "text": { "$value": "{color.pure-white}" },
+      "text-muted": { "$value": "{color.slate-gray}" },
+      "border": { "$value": "#38383A" },
+      "accent": { "$value": "{color.electric-blue}" },
+      "logo-ingen": { "$value": "{color.pure-white}" },
+      "logo-ia": { "$value": "{color.electric-blue}" }
+    }
+  },
+  "font": {
+    "family": {
+      "$type": "fontFamily",
+      "primary": { "$value": ["Plus Jakarta Sans", "Inter", "system-ui", "-apple-system", "sans-serif"] },
+      "mono": { "$value": ["JetBrains Mono", "Geist Mono", "ui-monospace", "monospace"] }
+    },
+    "weight": {
+      "$type": "fontWeight",
+      "regular": { "$value": 400 },
+      "medium": { "$value": 500 },
+      "semibold": { "$value": 600 },
+      "bold": { "$value": 700 },
+      "extrabold": { "$value": 800 }
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "sm": { "$value": { "value": 8, "unit": "px" } },
+    "md": { "$value": { "value": 14, "unit": "px" } },
+    "lg": { "$value": { "value": 22, "unit": "px" } },
+    "pill": { "$value": { "value": 999, "unit": "px" } }
+  },
+  "logo": {
+    "$type": "dimension",
+    "min-width-digital": { "$value": { "value": 96, "unit": "px" }, "$description": "Ancho mínimo del logo horizontal en pantalla." },
+    "min-width-icon": { "$value": { "value": 16, "unit": "px" }, "$description": "Tamaño mínimo del isotipo (usar la versión favicon)." }
+  }
+}

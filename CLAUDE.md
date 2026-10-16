@@ -25,7 +25,7 @@ Este proyecto lo mantienen los tres fundadores de Ingenia Solutions (ingenieros 
 | `styles.css` | Tokens de marca y estilos |
 | `app.js` | Comportamiento: tablero animado, pestañas, modal de video, formulario |
 | `serve.mjs` | Servidor de vista previa local |
-| `brand/` | Logos SVG oficiales y el HTML fuente de `og-image.png` y `apple-touch-icon.png` (`node brand/export-images.mjs`, requiere Chrome o Edge) |
+| `brand/` | Identidad de marca Ingenia (manual en `brand/BRAND_GUIDELINES.md`, logos generados con `node brand/generate-brand.mjs`) y el HTML fuente de `og-image.png` y `apple-touch-icon.png` (`node brand/export-images.mjs`, requiere Chrome o Edge) |
 | `netlify.toml` | Build y archivos que se publican. Si agregás un archivo que el sitio necesita, sumalo a la lista de `cp` |
 
 ## Pedidos frecuentes
@@ -44,10 +44,13 @@ Este proyecto lo mantienen los tres fundadores de Ingenia Solutions (ingenieros 
 
 ## Sistema de marca
 
-- Modo oscuro "Dark Tech": canvas `#080C14`, superficie `#111827`, elevada `#162032`, bordes `#1F2937` / `#25334A`, texto `#F8FAFC` / `#94A3B8`.
-- Acento cian `#38BDF8`, degradado de marca `#38BDF8 → #06B6D4`, azul de botones `#2563EB`. Ámbar `#F59E0B` y verde `#10B981` solo para datos (alertas y ahorro).
-- Tipografía: Plus Jakarta Sans (400 a 800). JetBrains Mono solo para etiquetas de datos tipo `[ OEE METRICS ]`.
-- Logo: `ingen` + `< ia >` y debajo `· SOLUTIONS ·`. El `<` nunca toca la `n`; los chevrones respiran respecto a `ia`. Ya está implementado en CSS (`.logo`); reutilizalo, no lo redibujes.
+Manual completo en `brand/BRAND_GUIDELINES.md` y brand board en http://localhost:5173/brand/showcase/. La web usa el modo oscuro de la marca.
+
+- Paleta oficial: Electric Blue `#007AFF`, Deep Navy `#1C1C1E`, Kinetic Teal `#30B0C7`, Slate Gray `#8E8E93`, Studio White `#F2F2F7`, Pure White `#FFFFFF`. Gradiente de marca `#007AFF → #30B0C7` (solo en el símbolo y piezas de impacto, nunca en texto).
+- En la web (oscuro): fondo `#000000`, superficie `#1C1C1E`, elevada `#2C2C2E`, bordes `#2C2C2E` / `#38383A`, texto `#FFFFFF` / `#8E8E93`.
+- Accesibilidad: botones azules con texto blanco en `#0062CC` (no `#007AFF`, que no llega a contraste AA con letra chica); texto chico e íconos azules sobre oscuro en `#409CFF`. Turquesa `#30B0C7` para datos positivos y ámbar `#F59E0B` solo para alertas.
+- Tipografía: Plus Jakarta Sans (400 a 800). JetBrains Mono solo para datos y etiquetas tipo `[ OEE METRICS ]`.
+- Logo: isotipo (una "I" como viga doble T isométrica) + `Ingen` en blanco (en Deep Navy sobre fondos claros) y **solo** `ia` en Electric Blue. Ya está implementado en `build.mjs` (`logo()`) y en CSS (`.logo`); reutilizalo, no lo redibujes. Los SVG oficiales salen de `node brand/generate-brand.mjs`.
 
 ## Servicios y cuentas
 

@@ -21,10 +21,9 @@ window.SITE_CONTENT = {
 
   brand: {
     name: "Ingenia Solutions",
-    // Logotipo: nivel 1 "ingen" + "< ia >", nivel 2 descriptor. Tagline oficial debajo del logo grande.
-    logoWord: "ingen",
+    // Logo: "Ingen" + "ia" (en Electric Blue) junto al isotipo. Tagline oficial debajo del logo grande del pie.
+    logoWord: "Ingen",
     logoCore: "ia",
-    logoDescriptor: "· SOLUTIONS ·",
     tagline: "TECNOLOGÍA E INTELIGENCIA ARTIFICIAL PARA PYMES",
     statusBadge: "INGENIERÍA APLICADA EN PLANTA",
     navCta: "Solicitar Diagnóstico",
@@ -32,7 +31,8 @@ window.SITE_CONTENT = {
       { label: "Soluciones", href: "#soluciones" },
       { label: "Impacto", href: "#impacto" },
       { label: "Equipo", href: "#equipo" },
-      { label: "Metodología", href: "#metodologia" }
+      { label: "Metodología", href: "#metodologia" },
+      { label: "Capacitación", href: "#capacitacion" }
     ]
   },
 
@@ -42,6 +42,28 @@ window.SITE_CONTENT = {
     subheadline: "Desarrollamos software a medida, tableros de control en tiempo real y automatizaciones inteligentes. Un equipo de ingenieros mecánicos, electromecánicos e industriales que habla el lenguaje real de tu operación.",
     ctaPrimary: "Solicitar Diagnóstico Sin Cargo",
     ctaSecondary: "Explorar Soluciones"
+  },
+
+  // Tablero del hero de la "VersionRefinada" (página de prueba /refinada/, no se publica).
+  // Son valores de ejemplo. Tienen que cerrar: OEE = disponibilidad x rendimiento x calidad (85,1% x 93,2% x 98,9% = 78,4%).
+  heroRefined: {
+    panelLabel: "MONITOR DE PLANTA · EN VIVO",
+    line: "Línea 2 · Envasado",
+    shift: "Turno Mañana",
+    kpis: [
+      { label: "Disponibilidad", icon: "ph-power", value: 0.851 },
+      { label: "Rendimiento", icon: "ph-gauge", value: 0.932 },
+      { label: "Calidad", icon: "ph-seal-check", value: 0.989 }
+    ],
+    log: [
+      { time: "09:42", text: "ALERTA: Microparada en llenadora L2 (4 min)", alert: true },
+      { time: "10:15", text: "Prod: 2.437 u/h" }
+    ],
+    impact: [
+      { metric: "-20%", label: "paradas no programadas" },
+      { metric: "-60%", label: "tiempo de reportes" }
+    ],
+    caption: "Vista de ejemplo de un tablero OEE en tiempo real"
   },
 
   sectorsTitle: "Especialistas en operaciones de",
@@ -177,6 +199,19 @@ window.SITE_CONTENT = {
     { step: "03", icon: "ph-rocket-launch", tag: "ADOPCIÓN", name: "Puesta en Marcha y Capacitación", detail: "Implementación en planta, acompañamiento directo y formación al personal para garantizar adopción." }
   ],
 
+  training: {
+    badge: "CAPACITACIÓN CON IA",
+    title: "Capacitación en IA que empieza por el puesto, no por la herramienta",
+    lead: "La mayoría de las capacitaciones en IA enseñan herramientas genéricas. Nosotros lo hacemos al revés: estudiamos cada puesto y cada perfil de tu organización, detectamos qué tareas se pueden mejorar con IA y formamos a tu equipo para aplicarlas en su trabajo real. El objetivo es liberar tiempo para que tu gente se dedique a lo que de verdad importa.",
+    steps: [
+      { step: "01", icon: "ph-user-focus", name: "Estudio de puestos", detail: "Relevamos cómo trabaja cada puesto: tareas, flujos, herramientas y tiempos." },
+      { step: "02", icon: "ph-magnifying-glass", name: "Detección de oportunidades", detail: "Identificamos las tareas repetitivas o de bajo valor que la IA puede automatizar o asistir." },
+      { step: "03", icon: "ph-sparkle", name: "Desarrollo de mejoras", detail: "Armamos herramientas y flujos con IA a medida de cada perfil: asistentes, plantillas y automatizaciones." },
+      { step: "04", icon: "ph-chalkboard-teacher", name: "Formación aplicada", detail: "Capacitamos a cada persona sobre sus propias tareas, con casos reales de su puesto, y acompañamos la adopción." }
+    ],
+    cta: "Consultar por capacitación"
+  },
+
   closingCta: {
     title: "Analicemos las oportunidades de mejora en tu operación",
     description: "Coordiná una sesión de diagnóstico técnico con nuestro equipo de ingenieros. Evaluamos tus procesos actuales y te entregamos una propuesta de mejora.",
@@ -196,10 +231,18 @@ window.SITE_CONTENT = {
       "Ventas y CRM",
       "Administración y Facturación",
       "Stock y Logística",
-      "Atención al cliente con IA"
+      "Atención al cliente con IA",
+      "Capacitación con IA"
     ],
     successTitle: "Solicitud recibida",
     successText: "Un ingeniero fundador te va a contactar en menos de 24 horas hábiles para coordinar el diagnóstico.",
+    // Enlace a WhatsApp debajo del botón del formulario. "number" va con código de país, sin "+" ni espacios. Vacío = no se muestra.
+    whatsapp: {
+      number: "",
+      lead: "¿Preferís hablar ahora?",
+      linkText: "Escribinos por WhatsApp",
+      message: "Hola, vengo de la web de Ingenia Solutions y quiero coordinar un diagnóstico técnico."
+    },
     privacyNote: "Usamos estos datos solo para responder tu solicitud.",
     privacyLinkText: "Política de privacidad"
   },

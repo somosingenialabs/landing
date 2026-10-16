@@ -8,7 +8,7 @@
   <meta name="description" content="Software a medida, tableros OEE en tiempo real y automatización para PYMEs industriales. Diagnóstico técnico sin cargo con ingenieros mecánicos, electromecánicos e industriales." />
   <link rel="canonical" href="https://ingenia.solutions/" />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#080C14" />
+  <meta name="theme-color" content="#000000" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -44,8 +44,14 @@
   <header class="nav" id="nav">
     <div class="nav__inner container">
       <a href="#top" class="logo" aria-label="Ingenia Solutions, inicio">
-        <span class="logo__l1" aria-hidden="true">ingen<span class="logo__core"><span>&lt;</span><span class="ia">ia</span><span>&gt;</span></span></span>
-        <span class="logo__l2" aria-hidden="true">· SOLUTIONS ·</span>
+        <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="iso2-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+            <linearGradient id="iso2-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+            <linearGradient id="iso2-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+          </defs><polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#iso2-top)"/><polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#iso2-side)"/><polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#iso2-front)"/><polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#iso2-side)"/><polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#iso2-front)"/><polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#iso2-side)"/><polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#iso2-top)"/><polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#iso2-front)"/>
+        </svg>
+        <span aria-hidden="true">Ingen<span class="logo__ia">ia</span></span>
       </a>
       <span class="badge-mono nav__badge">[ INGENIERÍA APLICADA EN PLANTA ]</span>
       <nav class="nav__links" aria-label="Secciones">
@@ -53,13 +59,14 @@
         <a href="#impacto">Impacto</a>
         <a href="#equipo">Equipo</a>
         <a href="#metodologia">Metodología</a>
+        <a href="#capacitacion">Capacitación</a>
       </nav>
       <a href="#diagnostico" class="btn btn--primary btn--sm">Solicitar Diagnóstico</a>
     </div>
   </header>
 
   <main id="main">
-    <!-- 2. HERO 60/40 -->
+    <!-- 2. HERO -->
     <section class="hero" id="top">
       <div class="hero__grid-bg" aria-hidden="true"></div>
       <div class="container hero__inner">
@@ -319,6 +326,40 @@
       </div>
     </section>
 
+    <!-- 8b. CAPACITACIÓN CON IA -->
+    <section class="section training" id="capacitacion">
+      <div class="container">
+        <span class="badge-mono badge-mono--cyan reveal">[ CAPACITACIÓN CON IA ]</span>
+        <h2 class="section__title training__title reveal">Capacitación en IA que empieza por el puesto, no por la herramienta</h2>
+        <p class="section__lead reveal">La mayoría de las capacitaciones en IA enseñan herramientas genéricas. Nosotros lo hacemos al revés: estudiamos cada puesto y cada perfil de tu organización, detectamos qué tareas se pueden mejorar con IA y formamos a tu equipo para aplicarlas en su trabajo real. El objetivo es liberar tiempo para que tu gente se dedique a lo que de verdad importa.</p>
+        <ol class="training__grid">
+          <li class="train-card reveal" style="transition-delay:0.00s">
+            <div class="train-card__head"><span class="train-card__num">01</span><i class="ph ph-user-focus" aria-hidden="true"></i></div>
+            <h3>Estudio de puestos</h3>
+            <p>Relevamos cómo trabaja cada puesto: tareas, flujos, herramientas y tiempos.</p>
+          </li>
+          <li class="train-card reveal" style="transition-delay:0.08s">
+            <div class="train-card__head"><span class="train-card__num">02</span><i class="ph ph-magnifying-glass" aria-hidden="true"></i></div>
+            <h3>Detección de oportunidades</h3>
+            <p>Identificamos las tareas repetitivas o de bajo valor que la IA puede automatizar o asistir.</p>
+          </li>
+          <li class="train-card reveal" style="transition-delay:0.16s">
+            <div class="train-card__head"><span class="train-card__num">03</span><i class="ph ph-sparkle" aria-hidden="true"></i></div>
+            <h3>Desarrollo de mejoras</h3>
+            <p>Armamos herramientas y flujos con IA a medida de cada perfil: asistentes, plantillas y automatizaciones.</p>
+          </li>
+          <li class="train-card reveal" style="transition-delay:0.24s">
+            <div class="train-card__head"><span class="train-card__num">04</span><i class="ph ph-chalkboard-teacher" aria-hidden="true"></i></div>
+            <h3>Formación aplicada</h3>
+            <p>Capacitamos a cada persona sobre sus propias tareas, con casos reales de su puesto, y acompañamos la adopción.</p>
+          </li>
+        </ol>
+        <div class="training__cta reveal">
+          <a href="#diagnostico" class="btn btn--primary btn--lg"><span>Consultar por capacitación</span><i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </div>
+      </div>
+    </section>
+
     <!-- 9. AGENDAMIENTO -->
     <section class="section booking" id="diagnostico">
       <div class="container booking__inner">
@@ -361,6 +402,7 @@
                   <label class="chip"><input type="checkbox" name="area" value="Administración y Facturación" id="area-3" /><span><i class="ph ph-check" aria-hidden="true"></i>Administración y Facturación</span></label>
                   <label class="chip"><input type="checkbox" name="area" value="Stock y Logística" id="area-4" /><span><i class="ph ph-check" aria-hidden="true"></i>Stock y Logística</span></label>
                   <label class="chip"><input type="checkbox" name="area" value="Atención al cliente con IA" id="area-5" /><span><i class="ph ph-check" aria-hidden="true"></i>Atención al cliente con IA</span></label>
+                  <label class="chip"><input type="checkbox" name="area" value="Capacitación con IA" id="area-6" /><span><i class="ph ph-check" aria-hidden="true"></i>Capacitación con IA</span></label>
               </div>
               <p class="field__error" id="f-area-err"></p>
             </fieldset>
@@ -384,8 +426,14 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <a href="#top" class="logo logo--lg" aria-label="Ingenia Solutions, inicio">
-        <span class="logo__l1" aria-hidden="true">ingen<span class="logo__core"><span>&lt;</span><span class="ia">ia</span><span>&gt;</span></span></span>
-        <span class="logo__l2" aria-hidden="true">· SOLUTIONS ·</span>
+        <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="iso3-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+            <linearGradient id="iso3-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+            <linearGradient id="iso3-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+          </defs><polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#iso3-top)"/><polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#iso3-side)"/><polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#iso3-front)"/><polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#iso3-side)"/><polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#iso3-front)"/><polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#iso3-side)"/><polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#iso3-top)"/><polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#iso3-front)"/>
+        </svg>
+        <span aria-hidden="true">Ingen<span class="logo__ia">ia</span></span>
         </a>
         <p class="logo__tagline">TECNOLOGÍA E INTELIGENCIA ARTIFICIAL PARA PYMES</p>
       </div>

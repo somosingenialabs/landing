@@ -1,15 +1,31 @@
 <!doctype html>
 <!-- Fuente de apple-touch-icon.png (180x180). iOS redondea las esquinas solo: el fondo va a sangre. Regenerar: node brand/export-images.mjs -->
+<!-- Mismo diseño que brand/assets/icon/ingenia-app-icon-ios.svg, sin la forma squircle. -->
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&display=block" rel="stylesheet" />
 <style>
   * { margin: 0; }
   html, body { width: 180px; height: 180px; overflow: hidden; }
-  body { display: grid; place-items: center; background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%); }
-  .iso { font-family: "Plus Jakarta Sans", system-ui, sans-serif; font-weight: 800; font-size: 52px; color: #FFFFFF; white-space: pre; letter-spacing: -0.01em; transform: translateY(-2px); }
+  body { display: grid; place-items: center; background: radial-gradient(circle at 50% 50%, rgba(0, 122, 255, .3), transparent 62%), radial-gradient(circle at 30% 20%, #2C2C30, #1C1C1E 95%); }
+  svg { width: 60px; height: auto; }
 </style>
 </head>
-<body><span class="iso">&lt;  ia  &gt;</span></body>
+<body>
+<svg viewBox="-22 -101 75 144" aria-hidden="true">
+  <defs>
+    <linearGradient id="f" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+    <linearGradient id="t" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+    <linearGradient id="s" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+  </defs>
+  <polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#t)"/>
+  <polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#s)"/>
+  <polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#f)"/>
+  <polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#s)"/>
+  <polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#f)"/>
+  <polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#s)"/>
+  <polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#t)"/>
+  <polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#f)"/>
+</svg>
+</body>
 </html>
