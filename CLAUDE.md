@@ -54,19 +54,8 @@ Manual completo en `brand/BRAND_GUIDELINES.md` y brand board en http://localhost
 
 ## Marketing B2B
 
-Antes de escribir cualquier pieza de marketing o ventas, leé `marketing/CONTEXTO-MARKETING.md` (cliente ideal, personas, pilares de mensaje, objeciones, canales y pruebas disponibles).
+El kit de marketing (posteos, mails, plan de contenidos, casos) se trabaja en una sesión aparte, fuera de este repo. Acá solo queda `/revisar-texto` para chequear textos de la web antes de publicarlos.
 
-| Comando | Para qué |
-|---|---|
-| `/post-linkedin` | Posteos para los perfiles de los fundadores o la página |
-| `/mail-prospeccion` | Secuencia de 3 mails para ofrecer el diagnóstico sin cargo |
-| `/plan-contenidos` | Calendario de 2 a 8 semanas repartido entre los tres |
-| `/caso-de-exito` | Caso real a partir de datos medidos de un proyecto |
-| `/revisar-texto` | Chequeo de tono y reglas antes de publicar o enviar |
-
-- Plugins sugeridos (se instalan desde claude.ai): Marketing, Product Marketing, Sales y Brand Voice.
-- Conectores sugeridos: HubSpot (CRM), Apollo (prospección), Gmail, Google Drive, Canva y Calendly. Cada uno lo conecta quien tenga la cuenta.
-- Nunca enviar mails, publicar posteos ni cargar contactos en un CRM sin confirmación explícita.
 - Links a la landing con UTM: `?utm_source=<canal>&utm_medium=<tipo>&utm_campaign=<tema>`.
 
 ## Servicios y cuentas

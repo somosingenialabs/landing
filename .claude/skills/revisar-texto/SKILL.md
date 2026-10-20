@@ -5,7 +5,7 @@ description: Revisa cualquier texto de marketing o de la web de Ingenia contra e
 
 # Revisar un texto
 
-Leé `marketing/CONTEXTO-MARKETING.md` y revisá el texto con esta lista. Marcá cada punto como OK o a corregir:
+Revisá el texto con esta lista. Marcá cada punto como OK o a corregir:
 
 1. **Voseo** en todo lo que se dirige al lector ("pedí", "querés", "coordiná"). Nada de "usted" ni "tú".
 2. **Sin rayas largas** (— ni –). Reemplazá por punto, coma, dos puntos o guion común.
