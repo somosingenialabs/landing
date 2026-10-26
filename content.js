@@ -238,7 +238,7 @@ window.SITE_CONTENT = {
     successText: "Un ingeniero fundador te va a contactar en menos de 24 horas hábiles para coordinar el diagnóstico.",
     // Enlace a WhatsApp debajo del botón del formulario. "number" va con código de país, sin "+" ni espacios. Vacío = no se muestra.
     whatsapp: {
-      number: "",
+      number: "5492233546450",
       lead: "¿Preferís hablar ahora?",
       linkText: "Escribinos por WhatsApp",
       message: "Hola, vengo de la web de Ingenia Solutions y quiero coordinar un diagnóstico técnico."
@@ -261,7 +261,7 @@ window.SITE_CONTENT = {
   privacy: {
     path: "/privacidad/",
     title: "Política de privacidad",
-    updated: "2026-10-07",
+    updated: "2026-10-26",
     legalName: "",
     taxId: "",
     intro: "En Ingenia Solutions cuidamos los datos que nos compartís. Esta política explica qué datos recolectamos en este sitio, para qué los usamos y cómo podés ejercer tus derechos.",
@@ -270,6 +270,7 @@ window.SITE_CONTENT = {
         heading: "Qué datos recolectamos",
         paragraphs: [
           "Cuando completás el formulario de diagnóstico recolectamos tu nombre y apellido, el nombre de tu empresa, tu email laboral, tu número de WhatsApp (si lo cargás) y las áreas que te interesa optimizar.",
+          "Si nos escribís por WhatsApp desde el enlace del sitio, la conversación pasa por WhatsApp (de la empresa Meta) y también se rige por sus condiciones y su política de privacidad. Usamos esos mensajes solo para responder tu consulta.",
           "No usamos cookies de seguimiento ni herramientas de analítica. Los servicios que alojan el sitio y cargan las tipografías e íconos pueden registrar datos técnicos de la conexión, como la dirección IP, para funcionar."
         ]
       },
