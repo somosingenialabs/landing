@@ -1,0 +1,1126 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingenia Solutions · Propuesta para Spread Electric</title>
+<meta name="description" content="Software, datos e IA para sumar a lo que Spread Electric ya hace. Propuesta de Ingenia Solutions.">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Tokens copiados de la web oficial (ingenia.solutions, styles.css) */
+  :root {
+    --bg-primary: #000000;
+    --bg-surface: #1C1C1E;
+    --bg-surface-2: #0E0E10;
+    --bg-elevated: #2C2C2E;
+    --border: #2C2C2E;
+    --border-strong: #38383A;
+    --text: #FFFFFF;
+    --text-muted: #8E8E93;
+    --brand-blue: #007AFF;
+    --accent-blue: #0062CC;
+    --accent-blue-hover: #0051A8;
+    --accent-cyan: #409CFF;
+    --accent-amber: #F59E0B;
+    --amber-text: #FCD34D;
+    --accent-emerald: #30B0C7;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", "Roboto Mono", ui-monospace, monospace;
+    --r-sm: 8px; --r-md: 14px; --r-pill: 999px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --container: 1240px;
+    --nav-h: 64px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
+  body {
+    margin: 0; background: var(--bg-primary); color: var(--text);
+    font: 400 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3 { font-weight: 700; margin: 0; letter-spacing: -0.02em; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  button { font: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; border-radius: 4px; }
+
+  .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 767px) { .container { padding: 0 16px; } }
+
+  .badge-mono {
+    display: inline-flex; align-items: center; gap: 8px;
+    font: 500 12px/1.5 var(--mono); letter-spacing: .06em; color: var(--text-muted);
+  }
+  .badge-mono--cyan { color: var(--accent-cyan); }
+  .badge-mono--emerald { color: var(--accent-emerald); }
+  .badge-mono--amber { color: var(--accent-amber); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 48px; border-radius: var(--r-sm); border: 1px solid transparent;
+    font: 600 15.5px/1.2 var(--font); padding: 14px 22px; text-align: center;
+    transition: background-color .25s var(--ease), border-color .25s var(--ease), transform .15s var(--ease), box-shadow .25s var(--ease);
+  }
+  .btn:active { transform: translateY(1px) scale(.99); }
+  .btn--sm { min-height: 44px; padding: 9px 16px; font-size: 14px; }
+  .btn--primary { background: var(--accent-blue); color: #fff; box-shadow: 0 8px 24px -12px rgba(0,122,255,.7); }
+  .btn--primary:hover { background: var(--accent-blue-hover); }
+  .btn--primary svg { transition: transform .25s var(--ease); }
+  .btn--primary:hover svg { transform: translateX(3px); }
+  .btn--ghost { background: transparent; color: var(--text); border-color: var(--border-strong); }
+  .btn--ghost:hover { border-color: var(--text-muted); background: rgba(142,142,147,.06); }
+
+  .section { padding: 112px 0; position: relative; }
+  @media (max-width: 767px) { .section { padding: 72px 0; } }
+  .section__title { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.15; max-width: 22ch; margin-top: 12px; }
+  .section__lead { color: var(--text-muted); font-size: 17px; max-width: 60ch; margin-top: 16px; }
+
+  .missing {
+    display: inline-block; font: 500 11.5px/1.4 var(--mono); color: var(--amber-text);
+    background: rgba(245,158,11,.08); border: 1px dashed rgba(245,158,11,.4);
+    padding: 3px 8px; border-radius: var(--r-pill);
+  }
+  .note { font: 400 12px/1.5 var(--mono); color: var(--text-muted); }
+
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+
+  /* ===== Nav flotante ===== */
+  .nav { position: fixed; inset: 12px 0 auto 0; z-index: 40; padding: 0 12px; }
+  .nav__inner {
+    height: var(--nav-h); display: flex; align-items: center; gap: 24px;
+    background: rgba(18,18,20,.72); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--border); border-radius: var(--r-md); max-width: calc(var(--container) - 24px);
+    transition: border-color .3s var(--ease), background-color .3s var(--ease);
+  }
+  .nav.is-scrolled .nav__inner { border-color: var(--border-strong); background: rgba(18,18,20,.9); }
+  .nav__badge { margin-right: auto; }
+  @media (max-width: 640px) { .nav__badge { display: none; } .nav__inner { justify-content: space-between; padding: 0 12px; } }
+  @supports not (backdrop-filter: blur(1px)) { .nav__inner { background: var(--bg-primary); } }
+
+  .logo { display: inline-flex; align-items: center; gap: .32em; line-height: 1; font-weight: 800; font-size: 24px; letter-spacing: -.03em; color: var(--text); white-space: nowrap; }
+  .logo__mark { height: 1.5em; width: auto; flex-shrink: 0; }
+  .logo__ia { color: var(--brand-blue); }
+  .logo--lg { font-size: clamp(38px, 5vw, 52px); }
+  .logo__tagline { margin-top: 14px; font-weight: 600; font-size: 10.5px; letter-spacing: .19em; color: var(--text-muted); text-align: center; }
+
+  /* ===== Portada ===== */
+  .hero { position: relative; padding: calc(var(--nav-h) + 72px) 0 88px; overflow: hidden; }
+  .hero__grid-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(142,142,147,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(142,142,147,.06) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 30%, transparent 75%);
+    animation: gridDrift 30s linear infinite;
+  }
+  @keyframes gridDrift { to { background-position: 56px 56px; } }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 40% 50% at 78% 45%, rgba(0,122,255,.12), transparent 70%); }
+  .hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+  .hero__title { font-size: clamp(34px, 4.2vw, 54px); line-height: 1.08; font-weight: 800; margin-top: 20px; max-width: 18ch; }
+  .hero__sub { font-size: clamp(18px, 1.8vw, 21px); line-height: 1.4; font-weight: 600; margin-top: 20px; max-width: 34ch; }
+  .hero__lead { color: var(--text-muted); font-size: 17px; max-width: 54ch; margin-top: 14px; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero__copy .reveal:nth-child(2) { transition-delay: .06s; }
+  .hero__copy .reveal:nth-child(3) { transition-delay: .12s; }
+  .hero__copy .reveal:nth-child(4) { transition-delay: .18s; }
+  .hero__copy .reveal:nth-child(5) { transition-delay: .24s; }
+  @media (max-width: 1023px) { .hero__inner { grid-template-columns: 1fr; gap: 56px; } }
+  @media (max-width: 767px) { .hero { padding-top: calc(var(--nav-h) + 48px); } .hero__ctas .btn { width: 100%; } }
+
+  /* Tablero en vivo (ejemplo) */
+  .dash {
+    position: relative; background: linear-gradient(180deg, var(--bg-surface), var(--bg-surface-2));
+    border: 1px solid var(--border); border-radius: var(--r-md); padding: 20px;
+    box-shadow: 0 30px 80px -30px rgba(0,122,255,.18), inset 0 1px 0 rgba(255,255,255,.04);
+    font-family: var(--mono);
+  }
+  .dash__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .dash__title { font: 600 14px/1.3 var(--font); }
+  .dash__title small { display: block; font: 400 11px/1.4 var(--mono); color: var(--text-muted); margin-top: 2px; }
+  .dash__live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--accent-emerald); }
+  .dash__live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .dash__body { display: grid; grid-template-columns: auto 1fr; gap: 20px; padding: 18px 0; align-items: center; }
+  .gauge { position: relative; width: 120px; height: 120px; }
+  .gauge svg { transform: rotate(-90deg); }
+  .gauge__track { stroke: var(--border); }
+  .gauge__value { stroke: var(--accent-cyan); stroke-linecap: round; transition: stroke-dashoffset 1.2s var(--ease); }
+  .gauge__label { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+  .gauge__label strong { font-size: 25px; font-weight: 500; }
+  .gauge__label span { font-size: 10px; color: var(--text-muted); letter-spacing: .1em; }
+  .kpis { display: grid; gap: 12px; }
+  .kpi { display: grid; grid-template-columns: 1fr auto; gap: 6px; font-size: 11.5px; color: var(--text-muted); }
+  .kpi b { color: var(--text); font-weight: 500; }
+  .kpi__bar { grid-column: 1 / -1; height: 4px; border-radius: 4px; background: rgba(58,58,60,.8); overflow: hidden; }
+  .kpi__bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--accent-cyan); transition: width 1.2s var(--ease); }
+  .dash__chart { border-top: 1px solid var(--border); padding-top: 14px; }
+  .dash__chart-head { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .dash__chart-head b { color: var(--text); font-weight: 500; }
+  .dash__chart-box { height: 70px; overflow: hidden; }
+  .dash__chart svg { width: 100%; height: 70px; overflow: visible; }
+  .dash__alert {
+    display: flex; align-items: center; gap: 10px; margin-top: 14px; padding: 10px 12px; border-radius: var(--r-sm);
+    background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.25); font-size: 11.5px; color: var(--amber-text);
+  }
+  .dash__alert svg { flex: none; color: var(--accent-amber); }
+  .dash__alert span { transition: opacity .3s; }
+  .dash__note { margin-top: 12px; font-size: 10.5px; color: var(--text-muted); text-align: right; }
+  .metric-pill {
+    position: absolute; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: var(--r-pill);
+    background: rgba(28,28,30,.92); border: 1px solid rgba(48,176,199,.35); box-shadow: 0 12px 30px -12px rgba(48,176,199,.35);
+    font: 400 12px/1.2 var(--mono); color: var(--text-muted); animation: float 6s ease-in-out infinite;
+  }
+  .metric-pill b { color: var(--accent-emerald); font-size: 15px; font-weight: 500; }
+  .metric-pill--a { top: -18px; right: 22px; }
+  .metric-pill--b { bottom: 64px; left: -34px; animation-delay: -3s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @media (max-width: 1023px) { .metric-pill--b { left: 12px; bottom: -18px; } }
+  @media (max-width: 480px) { .dash__body { grid-template-columns: 1fr; justify-items: center; } .kpis { width: 100%; } }
+
+  /* ===== Sectores en movimiento ===== */
+  .sectors { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-surface-2); padding: 22px 0; overflow: hidden; }
+  .sectors__title { font-size: 14px; color: var(--text-muted); margin-bottom: 12px; }
+  .marquee { display: flex; width: max-content; gap: 10px; animation: marquee 32s linear infinite; }
+  .sectors:hover .marquee { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(calc(-50% - 5px)); } }
+  .sector-chip {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border);
+    border-radius: var(--r-pill); font-size: 14px; background: var(--bg-primary); white-space: nowrap;
+    transition: border-color .25s var(--ease);
+  }
+  .sector-chip:hover { border-color: var(--border-strong); }
+  .sector-chip svg { color: var(--accent-cyan); }
+
+  /* ===== Análisis de datos ===== */
+  .data { background: linear-gradient(180deg, var(--bg-primary), var(--bg-surface-2) 50%, var(--bg-primary)); }
+  .charts { display: grid; gap: 16px; margin-top: 48px; }
+  @media (min-width: 1024px) { .charts { grid-template-columns: 1.15fr 1fr; align-items: start; } }
+  .chart-card {
+    position: relative; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 24px; overflow: hidden; transition: border-color .3s var(--ease);
+  }
+  .chart-card:hover { border-color: var(--border-strong); }
+  .chart-card::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: linear-gradient(90deg, #007AFF, #30B0C7); opacity: .8; }
+  @media (max-width: 767px) { .chart-card { padding: 20px 16px; } }
+  .chart-card__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .chart-card h3 { font-size: 21px; line-height: 1.25; margin-top: 8px; }
+  .chart-card__sub { color: var(--text-muted); font-size: 15px; margin-top: 6px; }
+  .seg { display: inline-flex; padding: 4px; gap: 4px; background: var(--bg-primary); border: 1px solid var(--border); border-radius: var(--r-sm); }
+  .seg button {
+    min-height: 40px; min-width: 44px; padding: 6px 14px; border: 0; border-radius: 6px; background: transparent;
+    color: var(--text-muted); font: 600 13.5px/1 var(--font); transition: background-color .2s, color .2s;
+  }
+  .seg button:hover { color: var(--text); }
+  .seg button[aria-pressed="true"] { background: var(--bg-elevated); color: var(--text); }
+  .chart { margin-top: 18px; position: relative; }
+  .chart svg { width: 100%; overflow: visible; }
+  .chart text { font-family: var(--mono); font-size: 11px; fill: var(--text-muted); }
+  .grid-line { stroke: var(--border); stroke-width: 1; }
+  .readout { margin-top: 14px; padding: 12px 14px; border-radius: var(--r-sm); background: var(--bg-primary); border: 1px solid var(--border); font: 400 12.5px/1.5 var(--mono); color: var(--text-muted); min-height: 46px; }
+  .readout b { color: var(--text); font-weight: 500; }
+
+  .data__note { margin-top: 20px; }
+
+  /* ===== Ventaja boutique ===== */
+  .compare { display: grid; gap: 16px; margin-top: 48px; }
+  @media (min-width: 900px) { .compare { grid-template-columns: 1fr 1fr; } }
+  .side { position: relative; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 28px; overflow: hidden; transition: border-color .3s var(--ease), transform .35s var(--ease); }
+  .side:hover { transform: translateY(-3px); }
+  .side::before { content: ""; position: absolute; left: 0; top: 28px; bottom: 28px; width: 2px; opacity: .7; }
+  .side--us { background: radial-gradient(ellipse 80% 60% at 100% 0%, rgba(0,122,255,.12), transparent 60%), var(--bg-surface); }
+  .side--us::before { background: var(--accent-cyan); }
+  .side--axis { background: radial-gradient(ellipse 80% 60% at 0% 0%, rgba(48,176,199,.10), transparent 60%), var(--bg-surface); }
+  .side--axis::before { background: var(--accent-emerald); }
+  .side--axis:hover { border-color: rgba(48,176,199,.45); }
+  .side--axis li svg { color: var(--accent-emerald); }
+  #juntos .train__track { margin-top: 56px; }
+  .side--us:hover { border-color: rgba(64,156,255,.45); }
+  .side h3 { font-size: 22px; margin-top: 14px; }
+  .side ul { display: grid; gap: 14px; margin-top: 20px; }
+  .side li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; }
+  .side li svg { margin-top: 3px; }
+  .side--us li svg { color: var(--accent-emerald); }
+  .side li b { display: block; font: 500 12px/1.4 var(--mono); letter-spacing: .04em; color: var(--text-muted); }
+
+  .team__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  @media (max-width: 899px) { .team__grid { grid-template-columns: 1fr; } }
+  .eng-card { --disc: var(--accent-cyan); position: relative; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px; overflow: hidden; transition: border-color .3s var(--ease), transform .35s var(--ease); display: flex; gap: 16px; align-items: center; }
+  .eng-card[data-d="ind"] { --disc: var(--accent-emerald); }
+  .eng-card[data-d="mec"] { --disc: #007AFF; }
+  .eng-card::after { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--disc); opacity: .8; }
+  .eng-card:hover { border-color: color-mix(in srgb, var(--disc) 45%, var(--border)); transform: translateY(-3px); }
+  .eng-card__icon { flex: none; width: 48px; height: 48px; border-radius: var(--r-sm); display: grid; place-items: center; color: var(--disc); background: color-mix(in srgb, var(--disc) 12%, transparent); border: 1px solid color-mix(in srgb, var(--disc) 30%, transparent); }
+  .eng-card h3 { font-size: 17px; }
+  .eng-card__role { display: block; margin-top: 4px; font: 400 12px/1.4 var(--mono); color: var(--disc); }
+
+  .case__status { display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1.4 var(--mono); color: var(--accent-emerald); padding: 4px 10px; border: 1px solid rgba(48,176,199,.35); border-radius: var(--r-pill); }
+  .case__status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
+
+  /* ===== Capacitación por puesto ===== */
+  .training { border-top: 1px solid var(--border); }
+  .train__track { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+  .train__track::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; border-radius: 2px;
+    background: linear-gradient(90deg, #007AFF, #30B0C7);
+    transform-origin: left; transform: scaleX(var(--progress, 0)); transition: transform 1.6s var(--ease);
+  }
+  .train__track.is-in { --progress: 1; }
+  .train-card { position: relative; margin-top: 18px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 24px; transition: border-color .3s var(--ease), transform .35s var(--ease); }
+  .train-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .train-card::before { content: ""; position: absolute; top: -25px; left: 24px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-primary); border: 2px solid var(--accent-cyan); }
+  .train-card__head { display: flex; justify-content: space-between; align-items: center; color: var(--accent-cyan); }
+  .train-card__num { font: 500 13px/1 var(--mono); color: var(--text-muted); }
+  .train-card h3 { font-size: 18px; margin-top: 16px; line-height: 1.25; }
+  .train-card p { color: var(--text-muted); margin-top: 8px; font-size: 15px; }
+  @media (max-width: 1023px) { .train__track { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 599px) {
+    .train__track { grid-template-columns: 1fr; gap: 12px; padding-left: 22px; }
+    .train__track::before { top: 0; bottom: 0; left: 5px; right: auto; width: 2px; height: auto; transform-origin: top; transform: scaleY(var(--progress, 0)); background: linear-gradient(180deg, #007AFF, #30B0C7); }
+    .train-card { margin-top: 0; }
+    .train-card::before { top: 26px; left: -23px; }
+  }
+
+  /* ===== Casos ===== */
+  .case { scroll-snap-align: start; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); overflow: hidden; transition: border-color .3s var(--ease); }
+  .case:hover { border-color: var(--border-strong); }
+  .case__poster { position: relative; height: 132px; overflow: hidden; }
+  .case__poster::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(142,142,147,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(142,142,147,.07) 1px, transparent 1px); background-size: 32px 32px; }
+  .case[data-tone="ops"] .case__poster { background: radial-gradient(ellipse 70% 80% at 85% 15%, rgba(0,122,255,.32), transparent 60%), radial-gradient(ellipse 50% 60% at 10% 90%, rgba(48,176,199,.18), transparent 60%), #121214; }
+  .case[data-tone="doc"] .case__poster { background: radial-gradient(ellipse 70% 80% at 30% 85%, rgba(48,176,199,.28), transparent 60%), radial-gradient(ellipse 50% 60% at 85% 20%, rgba(0,122,255,.25), transparent 60%), #121214; }
+  .case__poster svg { position: absolute; right: 24px; top: 22px; color: rgba(242,242,247,.14); }
+  .case__poster .badge-mono { position: absolute; left: 24px; bottom: 16px; z-index: 1; }
+  .case__body { padding: 24px; }
+  .case h3 { font-size: 22px; line-height: 1.25; margin-top: 10px; }
+  .case dl { margin: 18px 0 0; display: grid; gap: 14px; }
+  .case dt { font: 500 12px/1.4 var(--mono); letter-spacing: .06em; color: var(--accent-cyan); }
+  .case dt.pain { color: var(--accent-amber); }
+  .case dd { margin: 4px 0 0; color: var(--text-muted); }
+  .case dd ul { display: grid; gap: 8px; margin-top: 8px; }
+  .case dd li { display: grid; grid-template-columns: 18px 1fr; gap: 10px; color: var(--text); font-size: 15px; }
+  .case dd li svg { color: var(--accent-emerald); margin-top: 3px; }
+  /* ===== Calculadora ===== */
+  .calc { margin-top: 48px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 28px; display: grid; gap: 32px; }
+  @media (min-width: 900px) { .calc { grid-template-columns: 1fr 1.1fr; gap: 48px; padding: 36px; } }
+  @media (max-width: 767px) { .calc { padding: 22px 18px; } }
+  .field + .field { margin-top: 22px; }
+  .field > label, .field > .label { display: flex; justify-content: space-between; gap: 12px; font-size: 14.5px; font-weight: 500; }
+  .field output { font: 500 14px/1.6 var(--mono); color: var(--accent-cyan); }
+  .field .hint { display: block; font-size: 13.5px; color: var(--text-muted); margin-top: 2px; }
+  .stepper { display: flex; gap: 8px; margin-top: 8px; }
+  .stepper button { width: 48px; height: 48px; flex: none; border-radius: var(--r-sm); border: 1px solid var(--border-strong); background: var(--bg-elevated); color: var(--text); font-size: 22px; transition: border-color .2s; }
+  .stepper button:hover { border-color: var(--accent-cyan); }
+  .stepper input, .money input {
+    width: 100%; min-height: 48px; padding: 0 14px; border-radius: var(--r-sm); font: 500 17px/1 var(--mono);
+    color: var(--text); background: var(--bg-elevated); border: 1px solid var(--border-strong); transition: border-color .2s, box-shadow .2s;
+  }
+  .stepper input { max-width: 96px; text-align: center; }
+  .stepper input:focus, .money input:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(0,122,255,.3); }
+  .money { position: relative; margin-top: 8px; }
+  .money span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-family: var(--mono); }
+  .money input { padding-left: 30px; }
+  .result-big { font: 500 clamp(44px, 6vw, 72px)/1 var(--mono); letter-spacing: -.03em; }
+  .result-big small { font-size: .32em; color: var(--text-muted); letter-spacing: 0; margin-left: 6px; }
+  .result-cost { margin-top: 8px; font-size: 17px; }
+  .result-cost b { font-family: var(--mono); font-weight: 500; }
+  .cmp { display: grid; gap: 14px; margin-top: 26px; }
+  .cmp__row { display: grid; gap: 6px; }
+  .cmp__head { display: flex; justify-content: space-between; font: 400 12px/1.4 var(--mono); color: var(--text-muted); }
+  .cmp__head b { color: var(--text); font-weight: 500; }
+  .cmp__bar { height: 14px; border-radius: 4px; background: rgba(58,58,60,.6); overflow: hidden; }
+  .cmp__bar i { display: block; height: 100%; width: 0; border-radius: inherit; transition: width .9s var(--ease); background: var(--accent-amber); }
+  .cmp__row--after .cmp__bar i { background: linear-gradient(90deg, #007AFF, #30B0C7); }
+  .cmp__row--save .cmp__head { flex-direction: column; gap: 4px; }
+  .cmp__row--save .cmp__head b { color: var(--accent-emerald); font-size: 15px; }
+
+  /* ===== Contacto ===== */
+  .booking { background: radial-gradient(ellipse 60% 60% at 0% 100%, rgba(0,122,255,.14), transparent 60%), var(--bg-surface-2); border-top: 1px solid var(--border); }
+  .booking__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  @media (max-width: 899px) { .booking__inner { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+  .booking__guarantee { display: flex; align-items: flex-start; gap: 10px; margin-top: 24px; font-size: 15px; max-width: 46ch; }
+  .booking__guarantee svg { color: var(--accent-emerald); flex: none; margin-top: 2px; }
+  .booking__card { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--r-md); padding: 32px; display: grid; gap: 8px; }
+  @media (max-width: 767px) { .booking__card { padding: 22px; } }
+  .booking__card .btn { width: 100%; white-space: normal; }
+  .contact-links { display: grid; gap: 4px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .contact-links a { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 8px; border-radius: var(--r-sm); color: var(--text); transition: background-color .2s; }
+  .contact-links a:hover { background: rgba(142,142,147,.08); }
+  .contact-links a svg { color: var(--accent-cyan); flex: none; }
+  .contact-links small { display: block; font: 400 11.5px/1.3 var(--mono); color: var(--text-muted); }
+
+  .footer { border-top: 1px solid var(--border); padding: 56px 0 40px; background: radial-gradient(ellipse 50% 80% at 15% 0%, rgba(0,122,255,.07), transparent 70%); }
+  .footer__inner { display: grid; grid-template-columns: auto 1fr; gap: 12px 48px; align-items: center; }
+  .footer__brand { display: flex; flex-direction: column; align-items: center; }
+  .footer__tagline { color: var(--text-muted); font-size: 15px; justify-self: end; text-align: right; max-width: 40ch; }
+  @media (max-width: 767px) { .footer__inner { grid-template-columns: 1fr; justify-items: center; gap: 20px; } .footer__tagline { justify-self: center; text-align: center; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+    .js .reveal { opacity: 1; transform: none; }
+    .marquee { flex-wrap: wrap; width: auto; }
+    .marquee [aria-hidden="true"] { display: none; }
+  }
+
+  /* ===== Rótulos de estado: forma, borde y texto, para que no dependan solo del color ===== */
+  .st {
+    display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+    font: 500 11.5px/1.3 var(--mono); letter-spacing: .05em; padding: 5px 11px; border-radius: var(--r-pill);
+    border: 1px solid currentColor; white-space: nowrap;
+  }
+  .st::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; }
+  .st--hoy { color: var(--accent-emerald); background: rgba(48,176,199,.1); }
+  .st--hoy::before { background: currentColor; }
+  .st--dev { color: var(--accent-cyan); background: rgba(64,156,255,.08); }
+  .st--dev::before { background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
+  .st--fut { color: #F2F2F7; border-style: dashed; border-color: #8E8E93; background: transparent; }
+  .st--fut::before { background: transparent; }
+
+  .st--sm { font-size: 10.5px; padding: 2px 8px; gap: 6px; margin-left: 4px; vertical-align: 1px; }
+  .st--sm::before { width: 7px; height: 7px; }
+
+  .legend-states { display: grid; gap: 10px; margin-top: 32px; }
+  @media (min-width: 900px) { .legend-states { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+  .legend-states li { padding: 16px; border-radius: var(--r-md); background: var(--bg-surface); border: 1px solid var(--border); }
+  .legend-states li.is-fut { border: 1px dashed #636366; background: transparent; }
+  .legend-states p { margin-top: 10px; font-size: 15px; color: var(--text-muted); }
+  .legend-states strong { color: var(--text); font-weight: 600; }
+
+  /* Portada: historial de ejemplo */
+  .dash__tag { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding-bottom: 14px; }
+  .hist-mini { padding: 16px 0 6px; border-top: 1px solid var(--border); }
+  .hist-mini__head { display: flex; justify-content: space-between; gap: 12px; font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; }
+  .hist-mini__head b { color: var(--text); font-weight: 500; }
+  .hist-mini svg { width: 100%; height: auto; overflow: visible; }
+  .hist-rows { display: grid; gap: 8px; margin-top: 12px; }
+  .hist-rows li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 12px; border-radius: var(--r-sm); background: var(--bg-primary); border: 1px solid var(--border); font-size: 11.5px; color: var(--text-muted); }
+  .hist-rows b { color: var(--text); font-weight: 500; white-space: nowrap; }
+  .hist-rows b.warn { color: var(--amber-text); }
+  .dash__note--left { text-align: left; }
+
+  /* Dolores */
+  .pains { display: grid; gap: 12px; margin-top: 40px; }
+  @media (min-width: 700px) { .pains { grid-template-columns: 1fr 1fr; gap: 16px; } }
+  @media (min-width: 1100px) { .pains { grid-template-columns: repeat(3, 1fr); } }
+  .pain { display: flex; flex-direction: column; gap: 10px; padding: 24px; border-radius: var(--r-md); background: var(--bg-surface); border: 1px solid var(--border); }
+  .pain__n { font: 500 13px/1 var(--mono); color: var(--text-muted); }
+  .pain h3 { font-size: 18px; line-height: 1.3; }
+  .pain p { color: var(--text-muted); font-size: 15px; flex: 1; }
+  .pain__fix { display: grid; gap: 8px; padding-top: 14px; margin-top: 4px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 600; }
+
+  .disclaimer { margin-top: 16px; font-size: 14.5px; color: var(--text-muted); max-width: 66ch; }
+  .source-line { margin-top: 10px; font: 400 12px/1.5 var(--mono); color: var(--text-muted); }
+
+  /* Mapa de soluciones */
+  .filters { display: flex; gap: 8px; margin-top: 28px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .filters::-webkit-scrollbar { display: none; }
+  .role-chip {
+    flex: none; min-height: 44px; padding: 8px 16px; border-radius: var(--r-pill); border: 1px solid var(--border-strong);
+    background: transparent; color: var(--text-muted); font-size: 14px; transition: all .2s var(--ease);
+  }
+  .role-chip:hover { color: var(--text); border-color: #48484A; }
+  .role-chip[aria-pressed="true"] { color: var(--text); border-color: var(--accent-cyan); background: rgba(0,122,255,.1); }
+  .sol-group { margin-top: 40px; }
+  .sol-group[hidden] { display: none; }
+  .sol-group__head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .sol-group__head p { color: var(--text-muted); font-size: 15px; }
+  .sol-grid { display: grid; gap: 12px; margin-top: 16px; }
+  @media (min-width: 700px) { .sol-grid { grid-template-columns: 1fr 1fr; gap: 16px; } }
+  @media (min-width: 1100px) { .sol-grid { grid-template-columns: repeat(3, 1fr); } }
+  .sol { display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: var(--r-md); background: var(--bg-surface); border: 1px solid var(--border); }
+  .sol--hoy { border-top: 2px solid var(--accent-emerald); }
+  .sol--dev { background: var(--bg-surface-2); border-top: 2px solid var(--accent-cyan); }
+  .sol--fut { background: transparent; border: 1px dashed #636366; }
+  .sol h3 { font-size: 17.5px; line-height: 1.3; }
+  .sol p { color: var(--text-muted); font-size: 15px; }
+  .sol__for { font: 500 11.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--text-muted); }
+  .sol__status { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--text); }
+
+  /* Demo de tendencia */
+  .trend { margin-top: 40px; }
+  .trend__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+  .trend__assets { display: flex; gap: 8px; margin-top: 16px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .trend__assets::-webkit-scrollbar { display: none; }
+  .trend__view { margin-top: 12px; }
+  .t-line { fill: none; stroke: var(--accent-cyan); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .t-dot { fill: var(--bg-surface); stroke: var(--accent-cyan); stroke-width: 2.5; }
+  .t-now { fill: var(--accent-cyan); stroke: none; }
+  .t-proj { fill: none; stroke: var(--amber-text); stroke-width: 2; stroke-dasharray: 5 5; }
+  .t-proj-dot { fill: var(--bg-surface); stroke: var(--amber-text); stroke-width: 2; stroke-dasharray: 3 3; }
+  .t-limit { stroke: var(--accent-amber); stroke-width: 1.5; stroke-dasharray: 2 4; }
+  .chart text.t-limit-t { fill: var(--amber-text); }
+  .chart text.t-val { fill: var(--text); font-size: 12px; }
+
+  .trend__view button { min-height: 44px; }
+  input[type="range"] { width: 100%; height: 44px; margin: 0; accent-color: var(--accent-blue); cursor: pointer; background: transparent; }
+  .nav .logo { min-height: 44px; }
+
+  /* Casos */
+  .cases { display: grid; gap: 16px; margin-top: 40px; }
+  @media (min-width: 900px) { .cases { grid-template-columns: 1fr 1fr; } }
+  .case__state { color: var(--text-muted); font-size: 14.5px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="#top" class="logo" aria-label="Ingenia Solutions, inicio">
+      <!-- Logo oficial: el mismo isotipo y texto de la web (brand/assets) -->
+      <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="iso2-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+          <linearGradient id="iso2-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+          <linearGradient id="iso2-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+        </defs><polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#iso2-top)"/><polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#iso2-side)"/><polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#iso2-front)"/><polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#iso2-side)"/><polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#iso2-front)"/><polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#iso2-side)"/><polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#iso2-top)"/><polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#iso2-front)"/>
+      </svg>
+      <span aria-hidden="true">Ingen<span class="logo__ia">ia</span></span>
+    </a>
+    <span class="badge-mono nav__badge">[ PROPUESTA PARA SPREAD ELECTRIC ]</span>
+    <a href="#contacto" class="btn btn--primary btn--sm">Coordinar reunión</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Portada -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <span class="badge-mono badge-mono--cyan reveal">[ PREPARADO PARA SPREAD ELECTRIC ]</span>
+        <h1 class="hero__title reveal" id="hero-title">Tu equipo mide en el campo. Que el dato siga trabajando después de la visita.</h1>
+        <p class="hero__sub reveal">Software, datos e IA para sumar a lo que Spread ya hace, desde Mar del Plata.</p>
+        <p class="hero__lead reveal">No venimos a medir ni a montar: eso es tuyo. Nos ocupamos de lo que pasa con el dato después, para tu empresa y para tus clientes.</p>
+        <div class="hero__ctas reveal">
+          <a class="btn btn--primary" href="#contacto">Coordiná una reunión
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__visual reveal">
+        <div class="dash" role="img" aria-label="Vista de ejemplo de una función que todavía no existe: historial de un tablero general, con la temperatura de un borne que sube en seis visitas y los vencimientos de sus mediciones. Datos inventados.">
+          <div class="dash__tag"><span class="st st--fut">PRÓXIMAMENTE</span><span class="note">Vista de ejemplo</span></div>
+          <div class="dash__head">
+            <div class="dash__title">Tablero general TG-1<small>Historial del activo</small></div>
+          </div>
+          <div class="hist-mini">
+            <div class="hist-mini__head"><span>Termografía, 6 visitas</span><b>+9 °C</b></div>
+            <svg viewBox="0 0 300 90" aria-hidden="true">
+              <defs><linearGradient id="histFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#409CFF" stop-opacity=".3"/><stop offset="1" stop-color="#409CFF" stop-opacity="0"/></linearGradient></defs>
+              <line x1="0" x2="300" y1="16" y2="16" stroke="#F59E0B" stroke-width="1" stroke-dasharray="2 4"/>
+              <path d="M6 78 L63 73 L120 67 L177 56 L234 45 L291 28 L291 90 L6 90 Z" fill="url(#histFill)"/>
+              <path d="M6 78 L63 73 L120 67 L177 56 L234 45 L291 28" fill="none" stroke="#409CFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="291" cy="28" r="4" fill="#409CFF"/>
+            </svg>
+          </div>
+          <ul class="hist-rows">
+            <li><span>Aislación</span><b>Sin cambios</b></li>
+            <li><span>Puesta a tierra</span><b class="warn">Vence en 45 días</b></li>
+            <li><span>Disyuntores</span><b>Verificados</b></li>
+          </ul>
+          <p class="dash__note dash__note--left">Datos inventados. Esta función todavía no existe.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lo que vimos -->
+  <div class="sectors" aria-label="Lo que leímos en tu web">
+    <div class="container"><p class="sectors__title">Lo que leímos en tu web</p></div>
+    <div class="marquee" id="marquee">
+      <span class="sector-chip">Estudios eléctricos</span>
+      <span class="sector-chip">Calidad de energía</span>
+      <span class="sector-chip">Termografía</span>
+      <span class="sector-chip">Vibraciones</span>
+      <span class="sector-chip">Subestaciones</span>
+      <span class="sector-chip">Tableros y protecciones</span>
+      <span class="sector-chip">PLC y HMI</span>
+      <span class="sector-chip">Redes OT</span>
+      <span class="sector-chip">Fibra óptica</span>
+    </div>
+  </div>
+
+  <!-- Dolores -->
+  <section class="section" id="dolores" aria-labelledby="dolores-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--amber reveal">[ DONDE EL DATO SE PUEDE TRABAR ]</span>
+      <h2 class="section__title reveal" id="dolores-title">Cinco puntos que vemos desde afuera.</h2>
+      <p class="section__lead reveal">Son hipótesis nuestras a partir de lo que publicás. En la reunión nos corregís.</p>
+
+      <div class="pains">
+        <article class="pain reveal">
+          <span class="pain__n">01</span>
+          <h3>Cada medición termina en un informe aparte</h3>
+          <p>Termografía, aislación, vibraciones y disyuntores se miden en momentos distintos. Sin un historial por activo, cuesta ver hacia dónde va cada equipo.</p>
+          <div class="pain__fix"><span>Historial por activo</span><span class="st st--fut">PRÓXIMAMENTE</span></div>
+        </article>
+        <article class="pain reveal">
+          <span class="pain__n">02</span>
+          <h3>El informe le saca horas al ingeniero</h3>
+          <p>Después de la recorrida hay que ordenar imágenes, escribir observaciones y armar recomendaciones. Es tiempo que no está en el campo.</p>
+          <div class="pain__fix"><span>Informe asistido por IA</span><span class="st st--fut">PRÓXIMAMENTE</span></div>
+        </article>
+        <article class="pain reveal">
+          <span class="pain__n">03</span>
+          <h3>Cada cliente pide sus papeles para dejarte entrar</h3>
+          <p>Trabajar en plantas grandes suele implicar ART, seguros y capacitaciones al día, y cargarlos una y otra vez en el formato de cada una.</p>
+          <div class="pain__fix"><span>Legajos con vencimientos</span><span class="st st--dev">EN DESARROLLO</span></div>
+        </article>
+        <article class="pain reveal">
+          <span class="pain__n">04</span>
+          <h3>ISO 9001 suma documentos, versiones y evidencias</h3>
+          <p>Tu web dice que estás en proceso de certificación. Además, la edición 2026 de la norma salió en septiembre: conviene preguntarle a la certificadora con cuál te audita.</p>
+          <div class="pain__fix"><span>Sistema documental</span><span class="st st--hoy">HOY</span></div>
+        </article>
+        <article class="pain reveal">
+          <span class="pain__n">05</span>
+          <h3>La obra se cierra entre fotos y mensajes</h3>
+          <p>En un montaje, los pendientes de la recepción pueden quedar repartidos. Después cuesta probar qué se aceptó y cuándo.</p>
+          <div class="pain__fix"><span>Acta de obra con firma</span><span class="st st--dev">EN DESARROLLO</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo trabajamos juntos -->
+  <section class="section data" id="juntos" aria-labelledby="juntos-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ CÓMO NOS SUMAMOS ]</span>
+      <h2 class="section__title reveal" id="juntos-title">Tu App se queda. Sumamos lo que le falte.</h2>
+      <p class="section__lead reveal">Tu web cuenta que usás una App propia para checklists, desvíos y tableros. No venimos a reemplazarla. Queremos conocerla y trabajar en dos frentes.</p>
+
+      <div class="compare">
+        <div class="side side--axis reveal">
+          <span class="badge-mono badge-mono--emerald">[ 01 · PARA SPREAD ]</span>
+          <h3>Menos horas de escritorio para tus ingenieros</h3>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Documentos y evidencias ordenados para la auditoría. <span class="st st--hoy st--sm">HOY</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Informes que tomen menos tiempo. <span class="st st--fut st--sm">PRÓXIMAMENTE</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Los papeles de cada cliente, al día y en un solo lugar. <span class="st st--dev st--sm">EN DESARROLLO</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Capacitación en IA sobre las tareas de cada puesto. <span class="st st--hoy st--sm">HOY</span></div></li>
+          </ul>
+        </div>
+        <div class="side side--us reveal">
+          <span class="badge-mono badge-mono--cyan">[ 02 · PARA TUS CLIENTES ]</span>
+          <h3>Algo más para ofrecer en cada planta</h3>
+          <ul>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Tableros de producción y paradas sobre las señales que vos conectás. <span class="st st--hoy st--sm">HOY</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Relevamiento de procesos y tiempos. <span class="st st--hoy st--sm">HOY</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Monitoreo por abono entre una visita y la otra. <span class="st st--fut st--sm">PRÓXIMAMENTE</span></div></li>
+          </ul>
+        </div>
+      </div>
+
+      <ol class="train__track" id="flow-track" aria-label="Cómo sería el trabajo con un cliente tuyo">
+        <li class="train-card reveal">
+          <div class="train-card__head"><span class="train-card__num">01</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <h3>Spread detecta</h3>
+          <p>En una recorrida ves que el cliente no tiene cómo seguir sus datos.</p>
+        </li>
+        <li class="train-card reveal">
+          <div class="train-card__head"><span class="train-card__num">02</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <h3>Spread conecta</h3>
+          <p>Leés el PLC, tendés la red e instalás lo que haga falta.</p>
+        </li>
+        <li class="train-card reveal">
+          <div class="train-card__head"><span class="train-card__num">03</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></div>
+          <h3>Ingenia construye</h3>
+          <p>Armamos el tablero o el sistema, y capacitamos a quien lo usa.</p>
+        </li>
+        <li class="train-card reveal">
+          <div class="train-card__head"><span class="train-card__num">04</span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></div>
+          <h3>El cliente sigue siendo tuyo</h3>
+          <p>Vos seguís al frente. Nosotros somos el respaldo de software.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Mapa de soluciones -->
+  <section class="section" id="soluciones" aria-labelledby="soluciones-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ QUÉ EXISTE Y QUÉ NO ]</span>
+      <h2 class="section__title reveal" id="soluciones-title">Te mostramos cada cosa en el estado en que está.</h2>
+      <p class="section__lead reveal">También incluimos lo que todavía no existe, porque ahí es donde más nos serviría tu mirada. Cada tarjeta lleva su rótulo.</p>
+
+      <ul class="legend-states reveal" aria-label="Qué significa cada rótulo">
+        <li><span class="st st--hoy">HOY</span><p><strong>Se puede arrancar ahora</strong>, con un piloto y las adaptaciones que se aclaran.</p></li>
+        <li><span class="st st--dev">EN DESARROLLO</span><p><strong>Tiene plan, pero no está terminado.</strong> No se puede contratar todavía.</p></li>
+        <li class="is-fut"><span class="st st--fut">PRÓXIMAMENTE</span><p><strong>Todavía no existe.</strong> Es una idea que queremos definir con quien la va a usar.</p></li>
+      </ul>
+
+      <div class="filters reveal" role="group" aria-label="Filtrar por estado">
+        <button class="role-chip" type="button" data-f="all" aria-pressed="true">Todas (14)</button>
+        <button class="role-chip" type="button" data-f="hoy" aria-pressed="false">Hoy (5)</button>
+        <button class="role-chip" type="button" data-f="dev" aria-pressed="false">En desarrollo (4)</button>
+        <button class="role-chip" type="button" data-f="fut" aria-pressed="false">Próximamente (5)</button>
+      </div>
+
+      <div class="sol-group" data-g="hoy">
+        <div class="sol-group__head"><span class="st st--hoy">HOY</span><p>Lo que podemos empezar ya.</p></div>
+        <div class="sol-grid">
+          <article class="sol sol--hoy reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Sistema documental</h3>
+            <p>Firmas de elaboración, revisión y aprobación, versiones vigentes y acuses de lectura. Todo queda registrado.</p>
+            <p class="sol__status"><b>Ojo:</b> hoy está armado para otra norma. Pasarlo a ISO 9001 es parte del piloto.</p>
+          </article>
+          <article class="sol sol--hoy reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Capacitación en IA por puesto</h3>
+            <p>Estudiamos las tareas de cada puesto y formamos a la gente sobre su propio trabajo, no sobre herramientas genéricas.</p>
+          </article>
+          <article class="sol sol--hoy reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Integraciones a medida</h3>
+            <p>Conectamos tu App con lo que le falte, sin reemplazarla. Se puede instalar en tu servidor o en el de tu cliente.</p>
+          </article>
+          <article class="sol sol--hoy reveal">
+            <span class="sol__for">PARA TUS CLIENTES</span>
+            <h3>Tablero de producción y paradas</h3>
+            <p>OEE y paradas por línea y por turno. Vos llevás la señal del PLC, nosotros el tablero.</p>
+          </article>
+          <article class="sol sol--hoy reveal">
+            <span class="sol__for">PARA TUS CLIENTES</span>
+            <h3>Relevamiento de procesos y tiempos</h3>
+            <p>Balanceo de líneas, tiempos y costos operativos, para cuando el problema del cliente no es eléctrico.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="sol-group" data-g="dev">
+        <div class="sol-group__head"><span class="st st--dev">EN DESARROLLO</span><p>Con plan. Sin terminar.</p></div>
+        <div class="sol-grid">
+          <article class="sol sol--dev reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Legajos con vencimientos</h3>
+            <p>Los papeles de la empresa y de cada técnico en un solo lugar, con avisos antes de que venzan.</p>
+            <p class="sol__status"><b>Ojo:</b> el plan parte de la planta que contrata. Lo tuyo pide una variante: un legajo para muchos clientes.</p>
+          </article>
+          <article class="sol sol--dev reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Acta de obra con firma</h3>
+            <p>Pendientes con foto, responsable y fecha, desde el celular y sin señal. Al final, acta en PDF con las firmas.</p>
+          </article>
+          <article class="sol sol--dev reveal">
+            <span class="sol__for">PARA TUS CLIENTES</span>
+            <h3>Kit de señales para OEE</h3>
+            <p>Sensores simples para máquinas sin PLC accesible, conectados al tablero.</p>
+          </article>
+          <article class="sol sol--dev reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>CRM de ventas</h3>
+            <p>Cuentas, oportunidades y agenda, para seguir cotizaciones y renovaciones de preventivos.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="sol-group" data-g="fut">
+        <div class="sol-group__head"><span class="st st--fut">PRÓXIMAMENTE</span><p>No existe todavía. Lo queremos pensar con vos.</p></div>
+        <div class="sol-grid">
+          <article class="sol sol--fut reveal">
+            <span class="sol__for">PARA SPREAD Y TUS CLIENTES</span>
+            <h3>Historial por activo y portal del cliente</h3>
+            <p>Termografía, aislación, vibraciones y protocolos por equipo, con tendencia y vencimientos. Un QR en cada tablero lleva a su historia.</p>
+          </article>
+          <article class="sol sol--fut reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Informe asistido por IA</h3>
+            <p>El técnico carga imágenes y lecturas. La IA propone el borrador. El ingeniero corrige y firma: la decisión sigue siendo suya.</p>
+          </article>
+          <article class="sol sol--fut reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Control de instrumentos y competencias</h3>
+            <p>Calibraciones de cada equipo de medición y formación de cada técnico, con avisos antes de que venzan.</p>
+          </article>
+          <article class="sol sol--fut reveal">
+            <span class="sol__for">PARA TUS CLIENTES</span>
+            <h3>Monitoreo continuo por abono</h3>
+            <p>Sensores de terceros para vibración, temperatura y energía entre recorridas. La alerta la analiza tu ingeniero, no una caja negra.</p>
+          </article>
+          <article class="sol sol--fut reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Asistente de campo</h3>
+            <p>Preguntas sobre manuales, procedimientos e historial, con la fuente a la vista. Ayuda a buscar, no reemplaza ningún procedimiento de seguridad.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo de tendencia -->
+  <section class="section data" id="tendencia" aria-labelledby="tendencia-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ POR QUÉ IMPORTA EL HISTORIAL ]</span>
+      <h2 class="section__title reveal" id="tendencia-title">Una lectura dice poco. La tendencia avisa.</h2>
+      <p class="section__lead reveal">La última medición puede estar dentro del límite y el equipo igual venir en problemas. Probá con estos tres ejemplos.</p>
+
+      <div class="chart-card trend reveal">
+        <div class="trend__top">
+          <span class="st st--fut">PRÓXIMAMENTE</span>
+          <span class="note">Solo una demostración</span>
+        </div>
+        <div class="trend__assets" role="group" aria-label="Elegir un activo de ejemplo">
+          <button class="role-chip" type="button" data-a="0" aria-pressed="true">Borne de tablero</button>
+          <button class="role-chip" type="button" data-a="1" aria-pressed="false">Bobinado de motor</button>
+          <button class="role-chip" type="button" data-a="2" aria-pressed="false">Bomba</button>
+        </div>
+        <div class="seg trend__view" role="group" aria-label="Elegir la vista">
+          <button type="button" data-v="one" aria-pressed="true">Última visita</button>
+          <button type="button" data-v="all" aria-pressed="false">Las 6 visitas</button>
+        </div>
+        <div class="chart" id="trend-chart" role="img" aria-live="polite"></div>
+        <p class="readout" id="trend-read"></p>
+        <p class="note data__note">Valores y límites de ejemplo, no son un criterio técnico. La proyección solo repite la última variación.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculadora -->
+  <section class="section" id="calculadora" aria-labelledby="calc-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ CALCULADORA ]</span>
+      <h2 class="section__title reveal" id="calc-title">¿Cuánto cuesta escribir los informes?</h2>
+      <p class="section__lead reveal">Cargá tus números. Es una cuenta simple, para tener una idea antes de hablar.</p>
+
+      <div class="calc reveal">
+        <div>
+          <div class="field">
+            <span class="label" id="l-inf">Informes por mes</span>
+            <div class="stepper" role="group" aria-labelledby="l-inf">
+              <button type="button" data-step="-1" data-for="c-inf" aria-label="Menos informes">−</button>
+              <input id="c-inf" type="number" inputmode="numeric" min="1" max="500" value="20" aria-labelledby="l-inf">
+              <button type="button" data-step="1" data-for="c-inf" aria-label="Más informes">+</button>
+            </div>
+          </div>
+          <div class="field">
+            <label for="c-h">Horas de armado por informe <output for="c-h" id="c-h-out">3 h</output></label>
+            <input id="c-h" type="range" min="0.5" max="12" step="0.5" value="3">
+          </div>
+          <div class="field">
+            <label for="c-cost">Costo por hora de ingeniero</label>
+            <span class="hint">Valor de ejemplo. Cargá el tuyo.</span>
+            <div class="money"><span aria-hidden="true">$</span><input id="c-cost" type="number" inputmode="numeric" min="0" step="1000" value="40000" aria-label="Costo por hora en pesos"></div>
+          </div>
+        </div>
+        <div aria-live="polite">
+          <div class="result-big"><span id="r-h">60</span><small>h / mes</small></div>
+          <p class="result-cost">Unos <b id="r-c">$ 2.400.000</b> por mes en armar informes.</p>
+          <div class="cmp">
+            <div class="cmp__row">
+              <div class="cmp__head"><span>Hoy</span><b id="b-now">60 h</b></div>
+              <div class="cmp__bar"><i id="bar-now"></i></div>
+            </div>
+            <div class="cmp__row cmp__row--after">
+              <div class="cmp__head"><span>Con -60% *</span><b id="b-after">24 h</b></div>
+              <div class="cmp__bar"><i id="bar-after"></i></div>
+            </div>
+            <div class="cmp__row cmp__row--save">
+              <div class="cmp__head"><span>Podrían volver al campo *</span><b id="b-save">36 h, unos $ 1.440.000 por mes</b></div>
+            </div>
+          </div>
+          <p class="note data__note">* -60% de tiempo de armado de reportes: resultados esperados de referencia. No está medido en informes de campo. El informe asistido por IA todavía no existe: el impacto real se estima en el diagnóstico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiénes somos -->
+  <section class="section" id="equipo" aria-labelledby="equipo-title" style="border-top:1px solid var(--border)">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ QUIÉNES SOMOS ]</span>
+      <h2 class="section__title reveal" id="equipo-title">Tres ingenierías, del lado del software.</h2>
+      <p class="section__lead reveal">Una agencia de software ve pantallas. Nosotros vemos la máquina, la señal y el costo detrás de cada dato.</p>
+      <div class="team__grid">
+        <article class="eng-card reveal" data-d="ind">
+          <span class="eng-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span>
+          <div><h3>Matias Arana</h3><span class="eng-card__role">Ingeniero industrial</span></div>
+        </article>
+        <article class="eng-card reveal" data-d="elec">
+          <span class="eng-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span>
+          <div><h3>Luciano DeAngeli</h3><span class="eng-card__role">Ingeniero electromecánico</span></div>
+        </article>
+        <article class="eng-card reveal" data-d="mec">
+          <span class="eng-card__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9 7 7M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/></svg></span>
+          <div><h3>Gustavo Palacios</h3><span class="eng-card__role">Ingeniero mecánico</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Casos -->
+  <section class="section" id="casos" aria-labelledby="casos-title" style="border-top:1px solid var(--border)">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ LO QUE YA HICIMOS ]</span>
+      <h2 class="section__title reveal" id="casos-title">Dos trabajos reales, en otro rubro.</h2>
+      <p class="section__lead reveal">Todavía no tenemos un caso en servicios eléctricos, ni resultados medidos para mostrarte. Por eso proponemos arrancar con un piloto chico.</p>
+
+      <div class="cases">
+        <article class="case reveal" data-tone="ops">
+          <div class="case__poster">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10l5 3V10l5 3V6l4 2v13"/></svg>
+            <span class="badge-mono badge-mono--cyan">[ INDUSTRIA ALIMENTICIA ]</span>
+          </div>
+          <div class="case__body">
+            <h3>Empresa de alimentos</h3>
+            <dl>
+              <div><dt class="pain">EL PROBLEMA</dt><dd>Lotes, stock, calidad y compras repartidos en planillas y en un sistema que no veía la planta.</dd></div>
+              <div><dt>QUÉ HICIMOS</dt><dd>Un sistema de la orden de compra al despacho, con stock por lote, kiosco de planta y etiquetas con código de barras.</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="case reveal" data-tone="doc">
+          <div class="case__poster">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6M8 14h8M8 17h5"/></svg>
+            <span class="badge-mono badge-mono--emerald">[ INOCUIDAD ALIMENTARIA ]</span>
+          </div>
+          <div class="case__body">
+            <span class="case__status">EN IMPLEMENTACIÓN</span>
+            <h3>Gestión documental para FSSC 22000 / ISO 22000</h3>
+            <dl>
+              <div><dt class="pain">EL PROBLEMA</dt><dd>Procedimientos en carpetas, versiones que se mezclan y la duda de quién leyó qué antes de la auditoría.</dd></div>
+              <div><dt>QUÉ HICIMOS</dt><dd>Un sistema documental pensado para la auditoría, con firmas, control de versiones y acuses de lectura. Es la misma base que proponemos para tu ISO 9001.</dd></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="section booking" id="contacto" aria-labelledby="contacto-title">
+    <div class="container booking__inner">
+      <div class="reveal">
+        <span class="badge-mono badge-mono--cyan">[ CONTACTO ]</span>
+        <h2 class="section__title" id="contacto-title">¿Nos mostrás tu App y vemos qué le falta?</h2>
+        <p class="section__lead">Coordiná una reunión de 30 minutos con los fundadores de Ingenia, en Luro 2935 o por videollamada. Con eso alcanza para ver si hay un piloto que valga la pena.</p>
+        <p class="booking__guarantee">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+          Respuesta en menos de 24 horas hábiles, directamente por un ingeniero fundador.
+        </p>
+      </div>
+      <div class="booking__card reveal">
+        <a class="btn btn--primary" id="cta" href="#" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+          Coordiná la reunión por WhatsApp
+        </a>
+        <div class="contact-links">
+          <a id="mail-link" href="#">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <span><small>MAIL</small><span id="mail-text"></span></span>
+          </a>
+          <a id="web-link" href="#" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+            <span><small>WEB Y SOLUCIONES</small>ingenia.solutions</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="logo logo--lg" role="img" aria-label="Ingenia">
+        <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="iso3-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+            <linearGradient id="iso3-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+            <linearGradient id="iso3-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+          </defs><polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#iso3-top)"/><polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#iso3-side)"/><polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#iso3-front)"/><polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#iso3-side)"/><polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#iso3-front)"/><polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#iso3-side)"/><polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#iso3-top)"/><polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#iso3-front)"/>
+        </svg>
+        <span aria-hidden="true">Ingen<span class="logo__ia">ia</span></span>
+      </span>
+      <p class="logo__tagline">TECNOLOGÍA E INTELIGENCIA ARTIFICIAL PARA PYMES</p>
+    </div>
+    <p class="footer__tagline">Propuesta preparada para Spread Electric. Mar del Plata, octubre de 2026.</p>
+  </div>
+</footer>
+
+<script>
+  // Datos de contacto: los mismos de la web oficial (ingenia.solutions)
+  const CONTACTO = {
+    whatsapp: "5492233546450",
+    mensaje: "Hola, soy de Spread Electric. Vi la propuesta de Ingenia Solutions y quiero coordinar una reunión.",
+    mail: "somos.ingenialabs@gmail.com",
+    web: "https://ingenia.solutions/?utm_source=folleto&utm_medium=email&utm_campaign=spread-electric"
+  };
+
+  document.documentElement.classList.add("js");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fmt = (v, d = 0) => new Intl.NumberFormat("es-AR", { minimumFractionDigits: d, maximumFractionDigits: d }).format(v);
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  // Dispara una función la primera vez que el elemento entra en pantalla
+  const onSeen = (node, fn) => {
+    if (!("IntersectionObserver" in window)) return fn();
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { io.disconnect(); fn(); }
+    }, { threshold: 0, rootMargin: "0px 0px -20% 0px" });
+    io.observe(node);
+  };
+
+  // Contacto
+  (function () {
+    document.getElementById("cta").href = "https://wa.me/" + CONTACTO.whatsapp + "?text=" + encodeURIComponent(CONTACTO.mensaje);
+    const mail = document.getElementById("mail-link");
+    mail.href = "mailto:" + CONTACTO.mail + "?subject=" + encodeURIComponent("Reunión Spread Electric e Ingenia Solutions");
+    document.getElementById("mail-text").textContent = CONTACTO.mail;
+    document.getElementById("web-link").href = CONTACTO.web;
+  })();
+
+  // Nav al hacer scroll
+  (function () {
+    const nav = document.getElementById("nav");
+    const on = () => nav.classList.toggle("is-scrolled", window.scrollY > 24);
+    window.addEventListener("scroll", on, { passive: true });
+    on();
+  })();
+
+  // Revelado al hacer scroll
+  (function () {
+    const items = document.querySelectorAll(".reveal");
+    if (reduceMotion || !("IntersectionObserver" in window)) { items.forEach((n) => n.classList.add("is-in")); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.05 });
+    items.forEach((n) => io.observe(n));
+  })();
+
+  // Cinta: duplicar para que el desplazamiento sea continuo
+  (function () {
+    const m = document.getElementById("marquee");
+    Array.from(m.children).forEach((c) => { const d = c.cloneNode(true); d.setAttribute("aria-hidden", "true"); m.appendChild(d); });
+  })();
+
+  // Línea del recorrido
+  (function () {
+    const t = document.getElementById("flow-track");
+    onSeen(t, () => t.classList.add("is-in"));
+  })();
+
+  // Filtro de soluciones por estado
+  (function () {
+    const chips = document.querySelectorAll("[data-f]");
+    const groups = document.querySelectorAll(".sol-group");
+    chips.forEach((c) => c.addEventListener("click", () => {
+      chips.forEach((x) => x.setAttribute("aria-pressed", String(x === c)));
+      groups.forEach((g) => {
+        g.hidden = c.dataset.f !== "all" && g.dataset.g !== c.dataset.f;
+        if (!g.hidden) g.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-in"));
+      });
+    }));
+  })();
+
+  // Tendencia de ejemplo: la última lectura está dentro del límite, pero la siguiente lo cruzaría
+  (function () {
+    const ASSETS = [
+      { name: "borne de tablero", unit: "°C", d: 0, label: "Sobretemperatura", values: [4, 5, 6, 8, 10, 13], limit: 15, up: true },
+      { name: "bobinado de motor", unit: "MΩ", d: 0, label: "Aislación", values: [820, 760, 680, 590, 480, 360], limit: 300, up: false },
+      { name: "bomba", unit: "mm/s", d: 1, label: "Vibración", values: [1.8, 1.9, 2.1, 2.5, 3.1, 3.9], limit: 4.5, up: true }
+    ];
+    let asset = 0, view = "one";
+    const box = document.getElementById("trend-chart");
+    const read = document.getElementById("trend-read");
+    const H = 230, L = 14, R = 18, T = 20, B = 30;
+
+    const render = () => {
+      // El ancho sale del contenedor para que el texto del gráfico no se achique en el celular
+      const W = Math.min(720, Math.max(280, box.clientWidth));
+      const a = ASSETS[asset];
+      const last = a.values[a.values.length - 1];
+      const next = last + (last - a.values[a.values.length - 2]);
+      const all = a.values.concat(a.limit, next);
+      const lo = Math.min(...all), hi = Math.max(...all), pad = (hi - lo) * .12;
+      const x = (i) => L + i * ((W - L - R) / 6);
+      const y = (v) => T + (1 - (v - (lo - pad)) / (hi - lo + 2 * pad)) * (H - T - B);
+      const v = (n) => fmt(n, a.d) + " " + a.unit;
+
+      box.innerHTML = "";
+      const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, "aria-hidden": "true" }, box);
+      el("line", { class: "t-limit", x1: L, x2: W - R, y1: y(a.limit), y2: y(a.limit) }, svg);
+      el("text", { class: "t-limit-t", x: L, y: y(a.limit) + (a.up ? -7 : 15) }, svg).textContent = "Límite de ejemplo: " + v(a.limit);
+      for (let i = 0; i <= 5; i++) el("text", { x: x(i), y: H - 8, "text-anchor": "middle" }, svg).textContent = "V" + (i + 1);
+      el("text", { x: x(6), y: H - 8, "text-anchor": "middle" }, svg).textContent = "V7";
+
+      if (view === "all") {
+        el("path", { class: "t-line", d: a.values.map((n, i) => (i ? "L" : "M") + x(i) + " " + y(n)).join(" ") }, svg);
+        a.values.forEach((n, i) => el("circle", { class: "t-dot", cx: x(i), cy: y(n), r: 4 }, svg));
+        el("path", { class: "t-proj", d: `M${x(5)} ${y(last)} L${x(6)} ${y(next)}` }, svg);
+        el("circle", { class: "t-proj-dot", cx: x(6), cy: y(next), r: 5 }, svg);
+      }
+      el("circle", { class: "t-now", cx: x(5), cy: y(last), r: 6 }, svg);
+      el("text", { class: "t-val", x: x(5), y: y(last) + (a.up ? 22 : -12), "text-anchor": "middle" }, svg).textContent = v(last);
+
+      const inLimit = "<b>" + a.label + " del " + a.name + ": " + v(last) + ".</b> ";
+      const msg = view === "one"
+        ? inLimit + "Dentro del límite. Con esta sola lectura, no hay nada para hacer."
+        : inLimit + "Viene de " + v(a.values[0]) + ". Si repite la última variación, la próxima visita da " + v(next) + " y cruza el límite.";
+      read.innerHTML = msg;
+      box.setAttribute("aria-label", read.textContent + " Datos de ejemplo.");
+    };
+
+    document.querySelectorAll("[data-a]").forEach((b, _, list) => b.addEventListener("click", () => {
+      asset = +b.dataset.a;
+      list.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      render();
+    }));
+    document.querySelectorAll("[data-v]").forEach((b, _, list) => b.addEventListener("click", () => {
+      view = b.dataset.v;
+      list.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      render();
+    }));
+    window.addEventListener("resize", render);
+    render();
+  })();
+
+  // Calculadora de informes (-60%: resultados esperados de referencia)
+  (function () {
+    const REDUCCION = 0.6;
+    const inf = document.getElementById("c-inf"), hrs = document.getElementById("c-h"), cost = document.getElementById("c-cost");
+    const $ = (id) => document.getElementById(id);
+    const num = (input, fallback) => { const n = parseFloat(input.value); return Number.isFinite(n) && n >= 0 ? n : fallback; };
+    const h = (n) => fmt(n, Number.isInteger(n) ? 0 : 1) + " h";
+
+    const update = () => {
+      const total = num(inf, 0) * num(hrs, 0);
+      const after = total * (1 - REDUCCION);
+      const save = total - after;
+      const c = num(cost, 0);
+      $("c-h-out").textContent = h(num(hrs, 0));
+      $("r-h").textContent = fmt(total, Number.isInteger(total) ? 0 : 1);
+      $("r-c").textContent = "$ " + fmt(total * c);
+      $("b-now").textContent = h(total);
+      $("b-after").textContent = h(after);
+      $("b-save").textContent = h(save) + ", unos $ " + fmt(save * c) + " por mes";
+      $("bar-now").style.width = total > 0 ? "100%" : "0";
+      $("bar-after").style.width = total > 0 ? (100 * (1 - REDUCCION)) + "%" : "0";
+    };
+
+    document.querySelectorAll("[data-step]").forEach((b) => b.addEventListener("click", () => {
+      const t = $(b.dataset.for);
+      const next = num(t, 0) + Number(b.dataset.step);
+      t.value = Math.min(+t.max, Math.max(+t.min, next));
+      update();
+    }));
+    [inf, hrs, cost].forEach((n) => n.addEventListener("input", update));
+    onSeen($("calculadora"), update);
+    update();
+  })();
+</script>
+</body>
+</html>
