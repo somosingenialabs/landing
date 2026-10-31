@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingenia Solutions · Propuesta para Oliva</title>
+<meta name="description" content="Una idea para Oliva: que cada pedido se convierta en la lista de compras. Qué hacemos hoy y qué todavía no existe, separado y a la vista.">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Tokens de la web oficial (ingenia.solutions), los mismos de la propuesta de consultoragyg */
+  :root {
+    --bg-primary: #000000;
+    --bg-surface: #1C1C1E;
+    --bg-surface-2: #0E0E10;
+    --bg-elevated: #2C2C2E;
+    --border: #2C2C2E;
+    --border-strong: #38383A;
+    --text: #FFFFFF;
+    --text-muted: #8E8E93;
+    --brand-blue: #007AFF;
+    --accent-blue: #0062CC;
+    --accent-blue-hover: #0051A8;
+    --accent-cyan: #409CFF;
+    --accent-emerald: #30B0C7;
+    --font: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", "Roboto Mono", ui-monospace, monospace;
+    --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-pill: 999px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --container: 1240px;
+    --nav-h: 64px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); }
+  body { margin: 0; background: var(--bg-primary); color: var(--text); font: 400 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, h4 { font-weight: 700; margin: 0; letter-spacing: -0.02em; }
+  p { margin: 0; }
+  ul, ol { margin: 0; padding: 0; list-style: none; }
+  button { font: inherit; cursor: pointer; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 3px; border-radius: 4px; }
+
+  .container { width: 100%; max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 767px) { .container { padding: 0 16px; } }
+
+  .badge-mono { display: inline-flex; align-items: center; gap: 8px; font: 500 12px/1.5 var(--mono); letter-spacing: .06em; color: var(--text-muted); }
+  .badge-mono--cyan { color: var(--accent-cyan); }
+  .badge-mono--emerald { color: var(--accent-emerald); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; border-radius: var(--r-sm); border: 1px solid transparent; font: 600 15.5px/1.2 var(--font); padding: 14px 22px; text-align: center; transition: background-color .25s var(--ease), border-color .25s var(--ease), transform .15s var(--ease); }
+  .btn:active { transform: translateY(1px) scale(.99); }
+  .btn--sm { min-height: 44px; padding: 9px 16px; font-size: 14px; }
+  .btn--primary { background: var(--accent-blue); color: #fff; box-shadow: 0 8px 24px -12px rgba(0,122,255,.7); }
+  .btn--primary:hover { background: var(--accent-blue-hover); }
+  .btn--ghost { background: transparent; color: var(--text); border-color: var(--border-strong); }
+  .btn--ghost:hover { border-color: var(--text-muted); background: rgba(142,142,147,.06); }
+
+  .section { padding: 112px 0; position: relative; }
+  @media (max-width: 767px) { .section { padding: 72px 0; } }
+  .section--line { border-top: 1px solid var(--border); }
+  .section__title { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.15; max-width: 24ch; margin-top: 12px; }
+  .section__lead { color: var(--text-muted); font-size: 17px; max-width: 62ch; margin-top: 16px; }
+  .note { font: 400 12px/1.5 var(--mono); color: var(--text-muted); }
+
+  .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+
+  /* Rótulos de estado: palabra + estilo, nunca solo color */
+  .st { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 2px 10px; border-radius: var(--r-pill); font: 500 11.5px/1.3 var(--mono); letter-spacing: .05em; white-space: nowrap; border: 1px solid transparent; }
+  .st--hoy { background: var(--accent-emerald); color: #000; }
+  .st--dev { border-color: var(--accent-cyan); color: var(--accent-cyan); }
+  .st--prox { border: 1px dashed var(--text-muted); color: var(--text); }
+
+  /* Nav */
+  .nav { position: fixed; inset: 12px 0 auto 0; z-index: 40; padding: 0 12px; }
+  .nav__inner { height: var(--nav-h); display: flex; align-items: center; gap: 24px; background: rgba(18,18,20,.82); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border: 1px solid var(--border); border-radius: var(--r-md); max-width: calc(var(--container) - 24px); }
+  .nav__badge { margin-right: auto; }
+  @media (max-width: 760px) { .nav__badge { display: none; } .nav__inner { justify-content: space-between; padding: 0 12px; gap: 8px; } }
+
+  .logo { display: inline-flex; align-items: center; gap: .32em; line-height: 1; font-weight: 800; font-size: 24px; letter-spacing: -.03em; color: var(--text); white-space: nowrap; }
+  .nav .logo { min-height: 44px; }
+  .logo__mark { height: 1.5em; width: auto; flex-shrink: 0; }
+  .logo__ia { color: var(--brand-blue); }
+  .logo--lg { font-size: clamp(38px, 5vw, 52px); }
+  .logo__tagline { margin-top: 14px; font-weight: 600; font-size: 10.5px; letter-spacing: .19em; color: var(--text-muted); text-align: center; }
+
+  /* Portada */
+  .hero { position: relative; padding: calc(var(--nav-h) + 72px) 0 88px; overflow: hidden; }
+  .hero__grid-bg { position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(142,142,147,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(142,142,147,.06) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 30%, transparent 75%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 40%, #000 30%, transparent 75%); }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 40% 50% at 78% 45%, rgba(0,122,255,.12), transparent 70%); }
+  .hero__inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 56px; align-items: center; }
+  .hero__title { font-size: clamp(34px, 4.2vw, 54px); line-height: 1.08; font-weight: 800; margin-top: 20px; max-width: 19ch; }
+  .hero__sub { font-size: clamp(18px, 1.8vw, 21px); line-height: 1.4; font-weight: 600; margin-top: 20px; max-width: 38ch; }
+  .hero__lead { color: var(--text-muted); font-size: 17px; max-width: 54ch; margin-top: 14px; }
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .hero__source { margin-top: 18px; max-width: 54ch; }
+  @media (max-width: 1023px) { .hero__inner { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
+  @media (max-width: 767px) { .hero { padding: calc(var(--nav-h) + 48px) 0 64px; } .hero__ctas .btn { width: 100%; } }
+
+  .flow { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--r-lg); padding: 24px; box-shadow: 0 30px 60px -30px rgba(0,122,255,.3); }
+  .flow__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 18px; }
+  .flow__title { font-weight: 700; font-size: 15px; }
+  .flow__row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 14px; background: var(--bg-surface-2); border: 1px solid var(--border); border-radius: var(--r-sm); }
+  .flow__row span { font-size: 14.5px; color: var(--text-muted); }
+  .flow__row b { font: 500 15px/1.3 var(--mono); white-space: nowrap; }
+  .flow__op { font: 500 14px/1 var(--mono); color: var(--text-muted); text-align: center; padding: 6px 0; }
+  .flow__row--out { background: rgba(0,122,255,.1); border-color: var(--accent-blue); }
+  .flow__row--out span { color: var(--text); font-weight: 600; }
+  .flow .note { margin-top: 14px; }
+
+  /* Cómo leer */
+  .key { border-block: 1px solid var(--border); background: var(--bg-surface-2); padding: 28px 0; }
+  .key__inner { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 16px 32px; align-items: start; }
+  .key__title { font-weight: 700; max-width: 16ch; line-height: 1.3; }
+  .key__item p { font-size: 14.5px; color: var(--text-muted); margin-top: 8px; line-height: 1.45; }
+  @media (max-width: 899px) { .key__inner { grid-template-columns: minmax(0, 1fr); } .key__title { max-width: none; } }
+
+  /* Lo que vimos */
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
+  .stat { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 20px; }
+  .stat b { display: block; font: 500 clamp(24px, 2.6vw, 32px)/1.15 var(--mono); }
+  .stat span { display: block; margin-top: 8px; font-size: 14.5px; line-height: 1.4; color: var(--text-muted); }
+  @media (max-width: 899px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 16px; }
+  @media (max-width: 899px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  .panel { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 28px; }
+  @media (max-width: 767px) { .panel { padding: 22px; } }
+  .panel h3 { font-size: 20px; line-height: 1.25; margin-top: 10px; }
+  .panel--ask { border-color: var(--accent-blue); }
+  .ticks { margin-top: 16px; display: grid; gap: 12px; }
+  .ticks li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; font-size: 15.5px; line-height: 1.45; color: #E5E5EA; }
+  .ticks svg { margin-top: 3px; color: var(--accent-emerald); }
+  .panel--ask .ticks svg { color: var(--accent-cyan); }
+
+  /* La app */
+  .app { background: var(--bg-surface-2); border-block: 1px solid var(--border); }
+  .app__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .app__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 56px; margin-top: 44px; align-items: start; justify-content: center; }
+  @media (max-width: 899px) { .app__grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+
+  .ctrl { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--r-md); padding: 24px; }
+  @media (max-width: 767px) { .ctrl { padding: 18px; } }
+  .ctrl h3 { font-size: 19px; margin-top: 8px; line-height: 1.25; }
+  .ctrl__sub { color: var(--text-muted); font-size: 14.5px; margin-top: 6px; }
+  .dish { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 14px; align-items: center; padding: 14px 0; border-top: 1px solid var(--border); }
+  .dish:first-of-type { margin-top: 16px; }
+  .dish__name { font-size: 15px; line-height: 1.35; font-weight: 600; }
+  .stepper { display: inline-grid; grid-template-columns: 44px 48px 44px; align-items: center; border: 1px solid var(--border-strong); border-radius: var(--r-sm); overflow: hidden; }
+  .stepper button { height: 44px; background: transparent; border: 0; font-size: 20px; }
+  .stepper button:hover { background: var(--bg-elevated); }
+  .stepper output { text-align: center; font: 500 15px/1 var(--mono); }
+  .ctrl__out { margin-top: 14px; padding-top: 16px; border-top: 1px solid var(--border-strong); font-size: 15px; }
+  .ctrl__out b { font-family: var(--mono); font-weight: 500; }
+  .ctrl__disc { margin-top: 12px; }
+
+  .fn-list { display: grid; gap: 10px; margin-top: 16px; }
+  .fn { display: grid; gap: 4px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg-surface); }
+  .fn b { font-size: 15.5px; }
+  .fn span { font-size: 14.5px; color: var(--text-muted); line-height: 1.45; }
+  .fn small { font: 500 11.5px/1.4 var(--mono); color: var(--accent-cyan); letter-spacing: .04em; }
+  .app__left { display: grid; gap: 28px; min-width: 0; }
+  .app__left h3.sub { font-size: 19px; }
+
+  /* Teléfono */
+  .phone-wrap { position: sticky; top: calc(var(--nav-h) + 28px); min-width: 0; }
+  @media (max-width: 899px) {
+    .app__left { display: contents; }
+    .app__left .fn-block { order: 2; }
+    .phone-wrap { position: static; max-width: 380px; margin: 0 auto; width: 100%; order: 1; }
+  }
+  .phone { background: #000; border: 1px solid var(--border-strong); border-radius: 34px; padding: 10px; box-shadow: 0 30px 70px -30px rgba(0,122,255,.45); }
+  .screen { background: var(--bg-surface-2); border-radius: 26px; overflow: hidden; display: flex; flex-direction: column; height: 600px; }
+  .screen__bar { padding: 16px 18px 12px; border-bottom: 1px solid var(--border); }
+  .screen__tag { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .screen__title { font-size: 17px; font-weight: 700; margin-top: 8px; line-height: 1.25; }
+  .screen__sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .screen__body { flex: 1; overflow-y: auto; padding: 4px 14px 16px; min-height: 0; }
+  .tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--border); background: var(--bg-surface); }
+  .tabs button { min-height: 52px; background: transparent; border: 0; font-size: 12.5px; font-weight: 600; color: var(--text-muted); padding: 4px 2px; border-top: 2px solid transparent; }
+  .tabs button[aria-selected="true"] { color: var(--text); border-top-color: var(--accent-cyan); }
+  .grp { font: 500 11.5px/1.4 var(--mono); letter-spacing: .05em; color: var(--text-muted); padding: 16px 2px 6px; }
+  .buy { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 8px; align-items: center; min-height: 44px; padding: 4px 2px; border-bottom: 1px solid var(--border); cursor: pointer; font-size: 14.5px; }
+  .buy input { width: 20px; height: 20px; accent-color: var(--accent-blue); margin: 0; }
+  .buy b { font: 500 13.5px/1 var(--mono); }
+  .buy input:checked ~ span, .buy input:checked ~ b { text-decoration: line-through; color: var(--text-muted); }
+  .covered { color: var(--text-muted); font-size: 13.5px; padding: 14px 2px 0; line-height: 1.4; }
+  .stop { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding-bottom: 18px; position: relative; }
+  .stop:not(:last-child)::before { content: ""; position: absolute; left: 15px; top: 32px; bottom: 0; width: 2px; background: var(--border-strong); }
+  .stop__n { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--bg-elevated); font: 500 13px/1 var(--mono); }
+  .stop__n--end { background: var(--accent-blue); }
+  .stop b { display: block; font-size: 15px; line-height: 1.3; }
+  .stop div span { display: block; font-size: 13.5px; color: var(--text-muted); line-height: 1.4; margin-top: 2px; }
+  .route { padding-top: 14px; }
+  .mini-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 14px; margin-top: 12px; }
+  .mini-card h4 { font-size: 14.5px; line-height: 1.3; }
+  .mini-card .chart { margin-top: 10px; }
+  .chart svg { width: 100%; height: auto; }
+  .readout { font-size: 13px; color: var(--text-muted); margin-top: 8px; min-height: 2.8em; line-height: 1.4; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 10px; min-height: 40px; padding: 6px 0; font-size: 14px; line-height: 1.35; border-bottom: 1px solid var(--border); }
+  .row:last-child { border-bottom: 0; }
+  .row span { color: var(--text-muted); font-size: 13.5px; }
+  .row b { font: 500 13.5px/1 var(--mono); font-weight: 500; white-space: nowrap; }
+  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 12px; }
+  .tile { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 12px; }
+  .tile b { display: block; font: 500 22px/1.15 var(--mono); }
+  .tile span { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.3; }
+  .phone-note { margin-top: 12px; text-align: center; }
+
+  /* Honesto */
+  .gains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 56px; }
+  .gain { padding: 22px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); }
+  .gain h3 { font-size: 17px; }
+  .gain p { font-size: 15px; color: var(--text-muted); margin-top: 8px; line-height: 1.5; }
+  @media (max-width: 899px) { .gains { grid-template-columns: minmax(0, 1fr); } }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; counter-reset: s; }
+  .step { padding: 22px; border: 1px solid var(--border); border-radius: var(--r-md); }
+  .step b { font: 500 13px/1 var(--mono); color: var(--accent-cyan); }
+  .step h4 { font-size: 16.5px; margin-top: 10px; line-height: 1.3; }
+  .step p { font-size: 14.5px; color: var(--text-muted); margin-top: 6px; line-height: 1.5; }
+  @media (max-width: 899px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  .subhead { font-size: 22px; line-height: 1.25; margin-top: 56px; }
+
+  /* Mapa de soluciones */
+  .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .filter button { min-height: 44px; padding: 8px 16px; border-radius: var(--r-pill); background: transparent; border: 1px solid var(--border-strong); font-size: 14px; font-weight: 600; color: var(--text-muted); }
+  .filter button[aria-pressed="true"] { background: var(--bg-elevated); color: var(--text); border-color: var(--text-muted); }
+  .sol-group { margin-top: 40px; }
+  .sol-group[hidden] { display: none; }
+  .sol-group__head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .sol-group__head p { color: var(--text-muted); font-size: 15px; }
+  .sols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  @media (max-width: 1023px) { .sols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) { .sols { grid-template-columns: minmax(0, 1fr); } }
+  .sol { padding: 20px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
+  .sol--prox { background: transparent; border: 1px dashed var(--border-strong); }
+  .sol h4 { font-size: 16.5px; line-height: 1.3; }
+  .sol p { font-size: 14.5px; line-height: 1.5; color: var(--text-muted); }
+
+  .no { margin-top: 48px; }
+  .no ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  .no li { padding: 18px 20px; border-left: 2px solid var(--border-strong); }
+  .no b { display: block; font-size: 15.5px; line-height: 1.35; }
+  .no span { display: block; color: var(--text-muted); font-size: 14.5px; margin-top: 4px; line-height: 1.45; }
+  @media (max-width: 899px) { .no ul { grid-template-columns: minmax(0, 1fr); } }
+
+  /* Equipo */
+  .proofs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
+  @media (max-width: 767px) { .proofs { grid-template-columns: minmax(0, 1fr); } }
+  .team { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+  @media (max-width: 767px) { .team { grid-template-columns: minmax(0, 1fr); } }
+  .eng { padding: 18px 20px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); }
+  .eng h3 { font-size: 16.5px; }
+  .eng span { color: var(--text-muted); font-size: 14.5px; }
+  .honest { margin-top: 20px; padding: 18px 20px; border: 1px dashed var(--text-muted); border-radius: var(--r-md); font-size: 15.5px; max-width: 72ch; }
+
+  /* Contacto */
+  .booking { background: radial-gradient(ellipse 60% 60% at 0% 100%, rgba(0,122,255,.14), transparent 60%), var(--bg-surface-2); border-top: 1px solid var(--border); }
+  .booking__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+  @media (max-width: 899px) { .booking__inner { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+  .booking__guarantee { display: flex; align-items: flex-start; gap: 10px; margin-top: 24px; font-size: 15px; max-width: 46ch; }
+  .booking__guarantee svg { color: var(--accent-emerald); flex: none; margin-top: 2px; }
+  .booking__card { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--r-md); padding: 32px; display: grid; gap: 8px; }
+  @media (max-width: 767px) { .booking__card { padding: 22px; } }
+  .booking__card .btn { width: 100%; white-space: normal; }
+  .contact-links { display: grid; gap: 4px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .contact-links a { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 0 8px; border-radius: var(--r-sm); overflow-wrap: anywhere; }
+  .contact-links a:hover { background: rgba(142,142,147,.08); }
+  .contact-links a svg { color: var(--accent-cyan); flex: none; }
+  .contact-links small { display: block; font: 400 11.5px/1.3 var(--mono); color: var(--text-muted); }
+
+  .footer { border-top: 1px solid var(--border); padding: 56px 0 40px; background: radial-gradient(ellipse 50% 80% at 15% 0%, rgba(0,122,255,.07), transparent 70%); }
+  .footer__inner { display: grid; grid-template-columns: auto 1fr; gap: 12px 48px; align-items: center; }
+  .footer__brand { display: flex; flex-direction: column; align-items: center; }
+  .footer__tagline { color: var(--text-muted); font-size: 15px; justify-self: end; text-align: right; max-width: 40ch; }
+  @media (max-width: 767px) { .footer__inner { grid-template-columns: 1fr; justify-items: center; gap: 20px; } .footer__tagline { justify-self: center; text-align: center; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+    .js .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="nav__inner container">
+    <a href="#top" class="logo" aria-label="Ingenia Solutions, inicio">
+      <!-- Logo oficial: el mismo isotipo y texto de la web (brand/assets) -->
+      <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="iso2-front" gradientUnits="userSpaceOnUse" x1="-21" y1="-88" x2="31" y2="42"><stop offset="0" stop-color="#007AFF"/><stop offset="1" stop-color="#30B0C7"/></linearGradient>
+          <linearGradient id="iso2-top" gradientUnits="userSpaceOnUse" x1="0" y1="-100" x2="52" y2="-58"><stop offset="0" stop-color="#30B0C7"/><stop offset="1" stop-color="#7AD3E3"/></linearGradient>
+          <linearGradient id="iso2-side" gradientUnits="userSpaceOnUse" x1="31" y1="-70" x2="52" y2="42"><stop offset="0" stop-color="#1E63B8"/><stop offset="1" stop-color="#123A6B"/></linearGradient>
+        </defs><polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#iso2-top)"/><polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#iso2-side)"/><polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#iso2-front)"/><polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#iso2-side)"/><polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#iso2-front)"/><polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#iso2-side)"/><polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#iso2-top)"/><polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#iso2-front)"/>
+      </svg>
+      <span aria-hidden="true">Ingen<span class="logo__ia">ia</span></span>
+    </a>
+    <span class="badge-mono nav__badge">[ PROPUESTA PARA OLIVA ]</span>
+    <a href="#contacto" class="btn btn--primary btn--sm">Pedí el diagnóstico</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- Portada -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__grid-bg" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <div>
+        <span class="badge-mono badge-mono--cyan reveal">[ PREPARADO PARA OLIVA SG ]</span>
+        <h1 class="hero__title reveal" id="hero-title">Más de 120 platos en dos semanas. ¿Quién calcula qué hay que comprar?</h1>
+        <p class="hero__sub reveal">Tu web ya resuelve el pedido. Te proponemos mirar lo que pasa antes: recetas, insumos y compras.</p>
+        <p class="hero__lead reveal">La idea es que cada pedido se convierta en la lista de compras, en el celular de quien sale a comprar. Todavía no existe: la queremos construir con una cocina como la tuya.</p>
+        <div class="hero__ctas reveal">
+          <a class="btn btn--primary" href="#contacto">Pedí el diagnóstico sin cargo</a>
+          <a class="btn btn--ghost" href="#app">Probá la maqueta</a>
+        </div>
+        <p class="note hero__source reveal">Contamos los platos de tu menú publicado del 26/10 al 8/11 de 2026.</p>
+      </div>
+
+      <div class="flow reveal" role="img" aria-label="Ejemplo ilustrativo del cálculo: pedidos de mañana, por recetas, más merma, menos stock, da los insumos a comprar.">
+        <div class="flow__head">
+          <span class="flow__title">Cómo sería el cálculo</span>
+          <span class="st st--prox">PRÓXIMAMENTE</span>
+        </div>
+        <div class="flow__row"><span>Pedidos de mañana</span><b><span data-total style="color:inherit;font:inherit">95</span> viandas</b></div>
+        <div class="flow__op" aria-hidden="true">x</div>
+        <div class="flow__row"><span>Receta de cada plato</span><b>gramos</b></div>
+        <div class="flow__op" aria-hidden="true">+</div>
+        <div class="flow__row"><span>Merma de cada insumo</span><b>%</b></div>
+        <div class="flow__op" aria-hidden="true">-</div>
+        <div class="flow__row"><span>Lo que hay en la cámara</span><b>stock</b></div>
+        <div class="flow__op" aria-hidden="true">=</div>
+        <div class="flow__row flow__row--out"><span>Lista de compras</span><b><span data-items style="color:inherit;font:inherit;font-weight:500">9</span> insumos</b></div>
+        <p class="note">Ilustrativo, con datos inventados.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo leer -->
+  <div class="key" aria-label="Cómo leer esta propuesta">
+    <div class="container key__inner">
+      <p class="key__title">Cómo leer esta propuesta</p>
+      <div class="key__item"><span class="st st--hoy">HOY</span><p>Lo podemos hacer ahora.</p></div>
+      <div class="key__item"><span class="st st--dev">EN DESARROLLO</span><p>Tiene plan de trabajo, pero no está construido.</p></div>
+      <div class="key__item"><span class="st st--prox">PRÓXIMAMENTE</span><p>Una idea que podríamos sumar. Hoy no la entregamos.</p></div>
+    </div>
+  </div>
+
+  <!-- Lo que vimos -->
+  <section class="section" id="vimos" aria-labelledby="vimos-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ LO QUE VIMOS EN TU WEB ]</span>
+      <h2 class="section__title reveal" id="vimos-title">Mucha variedad, todos los días, con poco margen para comprar.</h2>
+      <p class="section__lead reveal">Esto sale de olivasg.com.ar. No entramos a tu cocina: lo de abajo a la derecha son preguntas, no afirmaciones.</p>
+
+      <div class="stats reveal">
+        <div class="stat"><b>10</b><span>categorías con un plato cada una, por día</span></div>
+        <div class="stat"><b>+120</b><span>platos distintos en dos semanas de menú</span></div>
+        <div class="stat"><b>24 hs</b><span>de anticipación para tomar pedidos</span></div>
+        <div class="stat"><b>3</b><span>líneas: viandas, catering y eventos</span></div>
+      </div>
+
+      <div class="two">
+        <div class="panel reveal">
+          <span class="badge-mono badge-mono--emerald">[ LO QUE YA RESOLVISTE ]</span>
+          <h3>El pedido está ordenado</h3>
+          <ul class="ticks">
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Menú por día, con horario de corte.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Registro para clientes individuales y para empresas.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Empresas con pedido por empleado o sucursal, y entregas por turnos y sedes.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Planes semanal y mensual con descuento.</span></li>
+          </ul>
+        </div>
+        <div class="panel panel--ask reveal">
+          <span class="badge-mono badge-mono--cyan">[ LO QUE QUEREMOS PREGUNTARTE ]</span>
+          <h3>Lo de antes del pedido no se ve desde afuera</h3>
+          <ul class="ticks">
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Las recetas están escritas con gramos, o las tiene el equipo en la cabeza?</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Quién arma la lista de compras, y cuánto tiempo le lleva?</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Cuántas veces por semana falta algo y hay que salir de urgencia?</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Sabés cuánto te cuesta hoy cada plato? ¿Y cuando aumenta un insumo?</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Cuánto tardás en presupuestar un evento a medida?</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- La app -->
+  <section class="section app" id="app" aria-labelledby="app-title">
+    <div class="container">
+      <div class="app__head reveal">
+        <span class="badge-mono badge-mono--cyan">[ LA IDEA PARA OLIVA ]</span>
+        <span class="st st--prox">PRÓXIMAMENTE · TODAVÍA NO EXISTE</span>
+      </div>
+      <h2 class="section__title reveal" id="app-title">Una app para el celular de quien compra. Y otra puerta para tus clientes empresa.</h2>
+      <p class="section__lead reveal">Se abre desde un link y queda instalada en el teléfono, sin pasar por una tienda de apps. Tocá la maqueta: cambiá los pedidos y mirá cómo cambia la compra.</p>
+
+      <div class="app__grid">
+        <div class="app__left">
+          <div class="ctrl reveal">
+            <span class="badge-mono">[ MAQUETA · DATOS INVENTADOS ]</span>
+            <h3>Pedidos de mañana</h3>
+            <p class="ctrl__sub">Los platos son de tu menú. Las recetas no: las inventamos para mostrar el cálculo.</p>
+            <div id="dishes"></div>
+            <p class="ctrl__out" aria-live="polite"><b data-total>95</b> viandas: hay que comprar <b data-items>9</b> insumos en <b data-stops>5</b> paradas.</p>
+          </div>
+
+          <div class="reveal fn-block">
+            <h3 class="sub">Qué hace cada función, y para quién</h3>
+            <ul class="fn-list">
+              <li class="fn"><small>QUIEN COMPRA</small><b>Cálculo de materias primas</b><span>Pedidos por receta, más merma, menos stock. Sale qué comprar y a quién.</span></li>
+              <li class="fn"><small>QUIEN COMPRA</small><b>Recorrido sugerido</b><span>En qué orden pasar por cada proveedor y qué retirar en cada parada.</span></li>
+              <li class="fn"><small>QUIEN COMPRA Y VOS</small><b>Historial y estadísticas de compra</b><span>Qué se compró, a cuánto y a quién. Qué insumo subió y cuánto pesa.</span></li>
+              <li class="fn"><small>TU CLIENTE EMPRESA</small><b>Historial y estadísticas de consumo</b><span>Viandas por sede y platos más pedidos, sin pedírtelo por WhatsApp.</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="phone-wrap reveal">
+          <div class="phone">
+            <div class="screen">
+              <div class="screen__bar">
+                <div class="screen__tag"><span class="st st--prox">MAQUETA</span><span class="note">Datos inventados</span></div>
+                <p class="screen__title" id="screen-title">Para mañana</p>
+                <p class="screen__sub" id="screen-sub"></p>
+              </div>
+              <div class="screen__body" id="screen-body" role="tabpanel" tabindex="0" aria-labelledby="tab-comprar"></div>
+              <div class="tabs" role="tablist" aria-label="Pantallas de la maqueta">
+                <button role="tab" id="tab-comprar" aria-selected="true" data-tab="comprar">Comprar</button>
+                <button role="tab" id="tab-recorrido" aria-selected="false" tabindex="-1" data-tab="recorrido">Recorrido</button>
+                <button role="tab" id="tab-precios" aria-selected="false" tabindex="-1" data-tab="precios">Precios</button>
+                <button role="tab" id="tab-cliente" aria-selected="false" tabindex="-1" data-tab="cliente">Cliente</button>
+              </div>
+            </div>
+          </div>
+          <p class="note phone-note">Pantalla ilustrativa. Recetas, proveedores, precios y consumos inventados. No son datos de Oliva.</p>
+        </div>
+      </div>
+
+      <div class="gains">
+        <div class="gain reveal"><h3>Qué ganás vos</h3><p>La lista sale de los pedidos, los precios quedan registrados y podés llegar a saber el costo de cada plato.</p></div>
+        <div class="gain reveal"><h3>Qué gana quien compra</h3><p>Sabe qué comprar y en qué parada. Lo tilda en el celular, aunque no tenga señal.</p></div>
+        <div class="gain reveal"><h3>Qué gana tu cliente empresa</h3><p>Ve su consumo por sede cuando lo necesita. Es un motivo más para quedarse con vos.</p></div>
+      </div>
+
+      <h3 class="subhead reveal">Lo que ya tenemos y lo que falta</h3>
+      <div class="two">
+        <div class="panel reveal">
+          <span class="badge-mono badge-mono--emerald">[ YA LO CONSTRUIMOS, EN OTROS RUBROS ]</span>
+          <ul class="ticks">
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cálculo de necesidades y órdenes de compra: en el sistema de una maquila de alimentos de Mar del Plata.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>App instalable en el celular que funciona sin señal: la app para socios de un sistema de gimnasios.</span></li>
+          </ul>
+        </div>
+        <div class="panel reveal">
+          <span class="badge-mono">[ FALTA CONSTRUIR ]</span>
+          <ul class="ticks">
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="color:var(--text-muted)"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span>Adaptar el cálculo a una cocina: compra por día y unidades de cocina.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="color:var(--text-muted)"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span>Las pantallas de compra, recorrido, precios y consumo de empresas.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="color:var(--text-muted)"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span>Y lo que necesitamos de vos: las recetas con sus gramos. Sin eso no hay cálculo.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="subhead reveal">Empezaríamos chico, sin tocar tu sistema</h3>
+      <ol class="steps">
+        <li class="step reveal"><b>01</b><h4>Una planilla</h4><p>Pedidos de dos semanas, recetas de los 20 platos más pedidos y tu lista de proveedores.</p></li>
+        <li class="step reveal"><b>02</b><h4>Una sola pantalla</h4><p>Qué comprar mañana, por proveedor. Quien compra la usa y nos dice qué sobra y qué falta.</p></li>
+        <li class="step reveal"><b>03</b><h4>Medir y decidir</h4><p>Comparamos contra hoy: tiempo de armar la lista y compras de urgencia. Si no mejora, lo decimos.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Mapa de soluciones -->
+  <section class="section" id="soluciones" aria-labelledby="sol-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ TODO LO QUE PODRÍA SERVIRTE ]</span>
+      <h2 class="section__title reveal" id="sol-title">Qué hay hoy y qué todavía no, sin mezclar.</h2>
+      <div class="filter reveal" role="group" aria-label="Filtrar por estado">
+        <button type="button" data-f="todo" aria-pressed="true">Todo</button>
+        <button type="button" data-f="hoy" aria-pressed="false">Hoy</button>
+        <button type="button" data-f="dev" aria-pressed="false">En desarrollo</button>
+        <button type="button" data-f="prox" aria-pressed="false">Próximamente</button>
+      </div>
+
+      <div class="sol-group" data-g="hoy">
+        <div class="sol-group__head reveal"><span class="st st--hoy">HOY</span><p>Lo podemos hacer ahora. En una cocina sería nuestra primera vez.</p></div>
+        <div class="sols">
+          <article class="sol reveal"><h4>Relevamiento en tu cocina</h4><p>Flujo de armado, tiempos, layout y 5S. Medimos dónde se acumula el trabajo en cada turno.</p></article>
+          <article class="sol reveal"><h4>Software a medida e integración</h4><p>Lo que le falta a tu operación, conectado a lo que ya usás, para no cargar dos veces.</p></article>
+          <article class="sol reveal"><h4>Asistente por WhatsApp</h4><p>Responde menú, horario de corte y zonas. Lo que no sabe, lo deriva a tu equipo.</p></article>
+          <article class="sol reveal"><h4>Capacitación en IA por puesto</h4><p>Para administración, compras y atención, sobre las tareas reales de cada uno.</p></article>
+          <article class="sol reveal"><h4>Documentos de cocina en orden</h4><p>Procedimientos con versiones, firmas y constancia de quién los leyó.</p></article>
+          <article class="sol reveal"><h4>Medición de seguridad eléctrica</h4><p>Según la resolución SRT 900/15: puesta a tierra, continuidad y disyuntores.</p></article>
+        </div>
+      </div>
+
+      <div class="sol-group" data-g="dev">
+        <div class="sol-group__head reveal"><span class="st st--dev">EN DESARROLLO</span><p>Tienen plan de trabajo, pero no están construidas.</p></div>
+        <div class="sols">
+          <article class="sol reveal"><h4>"Qué me falta para producir"</h4><p>Herramienta web gratis: subís pedidos, recetas y stock, y te dice qué falta. Pensada para plantas, se puede usar en cocina.</p></article>
+          <article class="sol reveal"><h4>Trazabilidad por lote</h4><p>Ante un reclamo, saber de qué mercadería salió un plato y a quién se entregó.</p></article>
+        </div>
+      </div>
+
+      <div class="sol-group" data-g="prox">
+        <div class="sol-group__head reveal"><span class="st st--prox">PRÓXIMAMENTE</span><p>Ideas que podríamos sumar. Hoy no las entregamos. Se priorizan con vos.</p></div>
+        <div class="sols">
+          <article class="sol sol--prox reveal"><h4>App de compras y consumo</h4><p>La de la maqueta de arriba: lista, recorrido, precios y panel para tus clientes empresa.</p></article>
+          <article class="sol sol--prox reveal"><h4>Recetas y costo por plato</h4><p>Qué plato deja plata y qué pasa con el margen cuando aumenta un insumo. Es la base de todo lo demás.</p></article>
+          <article class="sol sol--prox reveal"><h4>Cotizador de eventos</h4><p>Personas, fecha y menú: una propuesta armada con tus costos, lista para mandar por WhatsApp.</p></article>
+          <article class="sol sol--prox reveal"><h4>Pronóstico de pedidos</h4><p>Estimar con tu historial cuánto se va a pedir, para comprar antes de que cierre el corte.</p></article>
+          <article class="sol sol--prox reveal"><h4>Alérgenos y ficha nutricional</h4><p>Por plato, a partir de las recetas. Se haría con una nutricionista o bromatóloga que firme.</p></article>
+          <article class="sol sol--prox reveal"><h4>Temperatura en cámara y reparto</h4><p>Si repartís en frío: sensores con registro y aviso al celular, para tener con qué responder.</p></article>
+        </div>
+      </div>
+
+      <div class="no reveal">
+        <h3 class="subhead" style="margin-top:0">Lo que no te recomendamos</h3>
+        <ul>
+          <li><b>Reemplazar tu sistema de pedidos</b><span>Ya toma pedidos. Lo nuevo se suma al lado.</span></li>
+          <li><b>Otra herramienta de ruteo de reparto</b><span>Si ya la tenés resuelta, no hace falta. Y hay productos armados.</span></li>
+          <li><b>Una app en las tiendas de Apple y Google</b><span>Para esto, un link que se instala alcanza y cuesta menos.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Equipo -->
+  <section class="section section--line" id="equipo" aria-labelledby="eq-title">
+    <div class="container">
+      <span class="badge-mono badge-mono--cyan reveal">[ QUIÉNES SOMOS ]</span>
+      <h2 class="section__title reveal" id="eq-title">Tres ingenieros de Mar del Plata, en tu cocina.</h2>
+      <p class="section__lead reveal">Una agencia de software ve pantallas. Nosotros vemos el proceso y el costo detrás de cada dato. Hablás con los que hacen el trabajo.</p>
+      <div class="team" style="margin-top:32px">
+        <div class="eng reveal"><h3>Matias Arana</h3><span>Ingeniero industrial</span></div>
+        <div class="eng reveal"><h3>Luciano DeAngeli</h3><span>Ingeniero electromecánico</span></div>
+        <div class="eng reveal"><h3>Gustavo Palacios</h3><span>Ingeniero mecánico</span></div>
+      </div>
+      <p class="honest reveal">Todavía no trabajamos en una cocina de viandas. Por eso proponemos empezar chico y medir antes de avanzar.</p>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section class="section booking" id="contacto" aria-labelledby="contacto-title">
+    <div class="container booking__inner">
+      <div class="reveal">
+        <span class="badge-mono badge-mono--cyan">[ DIAGNÓSTICO SIN CARGO ]</span>
+        <h2 class="section__title" id="contacto-title">¿Vemos juntos cómo comprás hoy?</h2>
+        <p class="section__lead">Vamos a tu cocina, te hacemos estas preguntas y miramos un día de compras. Si esto no te sirve, te lo decimos.</p>
+        <p class="booking__guarantee">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Respuesta en menos de 24 horas hábiles, directamente por un ingeniero fundador.
+        </p>
+      </div>
+      <div class="booking__card reveal">
+        <a class="btn btn--primary" id="cta" href="#" target="_blank" rel="noopener">Pedí el diagnóstico por WhatsApp</a>
+        <div class="contact-links">
+          <a id="mail-link" href="#">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 6l7 5 7-5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <span><small>MAIL</small><span id="mail-text"></span></span>
+          </a>
+          <a id="web-link" href="#" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="7.5" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 10h15M10 2.5c2.2 2 3.2 4.6 3.2 7.5s-1 5.5-3.2 7.5c-2.2-2-3.2-4.6-3.2-7.5s1-5.5 3.2-7.5z" stroke="currentColor" stroke-width="1.5"/></svg>
+            <span><small>WEB</small>ingenia.solutions</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="logo logo--lg" role="img" aria-label="Ingenia">
+        <svg class="logo__mark" viewBox="-22 -101 75 144" aria-hidden="true" focusable="false"><polygon points="-20.78,-12 31.18,18 51.96,6 0,-24" fill="url(#iso2-top)"/><polygon points="31.18,42 51.96,30 51.96,6 31.18,18" fill="url(#iso2-side)"/><polygon points="-20.78,12 31.18,42 31.18,18 -20.78,-12" fill="url(#iso2-front)"/><polygon points="12.99,7.5 33.77,-4.5 33.77,-56.5 12.99,-44.5" fill="url(#iso2-side)"/><polygon points="-2.6,-1.5 12.99,7.5 12.99,-44.5 -2.6,-53.5" fill="url(#iso2-front)"/><polygon points="31.18,-34 51.96,-46 51.96,-70 31.18,-58" fill="url(#iso2-side)"/><polygon points="-20.78,-88 31.18,-58 51.96,-70 0,-100" fill="url(#iso2-top)"/><polygon points="-20.78,-64 31.18,-34 31.18,-58 -20.78,-88" fill="url(#iso2-front)"/></svg>
+        <span aria-hidden="true">Ingen<span class="logo__ia">ia</span></span>
+      </span>
+      <p class="logo__tagline">TECNOLOGÍA E INTELIGENCIA ARTIFICIAL PARA PYMES</p>
+    </div>
+    <p class="footer__tagline">Propuesta preparada para Oliva SG. Mar del Plata, octubre de 2026.</p>
+  </div>
+</footer>
+
+<script>
+  // Datos de contacto: los mismos de la web oficial (ingenia.solutions)
+  const CONTACTO = {
+    whatsapp: "5492233546450",
+    mensaje: "Hola, soy de Oliva. Vi la propuesta de Ingenia Solutions y quiero pedir el diagnóstico sin cargo.",
+    mail: "somos.ingenialabs@gmail.com",
+    web: "https://ingenia.solutions/?utm_source=folleto&utm_medium=email&utm_campaign=olivasg"
+  };
+
+  document.documentElement.classList.add("js");
+
+  // Contacto
+  document.getElementById("cta").href = "https://wa.me/" + CONTACTO.whatsapp + "?text=" + encodeURIComponent(CONTACTO.mensaje);
+  const mailLink = document.getElementById("mail-link");
+  mailLink.href = "mailto:" + CONTACTO.mail + "?subject=" + encodeURIComponent("Diagnóstico para Oliva");
+  document.getElementById("mail-text").textContent = CONTACTO.mail;
+  document.getElementById("web-link").href = CONTACTO.web;
+
+  // Aparición al entrar en pantalla
+  const reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -6% 0px" });
+    reveals.forEach((n) => io.observe(n));
+  } else {
+    reveals.forEach((n) => n.classList.add("is-in"));
+  }
+
+  // Filtro de soluciones
+  const filterBtns = document.querySelectorAll(".filter button");
+  filterBtns.forEach((b) => b.addEventListener("click", () => {
+    filterBtns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    document.querySelectorAll(".sol-group").forEach((g) => {
+      g.hidden = b.dataset.f !== "todo" && g.dataset.g !== b.dataset.f;
+      if (!g.hidden) g.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-in"));
+    });
+  }));
+
+  /* Maqueta. TODO ES INVENTADO salvo los nombres de los platos, que son del menú publicado de Oliva.
+     Gramos por vianda, merma, stock, proveedores e índices de precio son para mostrar el cálculo. */
+  const INSUMOS = {
+    nalga:    { n: "Nalga",            prov: "Carnicería",  merma: 10, stock: 2 },
+    pollo:    { n: "Pechuga de pollo", prov: "Granja",      merma: 5,  stock: 1 },
+    huevo:    { n: "Huevo",            prov: "Granja",      merma: 0,  stock: 0.5 },
+    merluza:  { n: "Filet de merluza", prov: "Pescadería",  merma: 5,  stock: 0 },
+    papa:     { n: "Papa",             prov: "Verdulería",  merma: 20, stock: 8 },
+    zanahoria:{ n: "Zanahoria",        prov: "Verdulería",  merma: 15, stock: 1 },
+    zapallito:{ n: "Zapallito",        prov: "Verdulería",  merma: 10, stock: 0 },
+    acelga:   { n: "Acelga",           prov: "Verdulería",  merma: 25, stock: 0 },
+    limon:    { n: "Limón",            prov: "Verdulería",  merma: 0,  stock: 0.5 },
+    pan:      { n: "Pan rallado",      prov: "Almacén",     merma: 0,  stock: 3 },
+    arroz:    { n: "Arroz",            prov: "Almacén",     merma: 0,  stock: 10 },
+    choclo:   { n: "Choclo",           prov: "Almacén",     merma: 0,  stock: 0.5 },
+    harina:   { n: "Harina",           prov: "Almacén",     merma: 0,  stock: 5 }
+  };
+  const PLATOS = [
+    { id: "mila",    n: "Milanesa de ternera con papas fritas", q: 40, r: { nalga: 180, pan: 40, huevo: 30, papa: 300 } },
+    { id: "merluza", n: "Merluza al limón con arroz con vegetales", q: 25, r: { merluza: 180, arroz: 70, zanahoria: 60, zapallito: 60, limon: 20 } },
+    { id: "tarta",   n: "Tarta de pollo, verdura y choclo", q: 30, r: { pollo: 100, acelga: 90, choclo: 40, harina: 60, huevo: 25 } }
+  ];
+  const RECORRIDO = ["Verdulería", "Carnicería", "Granja", "Pescadería", "Almacén"];
+  const PRECIOS = [
+    { f: "15/9", v: 100 }, { f: "22/9", v: 100 }, { f: "29/9", v: 104 },
+    { f: "6/10", v: 104 }, { f: "13/10", v: 111 }, { f: "20/10", v: 118 }
+  ];
+  const kg = (v) => new Intl.NumberFormat("es-AR", { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(v) + " kg";
+  const tildados = new Set();
+
+  function calcular() {
+    const necesita = {};
+    PLATOS.forEach((p) => {
+      Object.entries(p.r).forEach(([i, g]) => {
+        necesita[i] = (necesita[i] || 0) + p.q * g / (1 - INSUMOS[i].merma / 100) / 1000;
+      });
+    });
+    const compra = {}, cubierto = [];
+    Object.entries(necesita).forEach(([i, nec]) => {
+      const falta = Math.ceil((nec - INSUMOS[i].stock) * 10) / 10;
+      if (falta > 0) (compra[INSUMOS[i].prov] = compra[INSUMOS[i].prov] || []).push({ id: i, n: INSUMOS[i].n, falta });
+      else if (nec > 0) cubierto.push(INSUMOS[i].n);
+    });
+    const paradas = RECORRIDO.filter((p) => compra[p]);
+    const total = PLATOS.reduce((s, p) => s + p.q, 0);
+    const items = paradas.reduce((s, p) => s + compra[p].length, 0);
+    return { compra, cubierto, paradas, total, items };
+  }
+
+  // Pedidos de ejemplo
+  const dishes = document.getElementById("dishes");
+  PLATOS.forEach((p) => {
+    const d = document.createElement("div");
+    d.className = "dish";
+    d.innerHTML = '<span class="dish__name" id="n-' + p.id + '"></span>' +
+      '<div class="stepper" role="group" aria-labelledby="n-' + p.id + '">' +
+      '<button type="button" data-d="-5" aria-label="5 viandas menos">−</button>' +
+      '<output>' + p.q + '</output>' +
+      '<button type="button" data-d="5" aria-label="5 viandas más">+</button></div>';
+    d.querySelector(".dish__name").textContent = p.n;
+    d.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+      p.q = Math.min(200, Math.max(0, p.q + Number(b.dataset.d)));
+      d.querySelector("output").textContent = p.q;
+      refrescar();
+    }));
+    dishes.appendChild(d);
+  });
+
+  // Pantallas de la maqueta
+  const body = document.getElementById("screen-body");
+  const titulo = document.getElementById("screen-title");
+  const sub = document.getElementById("screen-sub");
+  const tabs = [...document.querySelectorAll(".tabs button")];
+  let tabActual = "comprar";
+
+  const PANTALLAS = {
+    comprar(c) {
+      titulo.textContent = "Para mañana";
+      sub.textContent = c.total + " viandas · " + c.items + " insumos · funciona sin señal";
+      body.innerHTML = "";
+      c.paradas.forEach((p) => {
+        const h = document.createElement("p");
+        h.className = "grp";
+        h.textContent = p.toUpperCase();
+        body.appendChild(h);
+        c.compra[p].forEach((it) => {
+          const l = document.createElement("label");
+          l.className = "buy";
+          l.innerHTML = '<input type="checkbox"><span></span><b></b>';
+          l.querySelector("input").checked = tildados.has(it.id);
+          l.querySelector("input").addEventListener("change", (e) => {
+            if (e.target.checked) tildados.add(it.id); else tildados.delete(it.id);
+          });
+          l.querySelector("span").textContent = it.n;
+          l.querySelector("b").textContent = kg(it.falta);
+          body.appendChild(l);
+        });
+      });
+      if (c.cubierto.length) {
+        const cu = document.createElement("p");
+        cu.className = "covered";
+        cu.textContent = "Alcanza con lo que hay: " + c.cubierto.join(", ") + ".";
+        body.appendChild(cu);
+      }
+      if (!c.items && !c.cubierto.length) {
+        const cu = document.createElement("p");
+        cu.className = "covered";
+        cu.textContent = "Sin pedidos para mañana.";
+        body.appendChild(cu);
+      }
+    },
+    recorrido(c) {
+      titulo.textContent = "Recorrido sugerido";
+      sub.textContent = c.paradas.length + " paradas, una sola vuelta";
+      const r = document.createElement("ol");
+      r.className = "route";
+      const add = (num, t, s, end) => {
+        const li = document.createElement("li");
+        li.className = "stop";
+        li.innerHTML = '<span class="stop__n' + (end ? " stop__n--end" : "") + '" aria-hidden="true"></span><div><b></b><span></span></div>';
+        li.querySelector(".stop__n").textContent = num;
+        li.querySelector("b").textContent = t;
+        li.querySelector("div span").textContent = s;
+        r.appendChild(li);
+      };
+      add("S", "Salida", "Tu cocina");
+      c.paradas.forEach((p, i) => add(i + 1, p, c.compra[p].map((x) => x.n + " " + kg(x.falta)).join(", ")));
+      add("F", "Vuelta a la cocina", "Descarga y control de lo recibido", true);
+      body.innerHTML = "";
+      body.appendChild(r);
+    },
+    precios() {
+      titulo.textContent = "Historial y precios";
+      sub.textContent = "Qué se compró, a cuánto y a quién";
+      const W = 280, H = 112, base = 90, max = 118, min = 80;
+      const paso = W / PRECIOS.length, ancho = 22;
+      let bars = "";
+      PRECIOS.forEach((p, i) => {
+        const x = paso * i + (paso - ancho) / 2;
+        const h = (p.v - min) / (max - min) * 68 + 6;
+        const y = base - h, r = 4;
+        bars += '<g class="b" data-i="' + i + '" tabindex="0" role="img" aria-label="' + p.f + ': índice ' + p.v + '">' +
+          '<rect x="' + (paso * i) + '" y="0" width="' + paso + '" height="' + H + '" fill="transparent"/>' +
+          '<path d="M' + x + " " + base + "V" + (y + r) + "q0 -" + r + " " + r + " -" + r + "h" + (ancho - 2 * r) + "q" + r + " 0 " + r + " " + r + "V" + base + 'Z" fill="#409CFF"/>' +
+          (i === 0 || i === PRECIOS.length - 1 ? '<text x="' + (x + ancho / 2) + '" y="' + (y - 5) + '" text-anchor="middle" fill="#fff" font-family="JetBrains Mono, monospace" font-size="11">' + p.v + "</text>" : "") +
+          '<text x="' + (x + ancho / 2) + '" y="' + (base + 15) + '" text-anchor="middle" fill="#8E8E93" font-family="JetBrains Mono, monospace" font-size="9.5">' + p.f + "</text></g>";
+      });
+      body.innerHTML =
+        '<div class="mini-card"><h4>Nalga: precio por kg, base 100</h4>' +
+        '<div class="chart"><svg viewBox="0 0 ' + W + " " + H + '" role="group" aria-label="Precio de la nalga en las últimas 6 compras, base 100. Pasó de 100 a 118."><line x1="0" x2="' + W + '" y1="' + base + '" y2="' + base + '" stroke="#38383A"/>' + bars + "</svg></div>" +
+        '<p class="readout" id="readout" aria-live="polite">Subió 18% en seis compras. Tocá una barra.</p></div>' +
+        '<div class="mini-card"><h4>Últimas compras</h4>' +
+        '<div class="row"><div>Carnicería<br><span>20/10 · remito con foto</span></div><b>1 insumo</b></div>' +
+        '<div class="row"><div>Verdulería<br><span>20/10 · remito con foto</span></div><b>5 insumos</b></div>' +
+        '<div class="row"><div>Almacén<br><span>19/10 · sin remito</span></div><b>3 insumos</b></div></div>';
+      const ro = body.querySelector("#readout");
+      body.querySelectorAll(".b").forEach((g) => {
+        const show = () => { const p = PRECIOS[g.dataset.i]; ro.textContent = "Compra del " + p.f + ": índice " + p.v + "."; };
+        ["pointerenter", "focus", "click"].forEach((ev) => g.addEventListener(ev, show));
+      });
+    },
+    cliente() {
+      titulo.textContent = "Empresa de ejemplo";
+      sub.textContent = "Lo que ve tu cliente empresa, este mes";
+      const sedes = [["Planta", 268], ["Oficina", 144]];
+      const top = sedes[0][1];
+      body.innerHTML =
+        '<div class="tiles"><div class="tile"><b>412</b><span>viandas en el mes</span></div><div class="tile"><b>2</b><span>sedes con entrega</span></div></div>' +
+        '<div class="mini-card"><h4>Viandas por sede</h4>' +
+        sedes.map((s) => '<div style="margin-top:12px"><div class="row" style="min-height:0;border:0"><span>' + s[0] + "</span><b>" + s[1] + '</b></div><div style="height:8px;margin-top:5px;background:#2C2C2E;border-radius:4px"><div style="height:100%;border-radius:4px;background:#409CFF;width:' + (s[1] / top * 100) + '%"></div></div></div>').join("") +
+        "</div>" +
+        '<div class="mini-card"><h4>Más pedidos</h4>' +
+        PLATOS.map((p, i) => '<div class="row"><div>' + p.n + "</div><b>" + [96, 71, 58][i] + "</b></div>").join("") +
+        "</div>";
+    }
+  };
+
+  function refrescar() {
+    const c = calcular();
+    document.querySelectorAll("[data-total]").forEach((n) => { n.textContent = c.total; });
+    document.querySelectorAll("[data-items]").forEach((n) => { n.textContent = c.items; });
+    document.querySelectorAll("[data-stops]").forEach((n) => { n.textContent = c.paradas.length; });
+    PANTALLAS[tabActual](c);
+  }
+
+  function elegir(btn, foco) {
+    tabs.forEach((t) => { const on = t === btn; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1; });
+    tabActual = btn.dataset.tab;
+    body.setAttribute("aria-labelledby", btn.id);
+    body.scrollTop = 0;
+    refrescar();
+    if (foco) btn.focus();
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => elegir(t));
+    t.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") elegir(tabs[(i + 1) % tabs.length], true);
+      if (e.key === "ArrowLeft") elegir(tabs[(i - 1 + tabs.length) % tabs.length], true);
+    });
+  });
+  refrescar();
+</script>
+</body>
+</html>
