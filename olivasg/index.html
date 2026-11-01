@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ingenia Solutions · Propuesta para Oliva</title>
-<meta name="description" content="Una idea para Oliva: que cada pedido se convierta en la lista de compras. Qué hacemos hoy y qué todavía no existe, separado y a la vista.">
+<meta name="description" content="Para Oliva: cada pedido se convierte en la lista de compras. Recetas, costos, compras, eventos y cocina, con ingenieros en tu operación.">
 <meta name="color-scheme" content="dark">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#000000">
@@ -71,11 +71,7 @@
   .js .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
   .js .reveal.is-in { opacity: 1; transform: none; }
 
-  /* Rótulos de estado: palabra + estilo, nunca solo color */
-  .st { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 2px 10px; border-radius: var(--r-pill); font: 500 11.5px/1.3 var(--mono); letter-spacing: .05em; white-space: nowrap; border: 1px solid transparent; }
-  .st--hoy { background: var(--accent-emerald); color: #000; }
-  .st--dev { border-color: var(--accent-cyan); color: var(--accent-cyan); }
-  .st--prox { border: 1px dashed var(--text-muted); color: var(--text); }
+  .st { display: inline-flex; align-items: center; min-height: 24px; padding: 2px 10px; border-radius: var(--r-pill); font: 500 11.5px/1.3 var(--mono); letter-spacing: .05em; white-space: nowrap; border: 1px solid var(--text-muted); color: var(--text); }
 
   /* Nav */
   .nav { position: fixed; inset: 12px 0 auto 0; z-index: 40; padding: 0 12px; }
@@ -113,13 +109,6 @@
   .flow__row--out { background: rgba(0,122,255,.1); border-color: var(--accent-blue); }
   .flow__row--out span { color: var(--text); font-weight: 600; }
   .flow .note { margin-top: 14px; }
-
-  /* Cómo leer */
-  .key { border-block: 1px solid var(--border); background: var(--bg-surface-2); padding: 28px 0; }
-  .key__inner { display: grid; grid-template-columns: auto repeat(3, minmax(0, 1fr)); gap: 16px 32px; align-items: start; }
-  .key__title { font-weight: 700; max-width: 16ch; line-height: 1.3; }
-  .key__item p { font-size: 14.5px; color: var(--text-muted); margin-top: 8px; line-height: 1.45; }
-  @media (max-width: 899px) { .key__inner { grid-template-columns: minmax(0, 1fr); } .key__title { max-width: none; } }
 
   /* Lo que vimos */
   .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
@@ -212,7 +201,7 @@
   .tile span { display: block; font-size: 12.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.3; }
   .phone-note { margin-top: 12px; text-align: center; }
 
-  /* Honesto */
+  /* Beneficios */
   .gains { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 56px; }
   .gain { padding: 22px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); }
   .gain h3 { font-size: 17px; }
@@ -226,19 +215,13 @@
   @media (max-width: 899px) { .steps { grid-template-columns: minmax(0, 1fr); } }
   .subhead { font-size: 22px; line-height: 1.25; margin-top: 56px; }
 
-  /* Mapa de soluciones */
-  .filter { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-  .filter button { min-height: 44px; padding: 8px 16px; border-radius: var(--r-pill); background: transparent; border: 1px solid var(--border-strong); font-size: 14px; font-weight: 600; color: var(--text-muted); }
-  .filter button[aria-pressed="true"] { background: var(--bg-elevated); color: var(--text); border-color: var(--text-muted); }
+  /* Soluciones */
   .sol-group { margin-top: 40px; }
-  .sol-group[hidden] { display: none; }
-  .sol-group__head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-  .sol-group__head p { color: var(--text-muted); font-size: 15px; }
+  .sol-group__title { font-size: 20px; line-height: 1.25; }
   .sols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
   @media (max-width: 1023px) { .sols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 680px) { .sols { grid-template-columns: minmax(0, 1fr); } }
   .sol { padding: 20px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-  .sol--prox { background: transparent; border: 1px dashed var(--border-strong); }
   .sol h4 { font-size: 16.5px; line-height: 1.3; }
   .sol p { font-size: 14.5px; line-height: 1.5; color: var(--text-muted); }
 
@@ -257,7 +240,6 @@
   .eng { padding: 18px 20px; background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--r-md); }
   .eng h3 { font-size: 16.5px; }
   .eng span { color: var(--text-muted); font-size: 14.5px; }
-  .honest { margin-top: 20px; padding: 18px 20px; border: 1px dashed var(--text-muted); border-radius: var(--r-md); font-size: 15.5px; max-width: 72ch; }
 
   /* Contacto */
   .booking { background: radial-gradient(ellipse 60% 60% at 0% 100%, rgba(0,122,255,.14), transparent 60%), var(--bg-surface-2); border-top: 1px solid var(--border); }
@@ -316,7 +298,7 @@
         <span class="badge-mono badge-mono--cyan reveal">[ PREPARADO PARA OLIVA SG ]</span>
         <h1 class="hero__title reveal" id="hero-title">Más de 120 platos en dos semanas. ¿Quién calcula qué hay que comprar?</h1>
         <p class="hero__sub reveal">Tu web ya resuelve el pedido. Te proponemos mirar lo que pasa antes: recetas, insumos y compras.</p>
-        <p class="hero__lead reveal">La idea es que cada pedido se convierta en la lista de compras, en el celular de quien sale a comprar. Todavía no existe: la queremos construir con una cocina como la tuya.</p>
+        <p class="hero__lead reveal">Cada pedido se convierte en la lista de compras, en el celular de quien sale a comprar. Te lo desarrollamos a la medida de tu cocina, al lado de lo que ya usás.</p>
         <div class="hero__ctas reveal">
           <a class="btn btn--primary" href="#contacto">Pedí el diagnóstico sin cargo</a>
           <a class="btn btn--ghost" href="#app">Probá la maqueta</a>
@@ -326,8 +308,8 @@
 
       <div class="flow reveal" role="img" aria-label="Ejemplo ilustrativo del cálculo: pedidos de mañana, por recetas, más merma, menos stock, da los insumos a comprar.">
         <div class="flow__head">
-          <span class="flow__title">Cómo sería el cálculo</span>
-          <span class="st st--prox">PRÓXIMAMENTE</span>
+          <span class="flow__title">Cómo se calcula</span>
+          <span class="st">EJEMPLO</span>
         </div>
         <div class="flow__row"><span>Pedidos de mañana</span><b><span data-total style="color:inherit;font:inherit">95</span> viandas</b></div>
         <div class="flow__op" aria-hidden="true">x</div>
@@ -338,20 +320,10 @@
         <div class="flow__row"><span>Lo que hay en la cámara</span><b>stock</b></div>
         <div class="flow__op" aria-hidden="true">=</div>
         <div class="flow__row flow__row--out"><span>Lista de compras</span><b><span data-items style="color:inherit;font:inherit;font-weight:500">9</span> insumos</b></div>
-        <p class="note">Ilustrativo, con datos inventados.</p>
+        <p class="note">Ilustrativo, con datos de ejemplo.</p>
       </div>
     </div>
   </section>
-
-  <!-- Cómo leer -->
-  <div class="key" aria-label="Cómo leer esta propuesta">
-    <div class="container key__inner">
-      <p class="key__title">Cómo leer esta propuesta</p>
-      <div class="key__item"><span class="st st--hoy">HOY</span><p>Lo podemos hacer ahora.</p></div>
-      <div class="key__item"><span class="st st--dev">EN DESARROLLO</span><p>Tiene plan de trabajo, pero no está construido.</p></div>
-      <div class="key__item"><span class="st st--prox">PRÓXIMAMENTE</span><p>Una idea que podríamos sumar. Hoy no la entregamos.</p></div>
-    </div>
-  </div>
 
   <!-- Lo que vimos -->
   <section class="section" id="vimos" aria-labelledby="vimos-title">
@@ -385,7 +357,7 @@
             <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Las recetas están escritas con gramos, o las tiene el equipo en la cabeza?</span></li>
             <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Quién arma la lista de compras, y cuánto tiempo le lleva?</span></li>
             <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Cuántas veces por semana falta algo y hay que salir de urgencia?</span></li>
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Sabés cuánto te cuesta hoy cada plato? ¿Y cuando aumenta un insumo?</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Sabés cuánto te cuesta cada plato? ¿Y cuando aumenta un insumo?</span></li>
             <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M7.8 7.8a2.2 2.2 0 1 1 3.3 1.9c-.7.4-1.1.9-1.1 1.7M10 14.2v.1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>¿Cuánto tardás en presupuestar un evento a medida?</span></li>
           </ul>
         </div>
@@ -397,8 +369,7 @@
   <section class="section app" id="app" aria-labelledby="app-title">
     <div class="container">
       <div class="app__head reveal">
-        <span class="badge-mono badge-mono--cyan">[ LA IDEA PARA OLIVA ]</span>
-        <span class="st st--prox">PRÓXIMAMENTE · TODAVÍA NO EXISTE</span>
+        <span class="badge-mono badge-mono--cyan">[ LA APP PARA OLIVA ]</span>
       </div>
       <h2 class="section__title reveal" id="app-title">Una app para el celular de quien compra. Y otra puerta para tus clientes empresa.</h2>
       <p class="section__lead reveal">Se abre desde un link y queda instalada en el teléfono, sin pasar por una tienda de apps. Tocá la maqueta: cambiá los pedidos y mirá cómo cambia la compra.</p>
@@ -406,9 +377,9 @@
       <div class="app__grid">
         <div class="app__left">
           <div class="ctrl reveal">
-            <span class="badge-mono">[ MAQUETA · DATOS INVENTADOS ]</span>
+            <span class="badge-mono">[ MAQUETA · DATOS DE EJEMPLO ]</span>
             <h3>Pedidos de mañana</h3>
-            <p class="ctrl__sub">Los platos son de tu menú. Las recetas no: las inventamos para mostrar el cálculo.</p>
+            <p class="ctrl__sub">Los platos son de tu menú. Las recetas son de ejemplo, para mostrar el cálculo.</p>
             <div id="dishes"></div>
             <p class="ctrl__out" aria-live="polite"><b data-total>95</b> viandas: hay que comprar <b data-items>9</b> insumos en <b data-stops>5</b> paradas.</p>
           </div>
@@ -428,7 +399,7 @@
           <div class="phone">
             <div class="screen">
               <div class="screen__bar">
-                <div class="screen__tag"><span class="st st--prox">MAQUETA</span><span class="note">Datos inventados</span></div>
+                <div class="screen__tag"><span class="st">MAQUETA</span><span class="note">Datos de ejemplo</span></div>
                 <p class="screen__title" id="screen-title">Para mañana</p>
                 <p class="screen__sub" id="screen-sub"></p>
               </div>
@@ -441,85 +412,79 @@
               </div>
             </div>
           </div>
-          <p class="note phone-note">Pantalla ilustrativa. Recetas, proveedores, precios y consumos inventados. No son datos de Oliva.</p>
+          <p class="note phone-note">Pantalla ilustrativa. Recetas, proveedores, precios y consumos de ejemplo. No son datos de Oliva.</p>
         </div>
       </div>
 
       <div class="gains">
-        <div class="gain reveal"><h3>Qué ganás vos</h3><p>La lista sale de los pedidos, los precios quedan registrados y podés llegar a saber el costo de cada plato.</p></div>
+        <div class="gain reveal"><h3>Qué ganás vos</h3><p>La lista sale de los pedidos, los precios quedan registrados y sabés el costo de cada plato.</p></div>
         <div class="gain reveal"><h3>Qué gana quien compra</h3><p>Sabe qué comprar y en qué parada. Lo tilda en el celular, aunque no tenga señal.</p></div>
         <div class="gain reveal"><h3>Qué gana tu cliente empresa</h3><p>Ve su consumo por sede cuando lo necesita. Es un motivo más para quedarse con vos.</p></div>
       </div>
 
-      <h3 class="subhead reveal">Lo que ya tenemos y lo que falta</h3>
+      <h3 class="subhead reveal">Con qué lo hacemos</h3>
       <div class="two">
         <div class="panel reveal">
-          <span class="badge-mono badge-mono--emerald">[ YA LO CONSTRUIMOS, EN OTROS RUBROS ]</span>
+          <span class="badge-mono badge-mono--emerald">[ EXPERIENCIA QUE TRAEMOS ]</span>
           <ul class="ticks">
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cálculo de necesidades y órdenes de compra: en el sistema de una maquila de alimentos de Mar del Plata.</span></li>
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>App instalable en el celular que funciona sin señal: la app para socios de un sistema de gimnasios.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Construimos el cálculo de necesidades y las órdenes de compra del sistema de una maquila de alimentos de Mar del Plata.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Construimos una app para socios de gimnasio que se instala en el celular y funciona sin señal.</span></li>
           </ul>
         </div>
         <div class="panel reveal">
-          <span class="badge-mono">[ FALTA CONSTRUIR ]</span>
+          <span class="badge-mono badge-mono--cyan">[ LO QUE NECESITAMOS DE VOS ]</span>
           <ul class="ticks">
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="color:var(--text-muted)"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span>Adaptar el cálculo a una cocina: compra por día y unidades de cocina.</span></li>
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="color:var(--text-muted)"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span>Las pantallas de compra, recorrido, precios y consumo de empresas.</span></li>
-            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" style="color:var(--text-muted)"><circle cx="10" cy="10" r="7.2" stroke="currentColor" stroke-width="1.6" stroke-dasharray="3 3"/></svg><span>Y lo que necesitamos de vos: las recetas con sus gramos. Sin eso no hay cálculo.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Las recetas con sus gramos. Te ayudamos a ordenarlas.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Los pedidos en una planilla, y tu lista de proveedores.</span></li>
+            <li><svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Un rato con quien compra, para ajustar la app a su recorrido real.</span></li>
           </ul>
         </div>
       </div>
 
-      <h3 class="subhead reveal">Empezaríamos chico, sin tocar tu sistema</h3>
+      <h3 class="subhead reveal">Empezamos chico, sin tocar tu sistema</h3>
       <ol class="steps">
         <li class="step reveal"><b>01</b><h4>Una planilla</h4><p>Pedidos de dos semanas, recetas de los 20 platos más pedidos y tu lista de proveedores.</p></li>
         <li class="step reveal"><b>02</b><h4>Una sola pantalla</h4><p>Qué comprar mañana, por proveedor. Quien compra la usa y nos dice qué sobra y qué falta.</p></li>
-        <li class="step reveal"><b>03</b><h4>Medir y decidir</h4><p>Comparamos contra hoy: tiempo de armar la lista y compras de urgencia. Si no mejora, lo decimos.</p></li>
+        <li class="step reveal"><b>03</b><h4>Medir y decidir</h4><p>Comparamos con tu forma de trabajar actual: tiempo de armar la lista y compras de urgencia.</p></li>
       </ol>
     </div>
   </section>
 
-  <!-- Mapa de soluciones -->
+  <!-- Soluciones -->
   <section class="section" id="soluciones" aria-labelledby="sol-title">
     <div class="container">
-      <span class="badge-mono badge-mono--cyan reveal">[ TODO LO QUE PODRÍA SERVIRTE ]</span>
-      <h2 class="section__title reveal" id="sol-title">Qué hay hoy y qué todavía no, sin mezclar.</h2>
-      <div class="filter reveal" role="group" aria-label="Filtrar por estado">
-        <button type="button" data-f="todo" aria-pressed="true">Todo</button>
-        <button type="button" data-f="hoy" aria-pressed="false">Hoy</button>
-        <button type="button" data-f="dev" aria-pressed="false">En desarrollo</button>
-        <button type="button" data-f="prox" aria-pressed="false">Próximamente</button>
+      <span class="badge-mono badge-mono--cyan reveal">[ QUÉ HACEMOS PARA OLIVA ]</span>
+      <h2 class="section__title reveal" id="sol-title">Todo lo que sumamos a tu operación.</h2>
+
+      <div class="sol-group">
+        <h3 class="reveal sol-group__title">Compras y costos</h3>
+        <div class="sols">
+          <article class="sol reveal"><h4>App de compras y consumo</h4><p>Lista, recorrido y precios para quien compra. Consumo por sede para tus clientes empresa.</p></article>
+          <article class="sol reveal"><h4>Recetas y costo por plato</h4><p>Ves qué plato deja plata y qué pasa con el margen cuando aumenta un insumo.</p></article>
+          <article class="sol reveal"><h4>Control de faltantes</h4><p>Cruzamos pedidos, recetas y stock, y te decimos qué falta antes de que la cocina lo necesite.</p></article>
+          <article class="sol reveal"><h4>Pronóstico de pedidos</h4><p>Estimamos con tu historial cuánto se va a pedir, para que compres antes del corte.</p></article>
+        </div>
       </div>
 
-      <div class="sol-group" data-g="hoy">
-        <div class="sol-group__head reveal"><span class="st st--hoy">HOY</span><p>Lo podemos hacer ahora. En una cocina sería nuestra primera vez.</p></div>
+      <div class="sol-group">
+        <h3 class="reveal sol-group__title">Clientes y equipo</h3>
+        <div class="sols">
+          <article class="sol reveal"><h4>Cotizador de eventos</h4><p>Personas, fecha y menú: te arma una propuesta con tus costos, lista para mandar por WhatsApp.</p></article>
+          <article class="sol reveal"><h4>Asistente por WhatsApp</h4><p>Responde menú, horario de corte y zonas. Lo que no sabe, lo deriva a tu equipo.</p></article>
+          <article class="sol reveal"><h4>Software a medida e integración</h4><p>Desarrollamos lo que le falta a tu operación y lo conectamos a lo que ya usás, para no cargar dos veces.</p></article>
+          <article class="sol reveal"><h4>Capacitación en IA por puesto</h4><p>Para administración, compras y atención, sobre las tareas reales de cada uno.</p></article>
+        </div>
+      </div>
+
+      <div class="sol-group">
+        <h3 class="reveal sol-group__title">Cocina y calidad</h3>
         <div class="sols">
           <article class="sol reveal"><h4>Relevamiento en tu cocina</h4><p>Flujo de armado, tiempos, layout y 5S. Medimos dónde se acumula el trabajo en cada turno.</p></article>
-          <article class="sol reveal"><h4>Software a medida e integración</h4><p>Lo que le falta a tu operación, conectado a lo que ya usás, para no cargar dos veces.</p></article>
-          <article class="sol reveal"><h4>Asistente por WhatsApp</h4><p>Responde menú, horario de corte y zonas. Lo que no sabe, lo deriva a tu equipo.</p></article>
-          <article class="sol reveal"><h4>Capacitación en IA por puesto</h4><p>Para administración, compras y atención, sobre las tareas reales de cada uno.</p></article>
+          <article class="sol reveal"><h4>Trazabilidad por lote</h4><p>Ante un reclamo, sabés de qué mercadería salió un plato y a quién se entregó.</p></article>
+          <article class="sol reveal"><h4>Alérgenos y ficha nutricional</h4><p>Por plato, a partir de las recetas y con la firma de una nutricionista o bromatóloga.</p></article>
+          <article class="sol reveal"><h4>Temperatura en cámara y reparto</h4><p>Si repartís en frío: sensores con registro y aviso al celular, para tener con qué responder.</p></article>
           <article class="sol reveal"><h4>Documentos de cocina en orden</h4><p>Procedimientos con versiones, firmas y constancia de quién los leyó.</p></article>
           <article class="sol reveal"><h4>Medición de seguridad eléctrica</h4><p>Según la resolución SRT 900/15: puesta a tierra, continuidad y disyuntores.</p></article>
-        </div>
-      </div>
-
-      <div class="sol-group" data-g="dev">
-        <div class="sol-group__head reveal"><span class="st st--dev">EN DESARROLLO</span><p>Tienen plan de trabajo, pero no están construidas.</p></div>
-        <div class="sols">
-          <article class="sol reveal"><h4>"Qué me falta para producir"</h4><p>Herramienta web gratis: subís pedidos, recetas y stock, y te dice qué falta. Pensada para plantas, se puede usar en cocina.</p></article>
-          <article class="sol reveal"><h4>Trazabilidad por lote</h4><p>Ante un reclamo, saber de qué mercadería salió un plato y a quién se entregó.</p></article>
-        </div>
-      </div>
-
-      <div class="sol-group" data-g="prox">
-        <div class="sol-group__head reveal"><span class="st st--prox">PRÓXIMAMENTE</span><p>Ideas que podríamos sumar. Hoy no las entregamos. Se priorizan con vos.</p></div>
-        <div class="sols">
-          <article class="sol sol--prox reveal"><h4>App de compras y consumo</h4><p>La de la maqueta de arriba: lista, recorrido, precios y panel para tus clientes empresa.</p></article>
-          <article class="sol sol--prox reveal"><h4>Recetas y costo por plato</h4><p>Qué plato deja plata y qué pasa con el margen cuando aumenta un insumo. Es la base de todo lo demás.</p></article>
-          <article class="sol sol--prox reveal"><h4>Cotizador de eventos</h4><p>Personas, fecha y menú: una propuesta armada con tus costos, lista para mandar por WhatsApp.</p></article>
-          <article class="sol sol--prox reveal"><h4>Pronóstico de pedidos</h4><p>Estimar con tu historial cuánto se va a pedir, para comprar antes de que cierre el corte.</p></article>
-          <article class="sol sol--prox reveal"><h4>Alérgenos y ficha nutricional</h4><p>Por plato, a partir de las recetas. Se haría con una nutricionista o bromatóloga que firme.</p></article>
-          <article class="sol sol--prox reveal"><h4>Temperatura en cámara y reparto</h4><p>Si repartís en frío: sensores con registro y aviso al celular, para tener con qué responder.</p></article>
         </div>
       </div>
 
@@ -545,7 +510,6 @@
         <div class="eng reveal"><h3>Luciano DeAngeli</h3><span>Ingeniero electromecánico</span></div>
         <div class="eng reveal"><h3>Gustavo Palacios</h3><span>Ingeniero mecánico</span></div>
       </div>
-      <p class="honest reveal">Todavía no trabajamos en una cocina de viandas. Por eso proponemos empezar chico y medir antes de avanzar.</p>
     </div>
   </section>
 
@@ -554,7 +518,7 @@
     <div class="container booking__inner">
       <div class="reveal">
         <span class="badge-mono badge-mono--cyan">[ DIAGNÓSTICO SIN CARGO ]</span>
-        <h2 class="section__title" id="contacto-title">¿Vemos juntos cómo comprás hoy?</h2>
+        <h2 class="section__title" id="contacto-title">¿Vemos juntos cómo comprás?</h2>
         <p class="section__lead">Vamos a tu cocina, te hacemos estas preguntas y miramos un día de compras. Si esto no te sirve, te lo decimos.</p>
         <p class="booking__guarantee">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -620,17 +584,7 @@
     reveals.forEach((n) => n.classList.add("is-in"));
   }
 
-  // Filtro de soluciones
-  const filterBtns = document.querySelectorAll(".filter button");
-  filterBtns.forEach((b) => b.addEventListener("click", () => {
-    filterBtns.forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-    document.querySelectorAll(".sol-group").forEach((g) => {
-      g.hidden = b.dataset.f !== "todo" && g.dataset.g !== b.dataset.f;
-      if (!g.hidden) g.querySelectorAll(".reveal").forEach((n) => n.classList.add("is-in"));
-    });
-  }));
-
-  /* Maqueta. TODO ES INVENTADO salvo los nombres de los platos, que son del menú publicado de Oliva.
+  /* Maqueta. Todo es de ejemplo salvo los nombres de los platos, que son del menú publicado de Oliva.
      Gramos por vianda, merma, stock, proveedores e índices de precio son para mostrar el cálculo. */
   const INSUMOS = {
     nalga:    { n: "Nalga",            prov: "Carnicería",  merma: 10, stock: 2 },
