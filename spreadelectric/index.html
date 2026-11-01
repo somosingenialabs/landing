@@ -369,32 +369,7 @@
     .marquee [aria-hidden="true"] { display: none; }
   }
 
-  /* ===== Rótulos de estado: forma, borde y texto, para que no dependan solo del color ===== */
-  .st {
-    display: inline-flex; align-items: center; gap: 8px; width: fit-content;
-    font: 500 11.5px/1.3 var(--mono); letter-spacing: .05em; padding: 5px 11px; border-radius: var(--r-pill);
-    border: 1px solid currentColor; white-space: nowrap;
-  }
-  .st::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid currentColor; }
-  .st--hoy { color: var(--accent-emerald); background: rgba(48,176,199,.1); }
-  .st--hoy::before { background: currentColor; }
-  .st--dev { color: var(--accent-cyan); background: rgba(64,156,255,.08); }
-  .st--dev::before { background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
-  .st--fut { color: #F2F2F7; border-style: dashed; border-color: #8E8E93; background: transparent; }
-  .st--fut::before { background: transparent; }
-
-  .st--sm { font-size: 10.5px; padding: 2px 8px; gap: 6px; margin-left: 4px; vertical-align: 1px; }
-  .st--sm::before { width: 7px; height: 7px; }
-
-  .legend-states { display: grid; gap: 10px; margin-top: 32px; }
-  @media (min-width: 900px) { .legend-states { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
-  .legend-states li { padding: 16px; border-radius: var(--r-md); background: var(--bg-surface); border: 1px solid var(--border); }
-  .legend-states li.is-fut { border: 1px dashed #636366; background: transparent; }
-  .legend-states p { margin-top: 10px; font-size: 15px; color: var(--text-muted); }
-  .legend-states strong { color: var(--text); font-weight: 600; }
-
   /* Portada: historial de ejemplo */
-  .dash__tag { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding-bottom: 14px; }
   .hist-mini { padding: 16px 0 6px; border-top: 1px solid var(--border); }
   .hist-mini__head { display: flex; justify-content: space-between; gap: 12px; font-size: 11.5px; color: var(--text-muted); margin-bottom: 8px; }
   .hist-mini__head b { color: var(--text); font-weight: 500; }
@@ -413,7 +388,7 @@
   .pain__n { font: 500 13px/1 var(--mono); color: var(--text-muted); }
   .pain h3 { font-size: 18px; line-height: 1.3; }
   .pain p { color: var(--text-muted); font-size: 15px; flex: 1; }
-  .pain__fix { display: grid; gap: 8px; padding-top: 14px; margin-top: 4px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 600; }
+  .pain__fix { padding-top: 14px; margin-top: 4px; border-top: 1px solid var(--border); font-size: 14px; font-weight: 600; }
 
   .disclaimer { margin-top: 16px; font-size: 14.5px; color: var(--text-muted); max-width: 66ch; }
   .source-line { margin-top: 10px; font: 400 12px/1.5 var(--mono); color: var(--text-muted); }
@@ -430,18 +405,13 @@
   .sol-group { margin-top: 40px; }
   .sol-group[hidden] { display: none; }
   .sol-group__head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-  .sol-group__head p { color: var(--text-muted); font-size: 15px; }
   .sol-grid { display: grid; gap: 12px; margin-top: 16px; }
   @media (min-width: 700px) { .sol-grid { grid-template-columns: 1fr 1fr; gap: 16px; } }
   @media (min-width: 1100px) { .sol-grid { grid-template-columns: repeat(3, 1fr); } }
   .sol { display: flex; flex-direction: column; gap: 10px; padding: 22px; border-radius: var(--r-md); background: var(--bg-surface); border: 1px solid var(--border); }
-  .sol--hoy { border-top: 2px solid var(--accent-emerald); }
-  .sol--dev { background: var(--bg-surface-2); border-top: 2px solid var(--accent-cyan); }
-  .sol--fut { background: transparent; border: 1px dashed #636366; }
   .sol h3 { font-size: 17.5px; line-height: 1.3; }
   .sol p { color: var(--text-muted); font-size: 15px; }
   .sol__for { font: 500 11.5px/1.4 var(--mono); letter-spacing: .04em; color: var(--text-muted); }
-  .sol__status { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border); font-size: 13.5px; color: var(--text); }
 
   /* Demo de tendencia */
   .trend { margin-top: 40px; }
@@ -506,9 +476,8 @@
       </div>
 
       <div class="hero__visual reveal">
-        <div class="dash" role="img" aria-label="Vista de ejemplo de una función que todavía no existe: historial de un tablero general, con la temperatura de un borne que sube en seis visitas y los vencimientos de sus mediciones. Datos inventados.">
-          <div class="dash__tag"><span class="st st--fut">PRÓXIMAMENTE</span><span class="note">Vista de ejemplo</span></div>
-          <div class="dash__head">
+        <div class="dash" role="img" aria-label="Vista de ejemplo: historial de un tablero general, con la temperatura de un borne que sube en seis visitas y los vencimientos de sus mediciones. Datos inventados.">
+                    <div class="dash__head">
             <div class="dash__title">Tablero general TG-1<small>Historial del activo</small></div>
           </div>
           <div class="hist-mini">
@@ -526,7 +495,7 @@
             <li><span>Puesta a tierra</span><b class="warn">Vence en 45 días</b></li>
             <li><span>Disyuntores</span><b>Verificados</b></li>
           </ul>
-          <p class="dash__note dash__note--left">Datos inventados. Esta función todavía no existe.</p>
+          <p class="dash__note dash__note--left">Vista de ejemplo, con datos inventados.</p>
         </div>
       </div>
     </div>
@@ -553,38 +522,38 @@
     <div class="container">
       <span class="badge-mono badge-mono--amber reveal">[ DONDE EL DATO SE PUEDE TRABAR ]</span>
       <h2 class="section__title reveal" id="dolores-title">Cinco puntos que vemos desde afuera.</h2>
-      <p class="section__lead reveal">Son hipótesis nuestras a partir de lo que publicás. En la reunión nos corregís.</p>
+      <p class="section__lead reveal">Es lo que leemos desde afuera, a partir de lo que publicás. En la reunión lo ajustamos con vos.</p>
 
       <div class="pains">
         <article class="pain reveal">
           <span class="pain__n">01</span>
           <h3>Cada medición termina en un informe aparte</h3>
           <p>Termografía, aislación, vibraciones y disyuntores se miden en momentos distintos. Sin un historial por activo, cuesta ver hacia dónde va cada equipo.</p>
-          <div class="pain__fix"><span>Historial por activo</span><span class="st st--fut">PRÓXIMAMENTE</span></div>
+          <div class="pain__fix"><span>Historial por activo</span></div>
         </article>
         <article class="pain reveal">
           <span class="pain__n">02</span>
           <h3>El informe le saca horas al ingeniero</h3>
           <p>Después de la recorrida hay que ordenar imágenes, escribir observaciones y armar recomendaciones. Es tiempo que no está en el campo.</p>
-          <div class="pain__fix"><span>Informe asistido por IA</span><span class="st st--fut">PRÓXIMAMENTE</span></div>
+          <div class="pain__fix"><span>Informe asistido por IA</span></div>
         </article>
         <article class="pain reveal">
           <span class="pain__n">03</span>
           <h3>Cada cliente pide sus papeles para dejarte entrar</h3>
           <p>Trabajar en plantas grandes suele implicar ART, seguros y capacitaciones al día, y cargarlos una y otra vez en el formato de cada una.</p>
-          <div class="pain__fix"><span>Legajos con vencimientos</span><span class="st st--dev">EN DESARROLLO</span></div>
+          <div class="pain__fix"><span>Legajos con vencimientos</span></div>
         </article>
         <article class="pain reveal">
           <span class="pain__n">04</span>
           <h3>ISO 9001 suma documentos, versiones y evidencias</h3>
           <p>Tu web dice que estás en proceso de certificación. Además, la edición 2026 de la norma salió en septiembre: conviene preguntarle a la certificadora con cuál te audita.</p>
-          <div class="pain__fix"><span>Sistema documental</span><span class="st st--hoy">HOY</span></div>
+          <div class="pain__fix"><span>Sistema documental</span></div>
         </article>
         <article class="pain reveal">
           <span class="pain__n">05</span>
           <h3>La obra se cierra entre fotos y mensajes</h3>
           <p>En un montaje, los pendientes de la recepción pueden quedar repartidos. Después cuesta probar qué se aceptó y cuándo.</p>
-          <div class="pain__fix"><span>Acta de obra con firma</span><span class="st st--dev">EN DESARROLLO</span></div>
+          <div class="pain__fix"><span>Acta de obra con firma</span></div>
         </article>
       </div>
     </div>
@@ -602,19 +571,19 @@
           <span class="badge-mono badge-mono--emerald">[ 01 · PARA SPREAD ]</span>
           <h3>Menos horas de escritorio para tus ingenieros</h3>
           <ul>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Documentos y evidencias ordenados para la auditoría. <span class="st st--hoy st--sm">HOY</span></div></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Informes que tomen menos tiempo. <span class="st st--fut st--sm">PRÓXIMAMENTE</span></div></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Los papeles de cada cliente, al día y en un solo lugar. <span class="st st--dev st--sm">EN DESARROLLO</span></div></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Capacitación en IA sobre las tareas de cada puesto. <span class="st st--hoy st--sm">HOY</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Documentos y evidencias ordenados para la auditoría.</div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Informes que te llevan menos tiempo.</div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Los papeles de cada cliente, al día y en un solo lugar.</div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Capacitación en IA sobre las tareas de cada puesto.</div></li>
           </ul>
         </div>
         <div class="side side--us reveal">
           <span class="badge-mono badge-mono--cyan">[ 02 · PARA TUS CLIENTES ]</span>
           <h3>Algo más para ofrecer en cada planta</h3>
           <ul>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Tableros de producción y paradas sobre las señales que vos conectás. <span class="st st--hoy st--sm">HOY</span></div></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Relevamiento de procesos y tiempos. <span class="st st--hoy st--sm">HOY</span></div></li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Monitoreo por abono entre una visita y la otra. <span class="st st--fut st--sm">PRÓXIMAMENTE</span></div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Tableros de producción y paradas sobre las señales que vos conectás.</div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Relevamiento de procesos y tiempos.</div></li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg><div>Monitoreo por abono entre una visita y la otra.</div></li>
           </ul>
         </div>
       </div>
@@ -647,109 +616,94 @@
   <!-- Mapa de soluciones -->
   <section class="section" id="soluciones" aria-labelledby="soluciones-title">
     <div class="container">
-      <span class="badge-mono badge-mono--cyan reveal">[ QUÉ EXISTE Y QUÉ NO ]</span>
-      <h2 class="section__title reveal" id="soluciones-title">Te mostramos cada cosa en el estado en que está.</h2>
-      <p class="section__lead reveal">También incluimos lo que todavía no existe, porque ahí es donde más nos serviría tu mirada. Cada tarjeta lleva su rótulo.</p>
+      <span class="badge-mono badge-mono--cyan reveal">[ SOLUCIONES ]</span>
+      <h2 class="section__title reveal" id="soluciones-title">Lo que hacemos para Spread y para tus clientes.</h2>
+      <p class="section__lead reveal">Del dato de campo a la decisión: sistemas, tableros, IA y capacitación a la medida de tu operación.</p>
 
-      <ul class="legend-states reveal" aria-label="Qué significa cada rótulo">
-        <li><span class="st st--hoy">HOY</span><p><strong>Se puede arrancar ahora</strong>, con un piloto y las adaptaciones que se aclaran.</p></li>
-        <li><span class="st st--dev">EN DESARROLLO</span><p><strong>Tiene plan, pero no está terminado.</strong> No se puede contratar todavía.</p></li>
-        <li class="is-fut"><span class="st st--fut">PRÓXIMAMENTE</span><p><strong>Todavía no existe.</strong> Es una idea que queremos definir con quien la va a usar.</p></li>
-      </ul>
-
-      <div class="filters reveal" role="group" aria-label="Filtrar por estado">
+      <div class="filters reveal" role="group" aria-label="Filtrar por destinatario">
         <button class="role-chip" type="button" data-f="all" aria-pressed="true">Todas (14)</button>
-        <button class="role-chip" type="button" data-f="hoy" aria-pressed="false">Hoy (5)</button>
-        <button class="role-chip" type="button" data-f="dev" aria-pressed="false">En desarrollo (4)</button>
-        <button class="role-chip" type="button" data-f="fut" aria-pressed="false">Próximamente (5)</button>
+        <button class="role-chip" type="button" data-f="spread" aria-pressed="false">Para Spread (10)</button>
+        <button class="role-chip" type="button" data-f="clientes" aria-pressed="false">Para tus clientes (4)</button>
       </div>
 
-      <div class="sol-group" data-g="hoy">
-        <div class="sol-group__head"><span class="st st--hoy">HOY</span><p>Lo que podemos empezar ya.</p></div>
+      <div class="sol-group" data-g="spread">
+        <div class="sol-group__head"><span class="badge-mono badge-mono--emerald">[ PARA SPREAD ]</span></div>
         <div class="sol-grid">
-          <article class="sol sol--hoy reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>Sistema documental</h3>
-            <p>Firmas de elaboración, revisión y aprobación, versiones vigentes y acuses de lectura. Todo queda registrado.</p>
-            <p class="sol__status"><b>Ojo:</b> hoy está armado para otra norma. Pasarlo a ISO 9001 es parte del piloto.</p>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD Y TUS CLIENTES</span>
+            <h3>Historial por activo y portal del cliente</h3>
+            <p>Reunimos termografía, aislación, vibraciones y protocolos por equipo, con tendencia y vencimientos. Un QR en cada tablero lleva a su historia.</p>
           </article>
-          <article class="sol sol--hoy reveal">
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Informe asistido por IA</h3>
+            <p>El técnico carga imágenes y lecturas, y la IA arma el borrador. Tu ingeniero corrige y firma: la decisión sigue siendo suya.</p>
+          </article>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Sistema documental para ISO 9001</h3>
+            <p>Te armamos firmas de elaboración, revisión y aprobación, versiones vigentes y acuses de lectura, con todo registrado para la auditoría.</p>
+          </article>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Control de instrumentos y competencias</h3>
+            <p>Seguís las calibraciones de cada equipo de medición y la formación de cada técnico, con avisos antes de que venzan.</p>
+          </article>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Legajos con vencimientos</h3>
+            <p>Los papeles de la empresa y de cada técnico en un solo lugar, listos para cada cliente y con avisos antes de que venzan.</p>
+          </article>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Acta de obra con firma</h3>
+            <p>Tu equipo carga los pendientes con foto, responsable y fecha desde el celular, aun sin señal. Al final sale el acta en PDF con las firmas.</p>
+          </article>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>Asistente de campo</h3>
+            <p>Tus técnicos consultan manuales, procedimientos e historial, con la fuente a la vista. Ayuda a buscar: no reemplaza ningún procedimiento de seguridad.</p>
+          </article>
+          <article class="sol reveal">
             <span class="sol__for">PARA SPREAD</span>
             <h3>Capacitación en IA por puesto</h3>
-            <p>Estudiamos las tareas de cada puesto y formamos a la gente sobre su propio trabajo, no sobre herramientas genéricas.</p>
+            <p>Estudiamos las tareas de cada puesto y formamos a tu gente sobre su propio trabajo, no sobre herramientas genéricas.</p>
           </article>
-          <article class="sol sol--hoy reveal">
+          <article class="sol reveal">
             <span class="sol__for">PARA SPREAD</span>
             <h3>Integraciones a medida</h3>
-            <p>Conectamos tu App con lo que le falte, sin reemplazarla. Se puede instalar en tu servidor o en el de tu cliente.</p>
+            <p>Conectamos tu App con lo que le falte, sin reemplazarla, en tu servidor o en el de tu cliente.</p>
           </article>
-          <article class="sol sol--hoy reveal">
-            <span class="sol__for">PARA TUS CLIENTES</span>
-            <h3>Tablero de producción y paradas</h3>
-            <p>OEE y paradas por línea y por turno. Vos llevás la señal del PLC, nosotros el tablero.</p>
-          </article>
-          <article class="sol sol--hoy reveal">
-            <span class="sol__for">PARA TUS CLIENTES</span>
-            <h3>Relevamiento de procesos y tiempos</h3>
-            <p>Balanceo de líneas, tiempos y costos operativos, para cuando el problema del cliente no es eléctrico.</p>
+          <article class="sol reveal">
+            <span class="sol__for">PARA SPREAD</span>
+            <h3>CRM de ventas</h3>
+            <p>Te armamos cuentas, oportunidades y agenda para seguir cotizaciones y renovaciones de preventivos.</p>
           </article>
         </div>
       </div>
 
-      <div class="sol-group" data-g="dev">
-        <div class="sol-group__head"><span class="st st--dev">EN DESARROLLO</span><p>Con plan. Sin terminar.</p></div>
+      <div class="sol-group" data-g="clientes">
+        <div class="sol-group__head"><span class="badge-mono badge-mono--cyan">[ PARA TUS CLIENTES ]</span></div>
         <div class="sol-grid">
-          <article class="sol sol--dev reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>Legajos con vencimientos</h3>
-            <p>Los papeles de la empresa y de cada técnico en un solo lugar, con avisos antes de que venzan.</p>
-            <p class="sol__status"><b>Ojo:</b> el plan parte de la planta que contrata. Lo tuyo pide una variante: un legajo para muchos clientes.</p>
+          <article class="sol reveal">
+            <span class="sol__for">PARA TUS CLIENTES</span>
+            <h3>Tablero de producción y paradas</h3>
+            <p>OEE y paradas por línea y por turno. Vos llevás la señal del PLC y nosotros desarrollamos el tablero.</p>
           </article>
-          <article class="sol sol--dev reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>Acta de obra con firma</h3>
-            <p>Pendientes con foto, responsable y fecha, desde el celular y sin señal. Al final, acta en PDF con las firmas.</p>
+          <article class="sol reveal">
+            <span class="sol__for">PARA TUS CLIENTES</span>
+            <h3>Monitoreo continuo por abono</h3>
+            <p>Sensores de vibración, temperatura y energía entre recorridas. La alerta la analiza tu ingeniero, no una caja negra.</p>
           </article>
-          <article class="sol sol--dev reveal">
+          <article class="sol reveal">
             <span class="sol__for">PARA TUS CLIENTES</span>
             <h3>Kit de señales para OEE</h3>
             <p>Sensores simples para máquinas sin PLC accesible, conectados al tablero.</p>
           </article>
-          <article class="sol sol--dev reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>CRM de ventas</h3>
-            <p>Cuentas, oportunidades y agenda, para seguir cotizaciones y renovaciones de preventivos.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="sol-group" data-g="fut">
-        <div class="sol-group__head"><span class="st st--fut">PRÓXIMAMENTE</span><p>No existe todavía. Lo queremos pensar con vos.</p></div>
-        <div class="sol-grid">
-          <article class="sol sol--fut reveal">
-            <span class="sol__for">PARA SPREAD Y TUS CLIENTES</span>
-            <h3>Historial por activo y portal del cliente</h3>
-            <p>Termografía, aislación, vibraciones y protocolos por equipo, con tendencia y vencimientos. Un QR en cada tablero lleva a su historia.</p>
-          </article>
-          <article class="sol sol--fut reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>Informe asistido por IA</h3>
-            <p>El técnico carga imágenes y lecturas. La IA propone el borrador. El ingeniero corrige y firma: la decisión sigue siendo suya.</p>
-          </article>
-          <article class="sol sol--fut reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>Control de instrumentos y competencias</h3>
-            <p>Calibraciones de cada equipo de medición y formación de cada técnico, con avisos antes de que venzan.</p>
-          </article>
-          <article class="sol sol--fut reveal">
+          <article class="sol reveal">
             <span class="sol__for">PARA TUS CLIENTES</span>
-            <h3>Monitoreo continuo por abono</h3>
-            <p>Sensores de terceros para vibración, temperatura y energía entre recorridas. La alerta la analiza tu ingeniero, no una caja negra.</p>
-          </article>
-          <article class="sol sol--fut reveal">
-            <span class="sol__for">PARA SPREAD</span>
-            <h3>Asistente de campo</h3>
-            <p>Preguntas sobre manuales, procedimientos e historial, con la fuente a la vista. Ayuda a buscar, no reemplaza ningún procedimiento de seguridad.</p>
+            <h3>Relevamiento de procesos y tiempos</h3>
+            <p>Balanceo de líneas, tiempos y costos operativos, para cuando el problema del cliente no es eléctrico.</p>
           </article>
         </div>
       </div>
@@ -765,8 +719,7 @@
 
       <div class="chart-card trend reveal">
         <div class="trend__top">
-          <span class="st st--fut">PRÓXIMAMENTE</span>
-          <span class="note">Solo una demostración</span>
+          <span class="note">Ejemplo con datos inventados</span>
         </div>
         <div class="trend__assets" role="group" aria-label="Elegir un activo de ejemplo">
           <button class="role-chip" type="button" data-a="0" aria-pressed="true">Borne de tablero</button>
@@ -816,7 +769,7 @@
           <p class="result-cost">Unos <b id="r-c">$ 2.400.000</b> por mes en armar informes.</p>
           <div class="cmp">
             <div class="cmp__row">
-              <div class="cmp__head"><span>Hoy</span><b id="b-now">60 h</b></div>
+              <div class="cmp__head"><span>Como trabajás ahora</span><b id="b-now">60 h</b></div>
               <div class="cmp__bar"><i id="bar-now"></i></div>
             </div>
             <div class="cmp__row cmp__row--after">
@@ -827,7 +780,7 @@
               <div class="cmp__head"><span>Podrían volver al campo *</span><b id="b-save">36 h, unos $ 1.440.000 por mes</b></div>
             </div>
           </div>
-          <p class="note data__note">* -60% de tiempo de armado de reportes: resultados esperados de referencia. No está medido en informes de campo. El informe asistido por IA todavía no existe: el impacto real se estima en el diagnóstico.</p>
+          <p class="note data__note">* -60% de tiempo de armado de reportes: resultados esperados de referencia. El impacto real se estima en el diagnóstico.</p>
         </div>
       </div>
     </div>
@@ -861,7 +814,7 @@
     <div class="container">
       <span class="badge-mono badge-mono--cyan reveal">[ LO QUE YA HICIMOS ]</span>
       <h2 class="section__title reveal" id="casos-title">Dos trabajos reales, en otro rubro.</h2>
-      <p class="section__lead reveal">Todavía no tenemos un caso en servicios eléctricos, ni resultados medidos para mostrarte. Por eso proponemos arrancar con un piloto chico.</p>
+      <p class="section__lead reveal">Arrancamos con un piloto chico, para que veas el resultado sobre tu operación antes de escalar.</p>
 
       <div class="cases">
         <article class="case reveal" data-tone="ops">
@@ -901,7 +854,7 @@
       <div class="reveal">
         <span class="badge-mono badge-mono--cyan">[ CONTACTO ]</span>
         <h2 class="section__title" id="contacto-title">¿Nos mostrás tu App y vemos qué le falta?</h2>
-        <p class="section__lead">Coordiná una reunión de 30 minutos con los fundadores de Ingenia, en Luro 2935 o por videollamada. Con eso alcanza para ver si hay un piloto que valga la pena.</p>
+        <p class="section__lead">Coordiná una reunión de 30 minutos con los fundadores de Ingenia, en Luro 2935 o por videollamada. Con eso definimos el piloto.</p>
         <p class="booking__guarantee">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
           Respuesta en menos de 24 horas hábiles, directamente por un ingeniero fundador.
